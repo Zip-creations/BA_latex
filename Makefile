@@ -23,4 +23,3 @@ cleanall:
 
 clean:
 	latexmk -outdir=$(OUT_DIR)/ -c
-
