@@ -21,3 +21,6 @@
 ehthumbs.db
 Thumbs.db
 *~
+
+# vs code
+*.code-workspace
