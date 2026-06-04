@@ -2,4 +2,9 @@
 
 Brief wrapup of the achievements of this thesis.
 
-Directions for future work (if applicable).
+% Directions for future work (if applicable).
+
+\section{Möglichkeiten zur Verbesserung}
+In seiner aktuellen Form kann das Tool nicht entscheiden, ob die XML-Ausgabe der Tests auch tatsächlich aus dem aktuellen Stand des Codes entstammt, oder ob im Nachhinein Änderungen am Code vorgenommen wurden, was die Aussagekraft des Tools stark beeinträchtigt.\\
+Ein anderes Problem ist, dass das Tool alle Tests, die nicht in der letzten Iteration abgelaufen sind, als nicht abgelaufen betrachtet, auch wenn einige Testfälle in einer vorherigen Iteration ausgeführt sein könnten, und die Änderungen, die seither im Code gemacht wurden diese Tests überhaupt nicht betreffen.\\
+Eine Möglichkeit, dieses Problem zu beheben, wäre die Integration eines neuen Tools, welches eine Seletive Regression Testing implementiert, und so dem Tool rückmelden kann, welche Tests tatschlich neu ausgeführt werden müssen, und bei welchen der vorherige Stand ausreicht.
