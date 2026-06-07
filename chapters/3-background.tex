@@ -3,14 +3,27 @@
 % Explain mathematical background required and introduce notation.
 % \input{figures/background/algBackpropagation}
 % \input{figures/background/figTikz}
-
+\section{Anforderungen an ein Testausgabeformat}\label{Anforderungen Testausgabeformat}
+Mit Blick auf die Anforderungen an das Tool, frameworkübergreifend ein korrektes Ergebnis zu liefern, ergeben sich folgende Anforderungen an ein potentielle nutzbares Ausgabeformat:\\
+Ein ideales Ausgabeformat für Tests:
+\begin{itemize}
+    \item kennt die Gesamtmenge aller Tests im Projekt
+    \item sagt für jeden Test einzelnd aus, ob er ausgeführt wurde oder nicht
+    \item ist in vielen Frameworks über viele Sprachen hinweg vertreten
+\end{itemize}
 \section{Vergleich von Testausgabeformaten}
 kommt rein:\\
 ) kurze Historie/Vorstellung\\
 ) vorgesehene Verwendung/Verbreitung\\
-) Aufbau\\
+) Aufbau/Struktur\\
 \subsection{JUnit XML}
 SUnit  -> xUnit, JUnit \& NUnit etc. 
 \subsection{Test Anything Protocol (TAP)}
-kleine Tabelle zum Vergleich als Übersicht
+\subsection{JSON basierte Formate}
+-> kleine Tabelle zum Vergleich der 3 als Übersicht
+\section{Entscheidung}
+- erfüllt nicht alle Anforderungen, aber erklären, warum gut genug
 \section{JUnit XML im Detail}
+- Genaue Struktur (unterschiedliche root tags!)
+
+- Auf unterschiedliche Umsetzungen eingehen

@@ -1,4 +1,4 @@
-\chapter{Approach}\label{chap:approach}
+\chapter{Umsetzung}\label{chap:approach}
 % The approach starts with the problem definition and continues with what you have done. Try to give an intuition first and describe everything with words and then be more formal like `Let $g$ be ...'.
 
 % Strive to make the following items crystal clear to your readers.
@@ -12,10 +12,27 @@
 
 % Describe each major technical problem and how it was solved.
 
-\section{Problem Definition}
+\section{Anforderungen an ein Projekt}
+Da Junit XML nicht alle in \ref{Anforderungen Testausgabeformat} aufgeführten Anforderungen erfüllt, ergeben sich einige Anforderungen an ein Projekt, das das Tool nutzen möchte, um trotzdem das geforderte Ziel zu erreichen.
 % Start with a very short motivation why this is important. Then, as stated above, describe the problem with words before getting formal.
 
-\section{First Part of the Approach}
+\subsection{test discovery}\label{test discovery}
+Damit das Tool die Gesamtmenge aller Tests im Projekt kennt, muss im Projekt ein Script vorhanden sein, welches die die Gesamtmenge aller Tests in einem spezifiziertem Format augibt. 
 
-\section{N-th Part of the Approach}
+-> qualifiedname: Eine Zeichenfolge, die einen Test innerhalb eines Testframeworks eindeutig identifiziert. Bespiele in vers. TestFrameworks bringen!
 
+\subsection{test execution}\label{test execution}
+Zum Anderen muss dem Tool ein zweites Script zur Verfügung gestellt werden, welches eine Liste von zuvor in \ref{test discovery} beschriebenen qualifiedNames entgegennimmt, nur diese Tests ausführt, und das Ergebnis (auch wieder JUnit XML) an das Tool zurückmeldet, welches dann diesen Input zusätzlich an die gitnotes anhängt.\\\\
+Absehen von diesen Anforderungen muss dem Tool lediglich der Pfad zu einem Ordner, der alle relevanten JUnit-XML Dateien enthält, mitgegeben werden.\\
+Zur Vereinfachung dieses Prozesses benutzt das Tool die Datei "config.json", in der die Argumente zum Aufrufen der beiden Skripten, sowie der Pfad zu dem Ordner mit den JUnit-XML Dateien hinterlegt werden.
+\section{Anforderungen an ein Framework}
+- kann JUnit XML
+
+- enthält essenzielle Informationen für einen Test (genau ausführen!)
+
+- kann tests einzeln aufrufen 
+
+\section{Einschränkungen}
+- Annahme: keine deliberate bad actors; keine Authentifizierung
+
+- An gitnotes angehängte Dateien spiegeln aktuellen Stand vom Code wieder
