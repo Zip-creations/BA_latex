@@ -6,7 +6,8 @@ Dennoch muss zur Validierung des Codes regelmäßig die gesamte Testsuite durchl
 Um dies zu gewährleisten, wird für gewöhnlich auf dem Build-Server noch einmal die gesamte Testsuite des Projektes durchlaufen, auch wenn manche Testfälle bereits lokal von Entwicklern ausgeführt wurden, ohne dass sich der zu testende Code in der Zwischenzeit geändert hat. Dadurch wird die Laufzeit der CI-Pipeline unnötig verlängert.
 \section{Zielsetzung}
 Diese Bachelorarbeit untersucht, ob es möglich ist, die Laufzeit einer Testsuite zu reduzieren, indem eine verlässliche Aussage darüber getroffen wird, welche Teilmenge der Testsuite für den aktuellen Stand des Codes bereits durchlaufen wurde, und welche Teilmenge noch laufen muss, um eine 100\%-ige Abdeckung der Testsuite zu erreichen. Dabei soll die Wahl des Testframworks möglichst keine Rolle spielen.\\
-Außerdem soll das Tool in eine bestehende CI-Pipeline integriert werden können.
+Dazu werden im Verlauf dieser Arbeit die Anforderungen an ein Tool, sowie Vorraussetzungen an ein Projekt beschrieben, in welches das Tool integriert werden kann.\\
+Danach wird evaluiert, in wie fern das Ziel der Reduktion von abzulaufenden Testcases und die damit einhergehende Reduktion der Laufzeit der gesamten Pipeline erzielt wurde. 
 % Entwicklung eines frameworkunabhängigen Verfahrens.
 % Definition einer generischen Schnittstelle zur Testidentifikation.
 % Nutzung von JUnit XML als standardisierte Datenquelle.
