@@ -18,24 +18,146 @@ Mit Blick auf diese sowie die under \ref{Anforderungen Tool} beschriebenen Anfor
 
 \textbf{Ein ideales Ausgabeformat für Tests:}
 \begin{itemize}
-    \item \textbf{enthält die Gesamtmenge aller Tests im Projekt.}\\
+    \item \textbf{enthält die Gesamtmenge aller Tests im Projekt}\\
     Dieser Punkt ist essenziell, zum Einen um eine Aussage darüber treffen zu können, ob eine 100\%ige Testcoverage erzielt wurde, zum Anderen muss das Tool zum Erzielen einer absoluten Coverage auch auf potentiell jeden vorhandenen Testcase zugreifen können. Dazu muss dem Tool selbstverständlich auch jeder Testcase innerhalb des Projektes bekannt sein.
+    \item \textbf{identifiziert jeden Testcase eindeutig}\\
+    Je nach Testframework und Implementierung ist es gestattet, mehreren Testcases, die in unterschiedlichen Namespaces leben, gleich zu benennen. Aus dem Ausgabeformat muss in jedem Falle eine eindeutige Zuordnung der Testcases und den Ergebnissen möglich sein. 
     \item \textbf{sagt für jeden Testcase einzelnd aus, ob er ausgeführt wurde oder nicht}
     \item \textbf{ist in vielen Frameworks über viele Programmiersprachen hinweg vertreten}\\
-    Es wäre utopisch anzunehmen, dass ein strukturiertes Format existiert, welches von jedem existierendem Testframework gleichermaßen benutzt wird. Dennoch gibt es durchaus gängige Formate, die von unterschiedlichen Testframeworks aus unterschiedlichen Sprachen unterstützt werden, wie in \ref{Vergleich Testausgabefomate} untersucht wird. 
+    Es wäre utopisch anzunehmen, dass ein strukturiertes Format existiert, welches von jedem existierendem Testframework gleichermaßen benutzt wird. Dennoch gibt es durchaus gängige Formate, die von unterschiedlichen Testframeworks aus unterschiedlichen Sprachen unterstützt werden, wie folgend in \ref{Vergleich Testausgabefomate} untersucht wird. 
 \end{itemize}
 
 \section{Vergleich von Testausgabeformaten}\label{Vergleich Testausgabefomate}
-Aufgrund der Vielzahl von verschiedenen Testframeworks und der Vielfältigkeit ihrer Ausgabeformate können im Rahmen dieser Bachelorarbeit nur die verbreitesten Formate untersucht werden.\\
-) kurze Historie/Vorstellung\\
-) vorgesehene Verwendung/Verbreitung\\
-) Aufbau/Struktur
+Aufgrund der Vielzahl von verschiedenen Testframeworks und der Vielfältigkeit ihrer Ausgabeformate können im Rahmen dieser Bachelorarbeit nur die verbreitesten Formate untersucht werden.
+
+% Base python3
+
+% def test_simple():
+%     assert "foo" != "bar"
+
+% def test_simple_two():
+%     assert 1 + 1 == 2
 \subsection{JUnit XML}
-SUnit  -> xUnit, JUnit \& NUnit etc. 
-\subsection{Test Anything Protocol (TAP)}
+JUnit XML ist ein XML-basiertes Format, welches ursprünglich für das Java-Testframework JUnit entwickelt wurde. Für JUnit XML existiert kein einheitlicher Standart, d.h. es existiert auch keine beschreibendes .xsd Schemata, wie sonst für XML Formate üblich. Trotzdem wurde JUnit XML von vielen Testframeworks in gleicher oder ähnlicher Form adaptiert. Diese Menge an Testframeworks, welche einen auf Junit XML basierenden Output produzieren können, wird häufig mit dem Begriff "xUnit" bezeichnet. Trotz des Names enthält diese Menge auch Vertreter, welche sich nicht nur auf Unit-Tests beschränken, sondern auch andere Methoden des Testens implementieren.\\
+Die meisten gängigen Testframeworks sind in der Lage, einen JUnit XMl ähnlichen Output zu generieren. Außerdem existieren viele weitere testrelevante Programme, welche JUnit XML verarbeiten können, beispielswese viele CI-Systeme. Auf diese Weise hat sich JUnit XML zu einem De-Facto Standart-Ausgabeformat für Testframeworks entwickelt.
+
+% Native JUnit support from pytest
+
+% <?xml version="1.0" encoding="utf-8"?>
+% <testsuites name="pytest tests">
+%     <testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.032"
+%         timestamp="2026-06-12T16:28:56.773650+02:00" hostname="DESKTOP-I9APAL0">
+%         <testcase classname="test.test_simple" name="test_simple" time="0.000" />
+%         <testcase classname="test.test_simple" name="test_simple_two" time="0.000" />
+%     </testsuite>
+% </testsuites>
+\subsection{Test Anything Protocol}
+Das Test Anything Protocol (TAP) wurde ursprünglich für die Programmiersprache Perl entworfen, wurde über die Jahre hinweg jedoch auch für Testframeworks in anderen Sprachen weiter entwickelt. Anders als bei JUnit XML wird für TAP ein standartisiertes Schema bereitgestellt und gepflegt (https://testanything.org/tap-version-14-specification.html).
+
+% pytest with TAP plugin
+% https://github.com/python-tap/pytest-tap
+
+% # TAP results for test/test_simple.py
+% ok 1 test/test_simple.py::test_simple
+% ok 2 test/test_simple.py::test_simple_two
+% 1..2
+
 \subsection{JSON basierte Formate}
+Viele Testframeworks bieten auch allgemeinere Formate wie bespielsweise JSON als Ausgabeformat an. Anders als bei XML existiert für JSON allerdings kein etablieters Format wie JUnit XML, sondern jedes Testframework bestimmt die Struktur des Outputs selbstständig. Daher existiert eine Vielzahl an unterschiedlichen und einzigartigen Strukturen. Dieses Problem besteht auch für andere Formate wie HTML, CSV, Markdown etc.
 -> kleine Tabelle zum Vergleich der 3 als Übersicht
-\section{Entscheidung}
+% pytest mit json plugin
+
+% {
+%     "created": 1781278966.9084342,
+%     "duration": 0.006438732147216797,
+%     "exitcode": 0,
+%     "root": "/home/ruben/dev/bachelor/project/code/sample_projects/python/code",
+%     "environment": {},
+%     "summary": {
+%         "passed": 2,
+%         "total": 2,
+%         "collected": 2
+%     },
+%     "collectors": [
+%         {
+%             "nodeid": "",
+%             "outcome": "passed",
+%             "result": [
+%                 {
+%                     "nodeid": "test/test_simple.py",
+%                     "type": "Module"
+%                 }
+%             ]
+%         },
+%         {
+%             "nodeid": "test/test_simple.py",
+%             "outcome": "passed",
+%             "result": [
+%                 {
+%                     "nodeid": "test/test_simple.py::test_simple",
+%                     "type": "Function",
+%                     "lineno": 38
+%                 },
+%                 {
+%                     "nodeid": "test/test_simple.py::test_simple_two",
+%                     "type": "Function",
+%                     "lineno": 41
+%                 }
+%             ]
+%         }
+%     ],
+%     "tests": [
+%         {
+%             "nodeid": "test/test_simple.py::test_simple",
+%             "lineno": 38,
+%             "outcome": "passed",
+%             "keywords": [
+%                 "test_simple",
+%                 "test_simple.py",
+%                 "test",
+%                 "code",
+%                 ""
+%             ],
+%             "setup": {
+%                 "duration": 0.00011300799997115973,
+%                 "outcome": "passed"
+%             },
+%             "call": {
+%                 "duration": 8.317200081364717e-05,
+%                 "outcome": "passed"
+%             },
+%             "teardown": {
+%                 "duration": 8.39040003484115e-05,
+%                 "outcome": "passed"
+%             }
+%         },
+%         {
+%             "nodeid": "test/test_simple.py::test_simple_two",
+%             "lineno": 41,
+%             "outcome": "passed",
+%             "keywords": [
+%                 "test_simple_two",
+%                 "test_simple.py",
+%                 "test",
+%                 "code",
+%                 ""
+%             ],
+%             "setup": {
+%                 "duration": 6.994300019869115e-05,
+%                 "outcome": "passed"
+%             },
+%             "call": {
+%                 "duration": 6.929200026206672e-05,
+%                 "outcome": "passed"
+%             },
+%             "teardown": {
+%                 "duration": 8.041599903663155e-05,
+%                 "outcome": "passed"
+%             }
+%         }
+%     ]
+% }
+\section{Vergleich}
 - erfüllt nicht alle Anforderungen, aber erklären, warum gut genug
 \section{JUnit XML im Detail}
 - Genaue Struktur (unterschiedliche root tags!)
