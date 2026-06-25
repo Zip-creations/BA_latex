@@ -19,12 +19,16 @@ Damit das Tool eine qualifizierte Aussage über die Testergebnisse treffen kann,
 Da Junit XML nicht alle in \ref{Anforderungen Testausgabeformat} aufgeführten Anforderungen erfüllt, ergeben sich einige weitere Anforderungen an ein Projekt, das das Tool nutzen möchte, um trotzdem das geforderte Ziel zu erreichen.
 % Start with a very short motivation why this is important. Then, as stated above, describe the problem with words before getting formal.
 
-\subsection{test discovery}\label{test discovery}
+\subsection{Benötigte Schnittstellen}
+
+
+
+\subsubsection{test discovery}\label{test discovery}
 Damit das Tool die Gesamtmenge aller Tests im Projekt kennt, muss im Projekt ein Script vorhanden sein, welches die die Gesamtmenge aller Tests in einem spezifiziertem Format augibt. 
 
 -> qualifiedname: Eine Zeichenfolge, die einen Test innerhalb eines Testframeworks eindeutig identifiziert. Bespiele in vers. TestFrameworks bringen!
 
-\subsection{test execution}\label{test execution}
+\subsubsection{test execution}\label{test execution}
 Zum Anderen muss dem Tool ein zweites Script zur Verfügung gestellt werden, welches eine Liste von zuvor in \ref{test discovery} beschriebenen qualifiedNames entgegennimmt, nur diese Tests ausführt, und das Ergebnis (auch wieder JUnit XML) an das Tool zurückmeldet, welches dann diesen Input zusätzlich an die gitnotes anhängt.
 
 Absehen von diesen Anforderungen muss dem Tool lediglich der Pfad zu einem Ordner, der alle relevanten JUnit-XML Dateien enthält, mitgegeben werden.\\
