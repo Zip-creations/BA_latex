@@ -28,6 +28,11 @@ Mit Blick auf diese sowie die under \ref{Anforderungen Tool} beschriebenen Anfor
     Es wäre utopisch anzunehmen, dass ein strukturiertes Format existiert, welches von jedem existierendem Testframework gleichermaßen benutzt wird. Dennoch gibt es durchaus gängige Formate, die von unterschiedlichen Testframeworks aus unterschiedlichen Sprachen unterstützt werden, wie folgend in \ref{Vergleich Testausgabefomate} untersucht wird. 
 \end{itemize}
 
+\section{Wie Output entsteht}
+Hier die Pipeline Test Runner ->
+
+
+
 \section{Vergleich von Testausgabeformaten}\label{Vergleich Testausgabefomate}
 Aufgrund der Vielzahl von verschiedenen Testframeworks und der Vielfältigkeit ihrer Ausgabeformate können im Rahmen dieser Bachelorarbeit nur die verbreitesten Formate untersucht werden.
 
@@ -68,9 +73,32 @@ Das Test Anything Protocol (TAP) wurde ursprünglich für die Programmiersprache
 Viele Testframeworks bieten auch allgemeinere Formate wie bespielsweise JSON als Ausgabeformat an. Anders als bei XML existiert für JSON allerdings kein etablieters Format wie JUnit XML, sondern jedes Testframework bestimmt die Struktur des Outputs selbstständig. Daher existiert eine Vielzahl an unterschiedlichen und einzigartigen Strukturen.
 
 \subsection{Andere Formate}
-Selbes Problem wie JSON. Beispielsweise HTML, CSV, Markdown etc
+Selbes Problem wie JSON. Beispielsweise HTML, CSV, Markdown etc. Nicht strukturierte Ausgaben (pretty etc.) werden nicht betrachtet.
 
--> kleine Tabelle zum Vergleich der 3 als Übersicht
+\begin{table}[htbp]
+    \centering
+    \caption{Übersicht der Verbreitung bestimmter Formate}
+    \label{Formatvergleich Tabelle}
+
+    \begin{tabular}{|c|c||c|c|c|c|c|c|}
+        \hline
+        Framework & Sprache & JUnit XML & XML (anderes) & OTR & TAP & JSON & HTML\\
+        \hline
+        pytest & Python & \tabYes & \tabPartial & \tabNo & & & \\
+        \hline
+    \end{tabular}
+
+    \vspace{0.5em}
+
+    \begin{tabular}{ll}
+        \tabYes & Nativ unterstützt \\
+        \tabPartial & Über Plugins unterstützt\\
+        \tabNo & Nicht offiziell unterstützt\\
+    \end{tabular}
+
+\end{table}
+sollte Reporter/Runner mit rein?
+
 % pytest mit json plugin
 
 % {
