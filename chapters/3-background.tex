@@ -79,32 +79,40 @@ Selbes Problem wie JSON. Beispielsweise HTML, CSV, Markdown etc. Nicht strukturi
     \centering
     \caption{Übersicht der Verbreitung bestimmter Formate}
     \label{Formatvergleich Tabelle}
-
-    \begin{tabular}{|c|c||c|c|c|c|c|c|}
+\makebox[\textwidth][c]{
+    \begin{tabular}{|c|c|c|c||c|c|c|c|c|c|}
         \hline
-        Framework & Sprache & JUnit XML & \makecell{XML\\(anderes)} & OTR & TAP & JSON & HTML\\
+        Framework & Sprache & \makecell{Test-\\Runner} & \makecell{Test-\\Reporter} & JUnit XML & \makecell{XML\\(anderes)} & OTR & TAP & JSON & HTML\\
         \hline
-        catch2 & C++ & \tabYes & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo\\
         \hline
-        doctest & C++ & \tabYes & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo\\
+        catch2 & C++ &  &  & \tabYes & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo\\
         \hline
-        gtest & C++ & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
+        doctest & C++ &  &  & \tabYes & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo\\
         \hline
-        hspec & Haskell & \tabPartial & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
+        gtest & C++ &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
         \hline
-        tasty & Haskell & \tabPartial & \tabNo & \tabNo & \tabPartial & \tabNo & \tabNo\\
+        hspec & Haskell &  &  & \tabPartial & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
         \hline
-        behat & PHP & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
+        tasty & Haskell &  &  & \tabPartial & \tabNo & \tabNo & \tabPartial & \tabNo & \tabNo\\
         \hline
-        codeception & PHP & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabYes\\
+        junit5 & Java & & & \tabYes & & & & & \\
         \hline
-        phpunit & PHP & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo & \tabYes\\
+        junit5 & Java & maven & & \tabYes & & \tabPartial & & & \tabPartial\\
         \hline
-        pytest & Python & \tabYes & \tabNo & \tabNo & \tabPartial & \tabPartial & \tabPartial \\
+        junit5 & Java & gradle & & \tabYes & & \tabPartial & & & \tabYes \\
         \hline
-        unittest & Python & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
+        behat & PHP &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
+        \hline
+        codeception & PHP &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabYes\\
+        \hline
+        phpunit & PHP &  &  & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo & \tabYes\\
+        \hline
+        pytest & Python &  &  & \tabYes & \tabNo & \tabNo & \tabPartial & \tabPartial & \tabPartial \\
+        \hline
+        unittest & Python &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
         \hline
     \end{tabular}
+}
 
     \vspace{1em}
 

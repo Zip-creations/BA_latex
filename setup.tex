@@ -74,6 +74,9 @@
     \usepackage[table]{xcolor}
     \usepackage{pifont}
     \usepackage{makecell}
+    \usepackage{array}
+
+    \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 
     \newcommand{\tabYes}{\cellcolor{green}\ding{51}}
     \newcommand{\tabPartial}{\cellcolor{blue!60}$\sim$}
