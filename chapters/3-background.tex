@@ -82,13 +82,31 @@ Selbes Problem wie JSON. Beispielsweise HTML, CSV, Markdown etc. Nicht strukturi
 
     \begin{tabular}{|c|c||c|c|c|c|c|c|}
         \hline
-        Framework & Sprache & JUnit XML & XML (anderes) & OTR & TAP & JSON & HTML\\
+        Framework & Sprache & JUnit XML & \makecell{XML\\(anderes)} & OTR & TAP & JSON & HTML\\
         \hline
-        pytest & Python & \tabYes & \tabPartial & \tabNo & & & \\
+        catch2 & C++ & \tabYes & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo\\
+        \hline
+        doctest & C++ & \tabYes & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo\\
+        \hline
+        gtest & C++ & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
+        \hline
+        hspec & Haskell & \tabPartial & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
+        \hline
+        tasty & Haskell & \tabPartial & \tabNo & \tabNo & \tabPartial & \tabNo & \tabNo\\
+        \hline
+        behat & PHP & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
+        \hline
+        codeception & PHP & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabYes\\
+        \hline
+        phpunit & PHP & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo & \tabYes\\
+        \hline
+        pytest & Python & \tabYes & \tabNo & \tabNo & \tabPartial & \tabPartial & \tabPartial \\
+        \hline
+        unittest & Python & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
         \hline
     \end{tabular}
 
-    \vspace{0.5em}
+    \vspace{1em}
 
     \begin{tabular}{ll}
         \tabYes & Nativ unterstützt \\
