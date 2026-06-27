@@ -1,7 +1,7 @@
 
 \chapter{Vergleich von Testausgabeformaten}\label{Vergleich Testausgabefomate}
 Um ein Tool zu entwickeln, welches framework-agnostisch eingesetzt werden kann, muss dieses Tool die Ausgabe eines Testlaufes unabhängig vom verwendeten Framework parsen können.\\
-Weitere Anforderungen an ein Testausgabeformat wurden bereits in \ref{Anforderungen Testausgabeformat} angegeben.\\
+Weitere Anforderungen an ein Testausgabeformat wurden bereits in \chapref{Anforderungen Testausgabeformat} angegeben.\\
 Für gewöhnlich geben Testframeworks das Ergebnis eines Testlauf in einem unstrukturiertem Format über die Konsole aus. Allerdings bieten fast alle etablierten Testframeworks eine Auswahl an Dateiformaten an, über welche die Testausgabe ebenfalls präsentiert werden kann.\\
 Für diese Dateiformate wurde über die Jahre einige framework-übergreifende Ausgabeformate entwickelt, die sich in unterschiedlicher Ausprägung durchsetzen konnten.\\
 Aufgrund der Vielzahl von verschiedenen Testframeworks und der Vielfältigkeit ihrer Ausgabeformate können im Rahmen dieser Bachelorarbeit nur die verbreitesten Formate untersucht werden.
@@ -98,7 +98,7 @@ Das Test Anything Protocol wurde ursprünglich für die Programmiersprache Perl 
 \subsection{Übersicht}
 % https://marcphilipp.de/de/startseite/
 % https://marcphilipp.de/blog/2025/03/21/stf-milestone-2-open-test-reporting/
-Open Test Reporting (OTR) wird von dem selben Entwicklerteam, welches auch hinter JUnit XML steht, als Nachfolger von eben diesem entwickelt. Dabei haben sie laut eigenen Angaben das Ziel, mit OTR die historisch gewachsenen Probleme von JUnit XML (beschrieben in \ref{JUNIT}) zu umgehen. OTR soll nach Vorstellungen der Entwickler auf lange Sicht JUnit XMLs Platz als de-facto Standart-Ausgabeformat für Testläufe einnehmen.
+Open Test Reporting (OTR) wird von dem selben Entwicklerteam, welches auch hinter JUnit XML steht, als Nachfolger von eben diesem entwickelt. Dabei haben sie laut eigenen Angaben das Ziel, mit OTR die historisch gewachsenen Probleme von JUnit XML (beschrieben in \chapref{JUNIT}) zu umgehen. OTR soll nach Vorstellungen der Entwickler auf lange Sicht JUnit XMLs Platz als de-facto Standart-Ausgabeformat für Testläufe einnehmen.
 
 Anders als die anderen vorstellten Formate gitb es bei OTR zwei mögliche Dateiformate: Es gibt Implementierungen für XML und HTML. Beide Implementierugnen sind im Gegensatz zu JUnit XML standartisiert und folgen einem definiertem Schema. Beim XML-Format wird zwischen zwei Strukture unterschieden: Hierachisch und eventbasiert. Beide Formate nutzen das selbe Set von Kernelementen, unterscheiden sich aber in ihrer Struktur. Für beide Strukturen gibt es Programmiersprachen-spezifische Erweiterungen.\\
 Das HTML-Format wird ausgehend von einer vorher erzeugten OTR-XML Datei erezugt, und ist genauso erweiterbar. 
@@ -219,5 +219,5 @@ Bezieht sich nur auf über die offiziellen von den jeweiligen package managern b
 %     ]
 % }
 \section{Vergleich}
-Anhand der Evaluation der unterschiedlichen Ausganbeformate in \ref{Vergleich Testausgabefomate} wird deutlich, dass es keinen eindeutigen Kandidaten für die Auswahl des Testausgabeformat, welches vom Tool als Input akzeptiert wird, gibt. Ein gemeinsames Problem: zeigen keine nicht-ausgeführten tests an
+Anhand der Evaluation der unterschiedlichen Ausganbeformate in \chapref{Vergleich Testausgabefomate} wird deutlich, dass es keinen eindeutigen Kandidaten für die Auswahl des Testausgabeformat, welches vom Tool als Input akzeptiert wird, gibt. Ein gemeinsames Problem: zeigen keine nicht-ausgeführten tests an
 % - erfüllt nicht alle Anforderungen, aber erklären, warum gut genug
