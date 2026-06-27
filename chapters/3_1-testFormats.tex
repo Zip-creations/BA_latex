@@ -1,9 +1,61 @@
 
 \chapter{Vergleich von Testausgabeformaten}\label{Vergleich Testausgabefomate}
 Um ein Tool zu entwickeln, welches framework-agnostisch eingesetzt werden kann, muss dieses Tool die Ausgabe eines Testlaufes unabhängig vom verwendeten Framework parsen können.\\
+Weitere Anforderungen an ein Testausgabeformat wurden bereits in \ref{Anforderungen Testausgabeformat} angegeben.\\
 Für gewöhnlich geben Testframeworks das Ergebnis eines Testlauf in einem unstrukturiertem Format über die Konsole aus. Allerdings bieten fast alle etablierten Testframeworks eine Auswahl an Dateiformaten an, über welche die Testausgabe ebenfalls präsentiert werden kann.\\
 Für diese Dateiformate wurde über die Jahre einige framework-übergreifende Ausgabeformate entwickelt, die sich in unterschiedlicher Ausprägung durchsetzen konnten.\\
 Aufgrund der Vielzahl von verschiedenen Testframeworks und der Vielfältigkeit ihrer Ausgabeformate können im Rahmen dieser Bachelorarbeit nur die verbreitesten Formate untersucht werden.
+
+Zur Untersuchung der praktischen Umsetzung einzelner Formate und zur exemplarischer Erfassung ihrer Verbreitung wird ein limitierter Datensatz betrachtet. Dabei gilt zu beachten, dass bei diesem Datensatz nur eine kleine Menge von Programmiersprachen beinhaltet. Außerdem beschränken sich die untersuchten Testframeworks auf die am weitesten verbreiteten in ihrer jeweiligen Sprache, um die Etablierung von Testausgabeformaten möglichst praxisnahe darstellen zu können. 
+
+\tabref{Formatvergleich} zeigt die Ergebnisse der Untersuchung des Datensatzes. 
+
+\begin{table}[htbp]
+    \centering
+\makebox[\textwidth][c]{
+    \begin{tabular}{|c|c|c|c||c|c|c|c|c|c|}
+        \hline
+        Framework & Sprache & \makecell{Test-\\Runner} & \makecell{Test-\\Reporter} & JUnit XML & \makecell{XML\\(anderes)} & OTR & TAP & JSON & HTML\\
+        \hline
+        \hline
+        catch2 & C++ &  &  & \tabYes & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo\\
+        \hline
+        doctest & C++ &  &  & \tabYes & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo\\
+        \hline
+        gtest & C++ &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
+        \hline
+        hspec & Haskell &  &  & \tabPartial & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
+        \hline
+        tasty & Haskell &  &  & \tabPartial & \tabNo & \tabNo & \tabPartial & \tabNo & \tabNo\\
+        \hline
+        junit5 & Java & & & \tabYes & & & & & \\
+        \hline
+        junit5 & Java & maven & & \tabYes & & \tabPartial & & & \tabPartial\\
+        \hline
+        junit5 & Java & gradle & & \tabYes & & \tabPartial & & & \tabYes \\
+        \hline
+        behat & PHP &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
+        \hline
+        codeception & PHP &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabYes\\
+        \hline
+        phpunit & PHP &  &  & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo & \tabYes\\
+        \hline
+        pytest & Python &  &  & \tabYes & \tabNo & \tabNo & \tabPartial & \tabPartial & \tabPartial \\
+        \hline
+        unittest & Python &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
+        \hline
+    \end{tabular}
+}
+    \vspace{1em}
+    \begin{tabular}{ll}
+        \tabYes & Nativ unterstützt \\
+        \tabPartial & Über Plugins unterstützt\\
+        \tabNo & Nicht offiziell unterstützt\\
+    \end{tabular}
+    \caption{Übersicht der Verbreitung bestimmter Formate}
+    \label{Formatvergleich}
+
+\end{table}
 
 % Base python3
 
@@ -73,52 +125,6 @@ Selbes Problem wie JSON. Beispielsweise HTML, CSV, Markdown etc. Nicht strukturi
 
 Bezieht sich nur auf über die offiziellen von den jeweiligen package managern bereitgestellte Formate. Es gibt viele weitere Plugins im unabhägigen Bereich.
 
-\begin{table}[htbp]
-    \centering
-\makebox[\textwidth][c]{
-    \begin{tabular}{|c|c|c|c||c|c|c|c|c|c|}
-        \hline
-        Framework & Sprache & \makecell{Test-\\Runner} & \makecell{Test-\\Reporter} & JUnit XML & \makecell{XML\\(anderes)} & OTR & TAP & JSON & HTML\\
-        \hline
-        \hline
-        catch2 & C++ &  &  & \tabYes & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo\\
-        \hline
-        doctest & C++ &  &  & \tabYes & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo\\
-        \hline
-        gtest & C++ &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
-        \hline
-        hspec & Haskell &  &  & \tabPartial & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
-        \hline
-        tasty & Haskell &  &  & \tabPartial & \tabNo & \tabNo & \tabPartial & \tabNo & \tabNo\\
-        \hline
-        junit5 & Java & & & \tabYes & & & & & \\
-        \hline
-        junit5 & Java & maven & & \tabYes & & \tabPartial & & & \tabPartial\\
-        \hline
-        junit5 & Java & gradle & & \tabYes & & \tabPartial & & & \tabYes \\
-        \hline
-        behat & PHP &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
-        \hline
-        codeception & PHP &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabYes\\
-        \hline
-        phpunit & PHP &  &  & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo & \tabYes\\
-        \hline
-        pytest & Python &  &  & \tabYes & \tabNo & \tabNo & \tabPartial & \tabPartial & \tabPartial \\
-        \hline
-        unittest & Python &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
-        \hline
-    \end{tabular}
-}
-    \vspace{1em}
-    \begin{tabular}{ll}
-        \tabYes & Nativ unterstützt \\
-        \tabPartial & Über Plugins unterstützt\\
-        \tabNo & Nicht offiziell unterstützt\\
-    \end{tabular}
-    \caption{Übersicht der Verbreitung bestimmter Formate}
-    \label{Formatvergleich}
-
-\end{table}
 
 % pytest mit json plugin
 
