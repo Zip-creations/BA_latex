@@ -1,0 +1,39 @@
+\chapter{Anforderungen}\label{chap:Hintergrund}
+% Explain the general context of your work.
+% Explain mathematical background required and introduce notation.
+% \input{figures/background/algBackpropagation}
+% \input{figures/background/figTikz}
+\section{Anforderungen an das Tool}\label{Anforderungen Tool}
+Folgende Anforderungen werden an einen Durchlauf des zu entwickelnden Tools gestellt:
+\begin{itemize}
+    \item \textbf{Die Wahl der verwendeten Programmiersprache(n) und Testframework(s) ist unerheblich}\\
+    Das Tool soll framework-agnostisch funktionieren, auch wenn innerhalb des Projektes verschiedene Testframeworks zum Einsatz kommen.
+    \item \textbf{Nach Ablauf des Tools wurde jeder Testcase für den aktuellen Stand des Codes genau einmal durchgeführt}\\
+    Kein Test darf mehr als genau einmal ausgeführt werden, um die Laufzeit so gering wie möglich zu halten. Trotzdem muss die gesamten Testsuite komplett abgedeckt sein, um die Aussagekraft des Testlaufen im Vergleich zu einem komplett neuen Durchlauf nicht zu beinträchtigen.
+    \item \textbf{Das Ergbnis der durch das Tool durchgeführten Testläufe ist am selben Ort verfügbar, wie die Ergebnisse der vorherigen Testläufe, auf die das Tool zugreift}
+\end{itemize}
+
+\section{Anforderungen an ein Testausgabeformat}\label{Anforderungen Testausgabeformat}
+Jedes Testframework verfügt über eines oder meherere mögliche Ausgabeformate, welches die Informationen über das Ergebnis eines Testlaufes enthält.\\
+Damit ein Tool entwickelt werden kann, welches möglichst frameworkunabhägig funktioniert, muss ein Ausgabeformat gefunden werden, dass von möglichst vielen verschiedenen Testframeworks auf die selbe Art und Weise verwendet wird, damit die Dateien vom Tool über eine Schnittstelle eingelesen werden können.\\
+Mit Blick auf diese sowie die under \ref{Anforderungen Tool} beschriebenen Anforderungen an das Tool, ergeben sich folgende Anforderungen an ein potentielle nutzbares Ausgabeformat:
+
+\textbf{Ein ideales Ausgabeformat für Tests:}
+\begin{itemize}
+    \item \textbf{enthält die Gesamtmenge aller Tests im Projekt}\\
+    Dieser Punkt ist essenziell, zum Einen um eine Aussage darüber treffen zu können, ob eine 100\%ige Testcoverage erzielt wurde, zum Anderen muss das Tool zum Erzielen einer absoluten Coverage auch auf potentiell jeden vorhandenen Testcase zugreifen können. Dazu muss dem Tool selbstverständlich auch jeder Testcase innerhalb des Projektes bekannt sein.
+    \item \textbf{identifiziert jeden Testcase eindeutig}\\
+    Je nach Testframework und Implementierung ist es gestattet, mehreren Testcases, die in unterschiedlichen Namespaces leben, mit dem selben Namen zu bezeichnen. Aus dem Ausgabeformat muss in jedem Falle eine eindeutige Zuordnung der Testcases und den Ergebnissen möglich sein. 
+    \item \textbf{sagt für jeden Testcase einzelnd aus, ob er ausgeführt wurde oder nicht}
+    \item \textbf{ist ein strukturiertes Format}\\
+    \item \textbf{ist in vielen Frameworks über viele Programmiersprachen hinweg vertreten}\\
+    Es wäre utopisch anzunehmen, dass ein strukturiertes Format existiert, welches von jedem existierendem Testframework gleichermaßen benutzt wird. Dennoch gibt es durchaus gängige Formate, die von unterschiedlichen Testframeworks aus unterschiedlichen Sprachen unterstützt werden, wie folgend in \ref{Vergleich Testausgabefomate} untersucht wird. 
+\end{itemize}
+
+\section{Wie Output entsteht}
+Hier die Pipeline Test Runner -> Test Reporter
+
+
+
+\section{git notes}
+müssen nicht zwingend verwendet werden, auch andere Kommunikationswege mit Tool könnten etabliert werden. Hier nur Mittel der Wahl, weil ändern Code nicht.

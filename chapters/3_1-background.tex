@@ -1,0 +1,214 @@
+
+\chapter{Vergleich von Testausgabeformaten}\label{Vergleich Testausgabefomate}
+Aufgrund der Vielzahl von verschiedenen Testframeworks und der Vielfältigkeit ihrer Ausgabeformate können im Rahmen dieser Bachelorarbeit nur die verbreitesten Formate untersucht werden.
+
+% Base python3
+
+% def test_simple():
+%     assert "foo" != "bar"
+
+% def test_simple_two():
+%     assert 1 + 1 == 2
+\section{JUnit XML}\label{JUNIT}
+\subsection{Übersicht}
+JUnit XML ist ein XML-basiertes Format, welches ursprünglich für das Java-Testframework JUnit entwickelt wurde. Für JUnit XML existiert kein einheitlicher Standart, d.h. es existiert auch keine beschreibendes .xsd Schemata, wie sonst für XML Formate üblich. Trotzdem wurde JUnit XML von vielen Testframeworks in gleicher oder ähnlicher Form adaptiert. Außerdem existieren viele weitere für das Software-Testing relevante Programme, welche JUnit XML verarbeiten können, beispielswese viele CI-Systeme. Auf diese Weise hat sich JUnit XML zu einem De-Facto Standart für Ausgabeformate von Testframeworks entwickelt.
+
+
+- Genaue Struktur (unterschiedliche root tags!)
+
+- Auf unterschiedliche Umsetzungen eingehen
+
+
+\subsection{Eignung}
+- Wurde speziell für JAva beschrieben
+
+
+% Native JUnit support from pytest
+
+% <?xml version="1.0" encoding="utf-8"?>
+% <testsuites name="pytest tests">
+%     <testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.032"
+%         timestamp="2026-06-12T16:28:56.773650+02:00" hostname="DESKTOP-XXX">
+%         <testcase classname="test.test_simple" name="test_simple" time="0.000" />
+%         <testcase classname="test.test_simple" name="test_simple_two" time="0.000" />
+%     </testsuite>
+% </testsuites>
+\section{Test Anything Protocol (TAP)}
+\subsection{Übersicht}
+Das Test Anything Protocol wurde ursprünglich für die Programmiersprache Perl entworfen, wurde über die Jahre hinweg jedoch auch für Testframeworks in anderen Sprachen weiter entwickelt. Anders als bei JUnit XML wird für TAP ein standartisiertes Schema bereitgestellt und gepflegt (https://testanything.org/tap-version-14-specification.html).
+
+\subsection{Eignung}
+
+\section{Open Test Reporting (OTR)}
+\subsection{Übersicht}
+% https://marcphilipp.de/de/startseite/
+% https://marcphilipp.de/blog/2025/03/21/stf-milestone-2-open-test-reporting/
+Open Test Reporting (OTR) wird von dem selben Entwicklerteam, welches auch hinter JUnit XML steht, als Nachfolger von eben diesem entwickelt. Dabei haben sie laut eigenen Angaben das Ziel, mit OTR die historisch gewachsenen Probleme von JUnit XML (beschrieben in \ref{JUNIT}) zu umgehen. OTR soll nach Vorstellungen der Entwickler auf lange Sicht JUnit XMLs Platz als de-facto Standart-Ausgabeformat für Testläufe einnehmen.
+
+Anders als die anderen vorstellten Formate gitb es bei OTR zwei mögliche Dateiformate: Es gibt Implementierungen für XML und HTML. Beide Implementierugnen sind im Gegensatz zu JUnit XML standartisiert und folgen einem definiertem Schema. Beim XML-Format wird zwischen zwei Strukture unterschieden: Hierachisch und eventbasiert. Beide Formate nutzen das selbe Set von Kernelementen, unterscheiden sich aber in ihrer Struktur. Für beide Strukturen gibt es Programmiersprachen-spezifische Erweiterungen.\\
+Das HTML-Format wird ausgehend von einer vorher erzeugten OTR-XML Datei erezugt, und ist genauso erweiterbar. 
+
+
+\subsection{Eignung}
+Da OTR zum Zeitpunkt der Niederschrift dieser Bachelorarbeit noch sehr jung ist und aktiv entwickelt wird, bleibt abzusehen, ob die Entwickler ihr Ziel eines standartiserten, Programiersprachen-agnostischen Testausgebeformates erreichen können.
+
+Außerdem ist die Vebreitung von OTR noch sehr limitiert: Von den in \tabref{Formatvergleich} betrachteten Testframeworks ist lediglich phpunit in der Lage, OTR nativ zu erzeugen. Außerdem kann junit5 (welches, wie eingangs erwähnt, vom selben Entwicklerteam wie OTR betreut wird) zumindest über Plugins eine OTR-Ausgabe erzeugen.
+% pytest with TAP plugin
+% https://github.com/python-tap/pytest-tap
+
+% # TAP results for test/test_simple.py
+% ok 1 test/test_simple.py::test_simple
+% ok 2 test/test_simple.py::test_simple_two
+% 1..2
+
+\section{Common Test Report Format (CTRF)}
+Ähnlich wie JUnit XML ein spezielles Format für das Dateiformat XML ist, so gibt es auch ein spezielles Testausgabeformat für JSON: Das Common Test Report Format, kurz CTRF.  
+
+
+\section{Andere Formate}
+Selbes Problem wie JSON. Beispielsweise HTML, CSV, Markdown etc. Nicht strukturierte Ausgaben (pretty etc.) werden nicht betrachtet.
+
+Bezieht sich nur auf über die offiziellen von den jeweiligen package managern bereitgestellte Formate. Es gibt viele weitere Plugins im unabhägigen Bereich.
+
+\begin{table}[htbp]
+    \centering
+\makebox[\textwidth][c]{
+    \begin{tabular}{|c|c|c|c||c|c|c|c|c|c|}
+        \hline
+        Framework & Sprache & \makecell{Test-\\Runner} & \makecell{Test-\\Reporter} & JUnit XML & \makecell{XML\\(anderes)} & OTR & TAP & JSON & HTML\\
+        \hline
+        \hline
+        catch2 & C++ &  &  & \tabYes & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo\\
+        \hline
+        doctest & C++ &  &  & \tabYes & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo\\
+        \hline
+        gtest & C++ &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
+        \hline
+        hspec & Haskell &  &  & \tabPartial & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
+        \hline
+        tasty & Haskell &  &  & \tabPartial & \tabNo & \tabNo & \tabPartial & \tabNo & \tabNo\\
+        \hline
+        junit5 & Java & & & \tabYes & & & & & \\
+        \hline
+        junit5 & Java & maven & & \tabYes & & \tabPartial & & & \tabPartial\\
+        \hline
+        junit5 & Java & gradle & & \tabYes & & \tabPartial & & & \tabYes \\
+        \hline
+        behat & PHP &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
+        \hline
+        codeception & PHP &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabYes\\
+        \hline
+        phpunit & PHP &  &  & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo & \tabYes\\
+        \hline
+        pytest & Python &  &  & \tabYes & \tabNo & \tabNo & \tabPartial & \tabPartial & \tabPartial \\
+        \hline
+        unittest & Python &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
+        \hline
+    \end{tabular}
+}
+    \vspace{1em}
+    \begin{tabular}{ll}
+        \tabYes & Nativ unterstützt \\
+        \tabPartial & Über Plugins unterstützt\\
+        \tabNo & Nicht offiziell unterstützt\\
+    \end{tabular}
+    \caption{Übersicht der Verbreitung bestimmter Formate}
+    \label{Formatvergleich}
+
+\end{table}
+
+% pytest mit json plugin
+
+% {
+%     "created": 1781278966.9084342,
+%     "duration": 0.006438732147216797,
+%     "exitcode": 0,
+%     "root": "/home/ruben/dev/bachelor/project/code/sample_projects/python/code",
+%     "environment": {},
+%     "summary": {
+%         "passed": 2,
+%         "total": 2,
+%         "collected": 2
+%     },
+%     "collectors": [
+%         {
+%             "nodeid": "",
+%             "outcome": "passed",
+%             "result": [
+%                 {
+%                     "nodeid": "test/test_simple.py",
+%                     "type": "Module"
+%                 }
+%             ]
+%         },
+%         {
+%             "nodeid": "test/test_simple.py",
+%             "outcome": "passed",
+%             "result": [
+%                 {
+%                     "nodeid": "test/test_simple.py::test_simple",
+%                     "type": "Function",
+%                     "lineno": 38
+%                 },
+%                 {
+%                     "nodeid": "test/test_simple.py::test_simple_two",
+%                     "type": "Function",
+%                     "lineno": 41
+%                 }
+%             ]
+%         }
+%     ],
+%     "tests": [
+%         {
+%             "nodeid": "test/test_simple.py::test_simple",
+%             "lineno": 38,
+%             "outcome": "passed",
+%             "keywords": [
+%                 "test_simple",
+%                 "test_simple.py",
+%                 "test",
+%                 "code",
+%                 ""
+%             ],
+%             "setup": {
+%                 "duration": 0.00011300799997115973,
+%                 "outcome": "passed"
+%             },
+%             "call": {
+%                 "duration": 8.317200081364717e-05,
+%                 "outcome": "passed"
+%             },
+%             "teardown": {
+%                 "duration": 8.39040003484115e-05,
+%                 "outcome": "passed"
+%             }
+%         },
+%         {
+%             "nodeid": "test/test_simple.py::test_simple_two",
+%             "lineno": 41,
+%             "outcome": "passed",
+%             "keywords": [
+%                 "test_simple_two",
+%                 "test_simple.py",
+%                 "test",
+%                 "code",
+%                 ""
+%             ],
+%             "setup": {
+%                 "duration": 6.994300019869115e-05,
+%                 "outcome": "passed"
+%             },
+%             "call": {
+%                 "duration": 6.929200026206672e-05,
+%                 "outcome": "passed"
+%             },
+%             "teardown": {
+%                 "duration": 8.041599903663155e-05,
+%                 "outcome": "passed"
+%             }
+%         }
+%     ]
+% }
+\section{Vergleich}
+Anhand der Evaluation der unterschiedlichen Ausganbeformate in \ref{Vergleich Testausgabefomate} wird deutlich, dass es keinen eindeutigen Kandidaten für die Auswahl des Testausgabeformat, welches vom Tool als Input akzeptiert wird, gibt. Ein gemeinsames Problem: zeigen keine nicht-ausgeführten tests an
+% - erfüllt nicht alle Anforderungen, aber erklären, warum gut genug
