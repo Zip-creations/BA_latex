@@ -1,9 +1,8 @@
 
 \chapter{Vergleich von Testausgabeformaten}\label{Vergleich Testausgabefomate}
-Um ein Tool zu entwickeln, welches framework-agnostisch eingesetzt werden kann, muss dieses Tool die Ausgabe eines Testlaufes unabhängig vom verwendeten Framework parsen können.\\
-Weitere Anforderungen an ein Testausgabeformat wurden bereits in \chapref{Anforderungen Testausgabeformat} angegeben.\\
-Für gewöhnlich geben Testframeworks das Ergebnis eines Testlauf in einem unstrukturiertem Format über die Konsole aus. Allerdings bieten fast alle etablierten Testframeworks eine Auswahl an Dateiformaten an, über welche die Testausgabe ebenfalls präsentiert werden kann.\\
-Für diese Dateiformate wurde über die Jahre einige framework-übergreifende Ausgabeformate entwickelt, die sich in unterschiedlicher Ausprägung durchsetzen konnten.\\
+Um ein Tool zu entwickeln, welches framework-agnostisch eingesetzt werden kann, muss dieses Tool die Ausgabe eines Testlaufes unabhängig vom verwendeten Framework parsen können. Die Anforderungen an ein Testausgabeformat wurden bereits in \chapref{Anforderungen Testausgabeformat} untersucht.\\
+Für gewöhnlich geben Testframeworks das Ergebnis eines Testlauf in einem unstrukturiertem Format über die Konsole aus. Allerdings bieten fast alle etablierten Testframeworks auch eine Auswahl an Dateiformaten an, über welche die Testausgabe ebenfalls präsentiert werden kann.\\
+Für diese Dateiformate wurden über die Jahre einige framework-übergreifende Ausgabeformate entwickelt, die sich in unterschiedlicher Ausprägung durchsetzen konnten.\\
 Aufgrund der Vielzahl von verschiedenen Testframeworks und der Vielfältigkeit ihrer Ausgabeformate können im Rahmen dieser Bachelorarbeit nur die verbreitesten Formate untersucht werden.\\
 % Die Verbreitung der Testausgabeformate bei anderen Komponenten einer CI-Pipeline, wie bespiel
 Zur Untersuchung der praktischen Umsetzung einzelner Formate und zur exemplarischer Erfassung ihrer Verbreitung wird ein limitierter Datensatz betrachtet. Dabei gilt zu beachten, dass bei diesem Datensatz nur eine kleine Menge von Programmiersprachen beinhaltet. Außerdem beschränken sich die untersuchten Testframeworks auf die am weitesten verbreiteten in ihrer jeweiligen Sprache, um die Etablierung von Testausgabeformaten möglichst praxisnahe darstellen zu können. Außerdem bieten länger etablierte Testframeworks erfahrungsgemäß eine breitere Auswahl von Testausgabeformaten, als weniger verbreitete Testframeworks.\\
@@ -64,7 +63,7 @@ Zur Untersuchung der praktischen Umsetzung einzelner Formate und zur exemplarisc
 % def test_simple_two():
 %     assert 1 + 1 == 2
 \section{Evaluation der häufigsten Formate}
-In diesem Kapitel werden die häufigsten frameworkübergreifend verwendeten Testausgabeformate kurz vorgestellt und nach den in \chapref{Anforderungen Testausgabeformat} vorgestellten Kriterien auf ihre Eignung zur Benutzung als Testausgabeformat für das zu entwickelnde Tool evaluiert.
+In diesem Kapitel werden die häufigsten frameworkübergreifend verwendeten Testausgabeformate kurz vorgestellt und nach den in \chapref{Anforderungen Testausgabeformat} festgesetzen Kriterien auf ihre Eignung zur Benutzung als Testausgabeformat für das zu entwickelnde Tool evaluiert.
 
 \subsection{JUnit XML}\label{JUNIT}
 \subsubsection{Übersicht}
@@ -94,20 +93,50 @@ JUnit XML ist ein XML-basiertes Format, welches ursprünglich für das Java-Test
 % </testsuites>
 \subsection{Test Anything Protocol (TAP)}
 \subsubsection{Übersicht}
-Das Test Anything Protocol wurde ursprünglich für die Programmiersprache Perl entworfen, wurde über die Jahre hinweg jedoch auch für Testframeworks in anderen Sprachen weiter entwickelt. Anders als bei JUnit XML wird für TAP ein standartisiertes Schema bereitgestellt und gepflegt (https://testanything.org/tap-version-14-specification.html).
+Das Test Anything Protocol wurde ursprünglich für die Programmiersprache Perl entworfen, wurde über die Jahre hinweg jedoch auch für Testframeworks in anderen Sprachen weiter entwickelt. Anders als bei JUnit XML wird für TAP ein standartisiertes Schema bereitgestellt und gepflegt (https://testanything.org/tap-version-14-specification.html). Anders als die meisten anderen hier untersuchten Testausgabeformate ist TAP keine spezialisierte Struktur eines bereits bestehenden Dateiformates, sondern ein eigenständiges Format.
 
 \subsubsection{Struktur}
+Zu Beginn einer Datei wird die Gesamtzahl aller Testcases der Datei angegeben. Danach folgt eine Auflistung der Testergebnisse mit optionalen Zusatzinformationen, zumeist der Name des Testcase. Übersprungene Tests können über zusätzliche Dekoratoren idikatiert werden, die in TAP als ''Derectives'' bezeichnet werden.\\
+Da die meisten Zusatzinformationen optional sind, zeigt \lstref{TAPmin} bereits eine vollständig gültige, minimale TAP-Datei:
+\begin{lstlisting}[caption={Minimales TAP-Beispiel}, label={TAPmin}]
+    1..1
+    ok
+\end{lstlisting}
+Solch eine Darstellung ist natürlich ungeeignet, da keine Zuordnung zwischen Testergebnis und Testcase möglich ist. In der Praxis kann dieser Zusammenhang allerdings durch die optionalen Zusatzinformationen gesesetzt werden, wie beispielhaft in \lstref{TAPpy} demonstriert:
+
+\begin{lstlisting}[caption={TAP, erzeugt durch pytest.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={TAPpy}]
+    # TAP results for test/pytest/test.py
+    ok 1 test/pytest/test.py::test_neg
+    not ok 2 test/pytest/test.py::test_pos
+    ...
+    ok 3 test/pytest/test.py::test_skip # SKIP ...
+    ok 4 test/pytest/test.py::test_same_name
+    1..4
+\end{lstlisting}
 
 \subsubsection{Eignung}
+Eine eindeutige Zuordnung zwischen Testergebnis und Testcase ist nicht in allen untersuchten Testframeworks, die TAP als Ausgabeformat bieten, möglich. Nehmen wir catch2: Zwei Testscases dürfen in diesem Framework den selben Namen aufweisen, solange sie mit unterschiedlichen Labels getaggt sind. Diese Zusatzinformationen sind allerdings nicht zwingend im TAP-Format erforderlich, und werden vom catch2-Reporter schlicht nicht übernommen. Dies kann eine Ausgabe wie in \lstref{TAPcatch2} zur Folge haben:
+\begin{lstlisting}[caption={TAP, erzeugt durch catch2.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={TAPcatch2}]
+    ...
+    # test_same_name
+    not ok 3 - false
+    # test_same_name
+    ok 4 - true
+    ...
+\end{lstlisting}
+was TAP in diesem Falle als Ausgabeformat ungeeignet macht. Andere Testframeworks wie bespielsweise pytest oder tasty sorgen allerdings für eine eindeutige Zuordnung in ihren jeweiligen Ausgaben. 
+
+\subsubsection{Fazit}
+TAP ist aufgrund seiner sehr geringer Minimalstruktur und vor allem seiner nur mäßigen Verbreitung eher nicht als Testausgabeformat für das Tool geeignet.
 
 \subsection{Open Test Reporting (OTR)}
 \subsubsection{Übersicht}
 % https://marcphilipp.de/de/startseite/
 % https://marcphilipp.de/blog/2025/03/21/stf-milestone-2-open-test-reporting/
-Open Test Reporting (OTR) wird von dem selben Entwicklerteam, welches auch hinter dem Framework Junit und damit auch hinter JUnit XML steht, als Nachfolger von eben diesem entwickelt. Dabei haben sie laut eigenen Angaben das Ziel, mit OTR die historisch gewachsenen Probleme von JUnit XML (beschrieben in \chapref{JUNIT}) zu umgehen. OTR soll nach Vorstellungen der Entwickler auf lange Sicht JUnit XMLs Platz als de-facto Standart-Ausgabeformat für Testläufe einnehmen.
+Open Test Reporting (OTR) wird von dem selben Entwicklerteam, welches auch hinter dem Framework Junit und damit auch hinter JUnit XML steht, als Nachfolger von eben diesem entwickelt. Dabei haben sie laut eigenen Angaben das Ziel, mit OTR die historisch gewachsenen Probleme von JUnit XML (siehe \chapref{JUNIT}) zu umgehen. OTR soll nach Vorstellungen der Entwickler auf lange Sicht JUnit XMLs Platz als de-facto Standart-Ausgabeformat für Testläufe einnehmen.
 
 Anders als die anderen vorstellten Formate gitb es bei OTR zwei mögliche Dateiformate: Es gibt Implementierungen für XML und HTML. Beide Implementierugnen sind im Gegensatz zu JUnit XML standartisiert und folgen einem definiertem Schema. Beim XML-Format wird zwischen zwei Strukture unterschieden: Hierachisch und eventbasiert. Beide Formate nutzen das selbe Set von Kernelementen, unterscheiden sich aber in ihrer Struktur. Für beide Strukturen gibt es Programmiersprachen-spezifische Erweiterungen.\\
-Das HTML-Format wird ausgehend von einer vorher erzeugten OTR-XML Datei erezugt, und ist genauso erweiterbar. 
+Das HTML-Format wird ausgehend von einer vorher erzeugten OTR-XML Datei erzeugt, und ist ebenso erweiterbar. 
 
 \subsubsection{Struktur}
 
@@ -127,14 +156,20 @@ Außerdem ist die Vebreitung von OTR noch sehr limitiert: Von den in \tabref{For
 \subsection{Common Test Report Format (CTRF)}
 \subsubsection{Übersicht}
 
-Ähnlich wie JUnit XML ein spezielles Format für das Dateiformat XML ist, so gibt es auch ein spezielles Testausgabeformat für JSON: Das Common Test Report Format, kurz CTRF.  
+Ähnlich wie JUnit XML ein spezielles Format für das Dateiformat XML ist, so gibt es auch ein spezielles Testausgabeformat für JSON: Das Common Test Report Format, kurz CTRF. Ähnlich wie OTR ist CTFR zum aktuellen Zeitpunkt ein noch sehr junges Format, welches aktiv weiterentwickelt wird. Dies zeigt sich auch in seiner Verbreitung: Keine der in \tabref{Formatvergleich} untersuchten Testframeworks bieten die Möglichkeit, CTRF zu erzeugen, weder nativ noch über ein offizielles Plugin.\\
+CTRF ist dennoch interresant zu untersuchen, da es zum Einen das einzige größere frameworkagnostische JSON-Format ist, und zum Anderen, da es striktere Vorgaben für seine Struktur als die anderen zuvor untersuchten Testausgabeformate macht.
 
 \subsubsection{Struktur}
+Was CTRF aus den übrigen Formaten herrausstechen lässt, ist die Tatsache, dass ein Name für Testcases in der Ausgabe zwingend erforderlich ist. 
 
 \subsubsection{Eignung}
 
 
 \subsection{Andere Formate}
+teamcity, testdox?
+
+Neben den bisher untersuchten ganz oder zeilweise strukturierten Formaten 
+
 Selbes Problem wie JSON. Beispielsweise HTML, CSV, Markdown etc. Nicht strukturierte Ausgaben (pretty etc.) werden nicht betrachtet.
 
 Bezieht sich nur auf über die offiziellen von den jeweiligen package managern bereitgestellte Formate. Es gibt viele weitere Plugins im unabhägigen Bereich.

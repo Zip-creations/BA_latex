@@ -76,12 +76,35 @@
     \usepackage{pifont}
     \usepackage{makecell}
     \usepackage{array}
+    \usepackage{listings}
 
     \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 
     \newcommand{\tabYes}{\cellcolor{green}\ding{51}}
     \newcommand{\tabPartial}{\cellcolor{blue!60}$\sim$}
     \newcommand{\tabNo}{\cellcolor{yellow}\ding{55}}
+    \definecolor{codegray}{rgb}{0.8,0.8,0.8}
+    \lstdefinestyle{mystyle}{
+        backgroundcolor=\color{codegray},
+        captionpos=b,
+        % commentstyle=\color{codegreen},
+        % keywordstyle=\color{magenta},
+        % numberstyle=\tiny\color{codegray},
+        % stringstyle=\color{codepurple},
+        % basicstyle=\ttfamily\footnotesize,
+        % breakatwhitespace=false,         
+        % breaklines=true,                 
+        % captionpos=b,                    
+        % keepspaces=true,                 
+        % numbers=left,                    
+        % numbersep=5pt,                  
+        % showspaces=false,                
+        % showstringspaces=false,
+        % showtabs=false,                  
+        % tabsize=2
+    }
+    \lstset{style=mystyle}
+    \renewcommand{\lstlistingname}{Codeblock}
 %------------------------------------------------------------------------------
 %       (re)new commands / settings
 %------------------------------------------------------------------------------
@@ -91,6 +114,7 @@
     \newcommand{\figref}[1]{Figure~\ref{#1}}
     \newcommand{\tabref}[1]{\hyperref[#1]{Tabelle~\ref*{#1}}}
     \newcommand{\chapref}[1]{\hyperref[#1]{Kapitel~\ref*{#1}}}
+    \newcommand{\lstref}[1]{\hyperref[#1]{Codeblock~\ref*{#1}}}
 
     % ------------------- colors -------------------
     \definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
