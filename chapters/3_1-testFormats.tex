@@ -4,10 +4,9 @@ Um ein Tool zu entwickeln, welches framework-agnostisch eingesetzt werden kann, 
 Weitere Anforderungen an ein Testausgabeformat wurden bereits in \chapref{Anforderungen Testausgabeformat} angegeben.\\
 Für gewöhnlich geben Testframeworks das Ergebnis eines Testlauf in einem unstrukturiertem Format über die Konsole aus. Allerdings bieten fast alle etablierten Testframeworks eine Auswahl an Dateiformaten an, über welche die Testausgabe ebenfalls präsentiert werden kann.\\
 Für diese Dateiformate wurde über die Jahre einige framework-übergreifende Ausgabeformate entwickelt, die sich in unterschiedlicher Ausprägung durchsetzen konnten.\\
-Aufgrund der Vielzahl von verschiedenen Testframeworks und der Vielfältigkeit ihrer Ausgabeformate können im Rahmen dieser Bachelorarbeit nur die verbreitesten Formate untersucht werden.
-
-Zur Untersuchung der praktischen Umsetzung einzelner Formate und zur exemplarischer Erfassung ihrer Verbreitung wird ein limitierter Datensatz betrachtet. Dabei gilt zu beachten, dass bei diesem Datensatz nur eine kleine Menge von Programmiersprachen beinhaltet. Außerdem beschränken sich die untersuchten Testframeworks auf die am weitesten verbreiteten in ihrer jeweiligen Sprache, um die Etablierung von Testausgabeformaten möglichst praxisnahe darstellen zu können. 
-
+Aufgrund der Vielzahl von verschiedenen Testframeworks und der Vielfältigkeit ihrer Ausgabeformate können im Rahmen dieser Bachelorarbeit nur die verbreitesten Formate untersucht werden.\\
+% Die Verbreitung der Testausgabeformate bei anderen Komponenten einer CI-Pipeline, wie bespiel
+Zur Untersuchung der praktischen Umsetzung einzelner Formate und zur exemplarischer Erfassung ihrer Verbreitung wird ein limitierter Datensatz betrachtet. Dabei gilt zu beachten, dass bei diesem Datensatz nur eine kleine Menge von Programmiersprachen beinhaltet. Außerdem beschränken sich die untersuchten Testframeworks auf die am weitesten verbreiteten in ihrer jeweiligen Sprache, um die Etablierung von Testausgabeformaten möglichst praxisnahe darstellen zu können. Außerdem bieten länger etablierte Testframeworks erfahrungsgemäß eine breitere Auswahl von Testausgabeformaten, als weniger verbreitete Testframeworks.\\
 \tabref{Formatvergleich} zeigt die Ergebnisse der Untersuchung des Datensatzes. 
 
 \begin{table}[htbp]
@@ -64,18 +63,23 @@ Zur Untersuchung der praktischen Umsetzung einzelner Formate und zur exemplarisc
 
 % def test_simple_two():
 %     assert 1 + 1 == 2
-\section{JUnit XML}\label{JUNIT}
-\subsection{Übersicht}
-JUnit XML ist ein XML-basiertes Format, welches ursprünglich für das Java-Testframework JUnit entwickelt wurde. Für JUnit XML existiert kein einheitlicher Standart, d.h. es existiert auch keine beschreibendes .xsd Schemata, wie sonst für XML Formate üblich. Trotzdem wurde JUnit XML von vielen Testframeworks in gleicher oder ähnlicher Form adaptiert. Außerdem existieren viele weitere für das Software-Testing relevante Programme, welche JUnit XML verarbeiten können, beispielswese viele CI-Systeme. Auf diese Weise hat sich JUnit XML zu einem De-Facto Standart für Ausgabeformate von Testframeworks entwickelt.
+\section{Evaluation der häufigsten Formate}
+In diesem Kapitel werden die häufigsten frameworkübergreifend verwendeten Testausgabeformate kurz vorgestellt und nach den in \chapref{Anforderungen Testausgabeformat} vorgestellten Kriterien auf ihre Eignung zur Benutzung als Testausgabeformat für das zu entwickelnde Tool evaluiert.
+
+\subsection{JUnit XML}\label{JUNIT}
+\subsubsection{Übersicht}
+JUnit XML ist ein XML-basiertes Format, welches ursprünglich für das Java-Testframework JUnit entwickelt wurde. Für JUnit XML existiert kein einheitlicher Standart, d.h. es existiert auch keine beschreibendes .xsd Schema, wie sonst für XML Formate üblich. Trotzdem wurde JUnit XML von vielen Testframeworks in gleicher oder ähnlicher Form adaptiert, wie es ursprünglich für JUnit entworfen wurde. Außerdem existieren viele weitere für das Software-Testing relevante Programme, welche JUnit XML verarbeiten können, beispielswese viele CI/CD-Systeme%TODO:change "systeme"
+. Auf diese Weise hat sich JUnit XML zu einem De-Facto Standart für Ausgabeformate von Testframeworks entwickelt.
 
 
 - Genaue Struktur (unterschiedliche root tags!)
 
 - Auf unterschiedliche Umsetzungen eingehen
 
+\subsubsection{Struktur}
 
-\subsection{Eignung}
-- Wurde speziell für JAva beschrieben
+\subsubsection{Eignung}
+- Wurde speziell für Java beschrieben
 
 
 % Native JUnit support from pytest
@@ -88,23 +92,27 @@ JUnit XML ist ein XML-basiertes Format, welches ursprünglich für das Java-Test
 %         <testcase classname="test.test_simple" name="test_simple_two" time="0.000" />
 %     </testsuite>
 % </testsuites>
-\section{Test Anything Protocol (TAP)}
-\subsection{Übersicht}
+\subsection{Test Anything Protocol (TAP)}
+\subsubsection{Übersicht}
 Das Test Anything Protocol wurde ursprünglich für die Programmiersprache Perl entworfen, wurde über die Jahre hinweg jedoch auch für Testframeworks in anderen Sprachen weiter entwickelt. Anders als bei JUnit XML wird für TAP ein standartisiertes Schema bereitgestellt und gepflegt (https://testanything.org/tap-version-14-specification.html).
 
-\subsection{Eignung}
+\subsubsection{Struktur}
 
-\section{Open Test Reporting (OTR)}
-\subsection{Übersicht}
+\subsubsection{Eignung}
+
+\subsection{Open Test Reporting (OTR)}
+\subsubsection{Übersicht}
 % https://marcphilipp.de/de/startseite/
 % https://marcphilipp.de/blog/2025/03/21/stf-milestone-2-open-test-reporting/
-Open Test Reporting (OTR) wird von dem selben Entwicklerteam, welches auch hinter JUnit XML steht, als Nachfolger von eben diesem entwickelt. Dabei haben sie laut eigenen Angaben das Ziel, mit OTR die historisch gewachsenen Probleme von JUnit XML (beschrieben in \chapref{JUNIT}) zu umgehen. OTR soll nach Vorstellungen der Entwickler auf lange Sicht JUnit XMLs Platz als de-facto Standart-Ausgabeformat für Testläufe einnehmen.
+Open Test Reporting (OTR) wird von dem selben Entwicklerteam, welches auch hinter dem Framework Junit und damit auch hinter JUnit XML steht, als Nachfolger von eben diesem entwickelt. Dabei haben sie laut eigenen Angaben das Ziel, mit OTR die historisch gewachsenen Probleme von JUnit XML (beschrieben in \chapref{JUNIT}) zu umgehen. OTR soll nach Vorstellungen der Entwickler auf lange Sicht JUnit XMLs Platz als de-facto Standart-Ausgabeformat für Testläufe einnehmen.
 
 Anders als die anderen vorstellten Formate gitb es bei OTR zwei mögliche Dateiformate: Es gibt Implementierungen für XML und HTML. Beide Implementierugnen sind im Gegensatz zu JUnit XML standartisiert und folgen einem definiertem Schema. Beim XML-Format wird zwischen zwei Strukture unterschieden: Hierachisch und eventbasiert. Beide Formate nutzen das selbe Set von Kernelementen, unterscheiden sich aber in ihrer Struktur. Für beide Strukturen gibt es Programmiersprachen-spezifische Erweiterungen.\\
 Das HTML-Format wird ausgehend von einer vorher erzeugten OTR-XML Datei erezugt, und ist genauso erweiterbar. 
 
+\subsubsection{Struktur}
 
-\subsection{Eignung}
+
+\subsubsection{Eignung}
 Da OTR zum Zeitpunkt der Niederschrift dieser Bachelorarbeit noch sehr jung ist und aktiv entwickelt wird, bleibt abzusehen, ob die Entwickler ihr Ziel eines standartiserten, Programiersprachen-agnostischen Testausgebeformates erreichen können.
 
 Außerdem ist die Vebreitung von OTR noch sehr limitiert: Von den in \tabref{Formatvergleich} betrachteten Testframeworks ist lediglich phpunit in der Lage, OTR nativ zu erzeugen. Außerdem kann junit5 (welches, wie eingangs erwähnt, vom selben Entwicklerteam wie OTR betreut wird) zumindest über Plugins eine OTR-Ausgabe erzeugen.
@@ -116,11 +124,17 @@ Außerdem ist die Vebreitung von OTR noch sehr limitiert: Von den in \tabref{For
 % ok 2 test/test_simple.py::test_simple_two
 % 1..2
 
-\section{Common Test Report Format (CTRF)}
+\subsection{Common Test Report Format (CTRF)}
+\subsubsection{Übersicht}
+
 Ähnlich wie JUnit XML ein spezielles Format für das Dateiformat XML ist, so gibt es auch ein spezielles Testausgabeformat für JSON: Das Common Test Report Format, kurz CTRF.  
 
+\subsubsection{Struktur}
 
-\section{Andere Formate}
+\subsubsection{Eignung}
+
+
+\subsection{Andere Formate}
 Selbes Problem wie JSON. Beispielsweise HTML, CSV, Markdown etc. Nicht strukturierte Ausgaben (pretty etc.) werden nicht betrachtet.
 
 Bezieht sich nur auf über die offiziellen von den jeweiligen package managern bereitgestellte Formate. Es gibt viele weitere Plugins im unabhägigen Bereich.
@@ -218,6 +232,6 @@ Bezieht sich nur auf über die offiziellen von den jeweiligen package managern b
 %         }
 %     ]
 % }
-\section{Vergleich}
+\section{Fazit}
 Anhand der Evaluation der unterschiedlichen Ausganbeformate in \chapref{Vergleich Testausgabefomate} wird deutlich, dass es keinen eindeutigen Kandidaten für die Auswahl des Testausgabeformat, welches vom Tool als Input akzeptiert wird, gibt. Ein gemeinsames Problem: zeigen keine nicht-ausgeführten tests an
 % - erfüllt nicht alle Anforderungen, aber erklären, warum gut genug
