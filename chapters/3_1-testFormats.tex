@@ -102,7 +102,7 @@ Da die meisten Zusatzinformationen optional sind, zeigt \lstref{TAPmin} bereits 
     1..1
     ok
 \end{lstlisting}
-Solch eine Darstellung ist natürlich ungeeignet, da keine Zuordnung zwischen Testergebnis und Testcase möglich ist. In der Praxis kann dieser Zusammenhang allerdings durch die optionalen Zusatzinformationen gesesetzt werden, wie beispielhaft in \lstref{TAPpy} demonstriert:
+Solch eine Darstellung ist natürlich ungeeignet, da keine Zuordnung zwischen Testergebnis und Testcase möglich ist. In der Praxis kann dieser Zusammenhang allerdings durch die optionalen Zusatzinformationen gesesetzt werden, wie beispielhaft mit pytest in \lstref{TAPpy} demonstriert:
 
 \begin{lstlisting}[caption={TAP, erzeugt durch pytest.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={TAPpy}]
     # TAP results for test/pytest/test.py
@@ -124,7 +124,7 @@ Eine eindeutige Zuordnung zwischen Testergebnis und Testcase ist nicht in allen 
     ok 4 - true
     ...
 \end{lstlisting}
-was TAP in diesem Falle als Ausgabeformat ungeeignet macht. Andere Testframeworks wie bespielsweise pytest oder tasty sorgen allerdings für eine eindeutige Zuordnung in ihren jeweiligen Ausgaben. 
+Dies macht TAP in diesem Falle als Ausgabeformat ungeeignet. Andere Testframeworks wie bespielsweise pytest oder tasty sorgen allerdings für eine eindeutige Zuordnung in ihren jeweiligen Ausgaben. 
 
 \subsubsection{Fazit}
 TAP ist aufgrund seiner sehr geringer Minimalstruktur und vor allem seiner nur mäßigen Verbreitung eher nicht als Testausgabeformat für das Tool geeignet.
