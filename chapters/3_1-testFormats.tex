@@ -119,7 +119,53 @@ Da JUnit XML ursprünglich spezifisch für das Testframework Junit entwickelt wu
 Abgesehen davon ist Junit XML das einzige Testausgabeformat, dass von jedem im Datensatz untersuchten Testframework ausgegeben werden kann, zumeist sogar nativ, vereinzelt muss die Unterstützung erst über offiziell unterstützte Plugins hinzugefügt werden. Für viele Testframeworks ist Junit XML das primäre strukturierte Ausgabeformat für ihre Testläufe.%Bei manchen Testframeworks ist Junit XML sogar die standart-Ausgabe, beispielsweise bei
 
 
-Tabelle mit wo Zuordnung möglich
+\begin{table}[htbp]
+    \centering
+\makebox[\textwidth][c]{
+    \begin{tabular}{|c|c||c|c|}
+        \hline
+        Framework & Sprache & \makecell{Zuordnung über\\
+        name+classname} & \makecell{andere Zuordnung}\\
+        \hline
+        \hline
+        catch2 & C++ &  & \\
+        \hline
+        doctest & C++ &  & \\
+        \hline
+        gtest & C++ &  & \\
+        \hline
+        hspec & Haskell &  & \\
+        \hline
+        tasty & Haskell &  & \\
+        \hline
+        junit5 & Java &  & \\
+        \hline
+        junit5 & Java &  & \\
+        \hline
+        junit5 & Java &  & \\
+        \hline
+        behat & PHP &  & \\
+        \hline
+        codeception & PHP &  & \\
+        \hline
+        phpunit & PHP &  & \\
+        \hline
+        pytest & Python &  & \\
+        \hline
+        unittest & Python &  & \\
+        \hline
+    \end{tabular}
+}
+    \vspace{1em}
+    \begin{tabular}{ll}
+        \tabYes & Eindeutige Zuordnung möglich \\
+        \tabUnused & nicht benötigt\\
+        \tabNo & Zuordnung nicht eindeutig möglich\\
+    \end{tabular}
+    \caption{Übersicht der Verbreitung bestimmter Formate}
+    \label{Formatvergleich}
+
+\end{table}
 
 \subsubsection{Fazit zu JUnit XML}
 Aufgrund der weiten Verbreitung und der in der Praxis ähnlichen Umsetzung in vielen Frameworks ist JUnit XML trotz der fehlenden Standartisierung ein geeignetes Testausgabeformat für das Tool, welches mit einer Vielzahl von Testframeworks kompatibel ist.
