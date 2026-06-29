@@ -88,7 +88,7 @@
         backgroundcolor=\color{codegray},
         basicstyle=\rmfamily\small,
         breaklines=true,
-        breakatwhitespace=false,
+        breakatwhitespace=true,
         columns=fullflexible,
         keepspaces=true,
         showstringspaces=false,
@@ -102,7 +102,8 @@
         framexleftmargin=0.5em,
         framexrightmargin=0.5em,
         aboveskip=1em,
-        belowskip=1em
+        belowskip=1em,
+        escapeinside={(*@}{@*)}
     }
     \lstset{style=mystyle}
     \renewcommand{\lstlistingname}{Codeblock}
