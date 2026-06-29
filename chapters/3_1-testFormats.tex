@@ -55,13 +55,6 @@ Zur Untersuchung der praktischen Umsetzung einzelner Formate und zur exemplarisc
 
 \end{table}
 
-% Base python3
-
-% def test_simple():
-%     assert "foo" != "bar"
-
-% def test_simple_two():
-%     assert 1 + 1 == 2
 \section{Evaluation der häufigsten Formate}
 In diesem Kapitel werden die häufigsten frameworkübergreifend verwendeten Testausgabeformate kurz vorgestellt und nach den in \chapref{Anforderungen Testausgabeformat} festgesetzen Kriterien auf ihre Eignung zur Benutzung als Testausgabeformat für das zu entwickelnde Tool evaluiert.
 
@@ -88,9 +81,8 @@ Das root-element <testsuites> enthält eine Menge von <testsuite>-tags, welche j
 (*@\underline{\texttt{phpunit, PHP:}}@*)
 <testcase name="test_neg" file="/home/.../test.php" line="7" class="BasicTest" classname="BasicTest" assertions="1" time="0.000645"/>
 (*@\underline{\texttt{gtest, C++:}}@*)
-<testcase name="test_neg" file="./test/gtest/test.cpp" line="3" status="run" result="completed" time="0." timestamp="2026-06-23T22:50:35.285" classname="BasicTests" />
+<testcase name="test_neg" file="./test/gtest/test.cpp" line="3" status="run" result="completed" time="0." timestamp="2026-06-29T22:44:17.561" classname="BasicTests" />
 \end{lstlisting}
-
 
 \begin{lstlisting}[caption={JUnit XML, erzeugt durch das Haskell-Testframework tasty mit dem ant-Plugin.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={JUNITtasty}]
 <?xml version='1.0'?>
@@ -102,84 +94,71 @@ Das root-element <testsuites> enthält eine Menge von <testsuite>-tags, welche j
         ...
 \end{lstlisting}
 
-Aus \lstref{JUNITcompare} ist ersichtlich, dass sich die benutzten Attribute des <testcase>-tags sowie deren Inhalt stark unterscheiden können, jedoch werden für zwei Attribute für gewöhnlich gesetzt, und in gleicher Weise verwendet:
+Aus \lstref{JUNITcompare} ist ersichtlich, dass sich die benutzten Attribute des <testcase>-tags sowie deren Inhalt stark unterscheiden können, jedoch werden zwei Attribute für gewöhnlich gesetzt und in gleicher Weise verwendet:
 \begin{itemize}
     \item name="" enthält den namen des Testcase
     \item classname="" enthält den namespace bzw. die Klasse des Testcase
 \end{itemize}
-Dieser Trend aus \lstref{JUNITcompare} setzt sich auch in den übrigen im Datensatz untersuchten JUnit XML Ausgaben fort. Es gibt zwar einige wenige Ausnahmen wie exemplarisch in \lstref{JUNITcodeception} dargestellt, diese sind jedoch eher selten.
+Dieser Trend aus \lstref{JUNITcompare} setzt sich auch in den übrigen im Datensatz untersuchten JUnit XML Ausgaben fort. Es gibt zwar einige wenige Ausnahmen wie exemplarisch in \lstref{JUNITcodeception} dargestellt, diese sind jedoch eher selten. Eine ausführliche Übersicht, wie häufig diese eindeutige Zuordnung zwischen Testergebnis und Testcase möglich ist, ist in \tabref{Vergleich_Zuordnung} zu finden.\\
 
 \begin{lstlisting}[caption={JUnit XML für den Testcase test\_neg, erzeugt durch das PHP-Testframework codeception. Codeception benutzt statt dem häufig verwendetem Attribut "classname" das Attribut "class".\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={JUNITcodeception}]
 <testcase name="test_neg" class="BasicTest" file="/home/.../Test.php" time="0.000252" assertions="1"/>
 \end{lstlisting}
 
-
-\subsubsection{Eignung}
-Da JUnit XML ursprünglich spezifisch für das Testframework Junit entwickelt wurde, folgt die grundelegende Struktur den Gegebenheiten und Anforderungen dieses Frameworks. Zwar folgen viele weitere Testframeworks auch in anderen Sprachen einer ähnlichen Strukur oder können die Junit XML Struktur trotz einiger Unterschiede benutzen, in einzelnen Fällen kommt es jedoch zu Schwierigkeiten und ungewöhnlichen Anpassungen der XML-Struktur.\\
-Abgesehen davon ist Junit XML das einzige Testausgabeformat, dass von jedem im Datensatz untersuchten Testframework ausgegeben werden kann, zumeist sogar nativ, vereinzelt muss die Unterstützung erst über offiziell unterstützte Plugins hinzugefügt werden. Für viele Testframeworks ist Junit XML das primäre strukturierte Ausgabeformat für ihre Testläufe.%Bei manchen Testframeworks ist Junit XML sogar die standart-Ausgabe, beispielsweise bei
-
-
-\begin{table}[htbp]
+\begin{table}[htbp] % [H] to force the table to this position
     \centering
 \makebox[\textwidth][c]{
-    \begin{tabular}{|c|c||c|c|}
+    \begin{tabular}{|c|c||c|c|c|}
         \hline
         Framework & Sprache & \makecell{Zuordnung über\\
-        name+classname} & \makecell{andere Zuordnung}\\
+        name+classname} & \makecell{Zuordnung über\\andere Attribute} & \makecell{Namen der\\alternativen Attribute}\\
         \hline
         \hline
-        catch2 & C++ &  & \\
+        catch2 & C++ & \tabYes & \tabUnused & \tabUnused\\
         \hline
-        doctest & C++ &  & \\
+        doctest & C++ & \tabYes & \tabUnused & \tabUnused\\
         \hline
-        gtest & C++ &  & \\
+        gtest & C++ & \tabYes & \tabUnused & \tabUnused\\
         \hline
-        hspec & Haskell &  & \\
+        hspec & Haskell & \tabYes & \tabUnused & \tabUnused\\
         \hline
-        tasty & Haskell &  & \\
+        tasty & Haskell & \tabYes & \tabUnused & \tabUnused\\
         \hline
-        junit5 & Java &  & \\
+        junit5 & Java &  &  & \\
         \hline
-        junit5 & Java &  & \\
+        junit5 & Java (maven) & \tabYes & \tabUnused & \tabUnused\\
         \hline
-        junit5 & Java &  & \\
+        junit5 & Java (gradle) & \tabYes & \tabUnused & \tabUnused\\
         \hline
-        behat & PHP &  & \\
+        behat & PHP & \tabYes & \tabUnused & \tabUnused\\
         \hline
-        codeception & PHP &  & \\
+        codeception & PHP & \tabNo & \tabYes & name+class\\
         \hline
-        phpunit & PHP &  & \\
+        phpunit & PHP & \tabYes & \tabUnused & \tabUnused\\
         \hline
-        pytest & Python &  & \\
+        pytest & Python & \tabYes & \tabUnused & \tabUnused\\
         \hline
-        unittest & Python &  & \\
+        unittest & Python & \tabYes & \tabUnused & \tabUnused\\
         \hline
     \end{tabular}
 }
     \vspace{1em}
     \begin{tabular}{ll}
         \tabYes & Eindeutige Zuordnung möglich \\
-        \tabUnused & nicht benötigt\\
-        \tabNo & Zuordnung nicht eindeutig möglich\\
+        \tabUnused & nicht notwendig\\
+        \tabNo & Eindeutige Zuordnung nicht möglich\\
     \end{tabular}
-    \caption{Übersicht der Verbreitung bestimmter Formate}
-    \label{Formatvergleich}
-
+    \caption{Übersicht zur Eindeutigen Zuordnung zwischen Testergebnis und Testcase}
+    \label{Vergleich_Zuordnung}
 \end{table}
+
+\subsubsection{Eignung}
+Da JUnit XML ursprünglich spezifisch für das Testframework Junit entwickelt wurde, folgt die grundelegende Struktur den Gegebenheiten und Anforderungen dieses Frameworks. Zwar folgen viele weitere Testframeworks auch in anderen Sprachen einer ähnlichen Strukur oder können die Junit XML Struktur trotz einiger Unterschiede benutzen, in einzelnen Fällen kommt es jedoch zu Schwierigkeiten und ungewöhnlichen Anpassungen der XML-Struktur.\\
+Abgesehen davon ist Junit XML das einzige Testausgabeformat, dass von jedem im Datensatz untersuchten Testframework ausgegeben werden kann, zumeist sogar nativ, vereinzelt muss die Unterstützung erst über offiziell unterstützte Plugins hinzugefügt werden. Für viele Testframeworks ist Junit XML das primäre strukturierte Ausgabeformat für ihre Testläufe.%Bei manchen Testframeworks ist Junit XML sogar die standart-Ausgabe, beispielsweise bei
 
 \subsubsection{Fazit zu JUnit XML}
 Aufgrund der weiten Verbreitung und der in der Praxis ähnlichen Umsetzung in vielen Frameworks ist JUnit XML trotz der fehlenden Standartisierung ein geeignetes Testausgabeformat für das Tool, welches mit einer Vielzahl von Testframeworks kompatibel ist.
 
-% Native JUnit support from pytest
-
-% <?xml version="1.0" encoding="utf-8"?>
-% <testsuites name="pytest tests">
-%     <testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.032"
-%         timestamp="2026-06-12T16:28:56.773650+02:00" hostname="DESKTOP-XXX">
-%         <testcase classname="test.test_simple" name="test_simple" time="0.000" />
-%         <testcase classname="test.test_simple" name="test_simple_two" time="0.000" />
-%     </testsuite>
-% </testsuites>
 \subsection{Test Anything Protocol (TAP)}
 \subsubsection{Übersicht}
 Das Test Anything Protocol wurde ursprünglich für die Programmiersprache Perl entworfen, wurde über die Jahre hinweg jedoch auch für Testframeworks in anderen Sprachen weiter entwickelt. Anders als bei JUnit XML wird für TAP ein standartisiertes Schema bereitgestellt und gepflegt (https://testanything.org/tap-version-14-specification.html). Anders als die meisten anderen hier untersuchten Testausgabeformate ist TAP keine spezialisierte Struktur eines bereits bestehenden Dateiformates, sondern ein eigenständiges Format.
@@ -265,101 +244,8 @@ Neben den bisher untersuchten ganz oder zeilweise strukturierten Formaten
 
 Selbes Problem wie JSON. Beispielsweise HTML, CSV, Markdown etc. Nicht strukturierte Ausgaben (pretty etc.) werden nicht betrachtet.
 
-Bezieht sich nur auf über die offiziellen von den jeweiligen package managern bereitgestellte Formate. Es gibt viele weitere Plugins im unabhägigen Bereich.
+Bezieht sich nur auf über die offiziellen von den jeweiligen package managern bereitgestellte Formate. Es gibt viele weitere Plugins im unabhängigen Bereich.
 
-
-% pytest mit json plugin
-
-% {
-%     "created": 1781278966.9084342,
-%     "duration": 0.006438732147216797,
-%     "exitcode": 0,
-%     "root": "/home/ruben/dev/bachelor/project/code/sample_projects/python/code",
-%     "environment": {},
-%     "summary": {
-%         "passed": 2,
-%         "total": 2,
-%         "collected": 2
-%     },
-%     "collectors": [
-%         {
-%             "nodeid": "",
-%             "outcome": "passed",
-%             "result": [
-%                 {
-%                     "nodeid": "test/test_simple.py",
-%                     "type": "Module"
-%                 }
-%             ]
-%         },
-%         {
-%             "nodeid": "test/test_simple.py",
-%             "outcome": "passed",
-%             "result": [
-%                 {
-%                     "nodeid": "test/test_simple.py::test_simple",
-%                     "type": "Function",
-%                     "lineno": 38
-%                 },
-%                 {
-%                     "nodeid": "test/test_simple.py::test_simple_two",
-%                     "type": "Function",
-%                     "lineno": 41
-%                 }
-%             ]
-%         }
-%     ],
-%     "tests": [
-%         {
-%             "nodeid": "test/test_simple.py::test_simple",
-%             "lineno": 38,
-%             "outcome": "passed",
-%             "keywords": [
-%                 "test_simple",
-%                 "test_simple.py",
-%                 "test",
-%                 "code",
-%                 ""
-%             ],
-%             "setup": {
-%                 "duration": 0.00011300799997115973,
-%                 "outcome": "passed"
-%             },
-%             "call": {
-%                 "duration": 8.317200081364717e-05,
-%                 "outcome": "passed"
-%             },
-%             "teardown": {
-%                 "duration": 8.39040003484115e-05,
-%                 "outcome": "passed"
-%             }
-%         },
-%         {
-%             "nodeid": "test/test_simple.py::test_simple_two",
-%             "lineno": 41,
-%             "outcome": "passed",
-%             "keywords": [
-%                 "test_simple_two",
-%                 "test_simple.py",
-%                 "test",
-%                 "code",
-%                 ""
-%             ],
-%             "setup": {
-%                 "duration": 6.994300019869115e-05,
-%                 "outcome": "passed"
-%             },
-%             "call": {
-%                 "duration": 6.929200026206672e-05,
-%                 "outcome": "passed"
-%             },
-%             "teardown": {
-%                 "duration": 8.041599903663155e-05,
-%                 "outcome": "passed"
-%             }
-%         }
-%     ]
-% }
 \section{Fazit zur Evaluation der Testausgabenformate}
 Anhand der Evaluation der unterschiedlichen Testausgabeformate in \chapref{Vergleich Testausgabefomate} wird deutlich, dass es keinen eindeutigen Kandidaten für die Auswahl des Testausgabeformat, welches alle in \chapref{Anforderungen Testausgabeformat} gelisteten Anforderungen erfüllt.\\
 Ein gemeinsames Problem: zeigen keine nicht-ausgeführten tests an
