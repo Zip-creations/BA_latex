@@ -111,10 +111,28 @@ gtest, C++:
         ...
 \end{lstlisting}
 
+Aus \lstref{JUNITcompare} ist ersichtlich, dass sich die benutzten Attribute des <testcase>-tags sowie deren Inhalt stark unterscheiden können, jedoch werden für zwei Attribute für gewöhnlich gesetzt, und in gleicher Weise verwendet:
+\begin{itemize}
+    \item name="" enthält den namen des Testcase
+    \item classname="" enthält den namespace bzw. die Klasse des Testcase
+\end{itemize}
+Dieser Trend aus \lstref{JUNITcompare} setzt sich auch in den übrigen im Datensatz untersuchten JUnit XML Ausgaben fort. Es gibt zwar einige wenige Ausnahmen wie exemplarisch in \lstref{JUNITcodeception} dargestellt, diese sind jedoch eher selten.
+
+\begin{lstlisting}[caption={JUnit XML für den Testcase test\_neg, erzeugt durch das PHP-Testframework codeception. Codeception benutzt statt dem häufig verwendetem Attribut "classname" das Attribut "class".\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={JUNITcodeception}]
+<testcase name="test_neg" class="BasicTest"
+    file="/home/.../Test.php" time="0.000252" assertions="1"/>
+\end{lstlisting}
+
 
 \subsubsection{Eignung}
-- Wurde speziell für Java beschrieben
+Da JUnit XML ursprünglich spezifisch für das Testframework Junit entwickelt wurde, folgt die grundelegende Struktur den Gegebenheiten und Anforderungen dieses Frameworks. Zwar folgen viele weitere Testframeworks auch in anderen Sprachen einer ähnlichen Strukur oder können die Junit XML Struktur trotz einiger Unterschiede benutzen, in einzelnen Fällen kommt es jedoch zu Schwierigkeiten und ungewöhnlichen Anpassungen der XML-Struktur.\\
+Abgesehen davon ist Junit XML das einzige Testausgabeformat, dass von jedem im Datensatz untersuchten Testframework ausgegeben werden kann, zumeist sogar nativ, vereinzelt muss die Unterstützung erst über offiziell unterstützte Plugins hinzugefügt werden. Für viele Testframeworks ist Junit XML das primäre strukturierte Ausgabeformat für ihre Testläufe.%Bei manchen Testframeworks ist Junit XML sogar die standart-Ausgabe, beispielsweise bei
 
+
+Tabelle mit wo Zuordnung möglich
+
+\subsubsection{Fazit zu JUnit XML}
+Aufgrund der weiten Verbreitung und der in der Praxis ähnlichen Umsetzung in vielen Frameworks ist JUnit XML trotz der fehlenden Standartisierung ein geeignetes Testausgabeformat für das Tool, welches mit einer Vielzahl von Testframeworks kompatibel ist.
 
 % Native JUnit support from pytest
 
@@ -161,7 +179,7 @@ Eine eindeutige Zuordnung zwischen Testergebnis und Testcase ist nicht in allen 
 \end{lstlisting}
 Dies macht TAP in diesem Falle als Ausgabeformat ungeeignet. Andere Testframeworks wie bespielsweise pytest oder tasty sorgen allerdings für eine eindeutige Zuordnung in ihren jeweiligen Ausgaben. 
 
-\subsubsection{Fazit}
+\subsubsection{Fazit zu TAP}
 TAP ist aufgrund seiner sehr geringer Minimalstruktur und vor allem seiner nur mäßigen Verbreitung eher nicht als Testausgabeformat für das Tool geeignet.
 
 \subsection{Open Test Reporting (OTR)}
@@ -180,6 +198,9 @@ Das HTML-Format wird ausgehend von einer vorher erzeugten OTR-XML Datei erzeugt,
 Da OTR zum Zeitpunkt der Niederschrift dieser Bachelorarbeit noch sehr jung ist und aktiv entwickelt wird, bleibt abzusehen, ob die Entwickler ihr Ziel eines standartiserten, Programiersprachen-agnostischen Testausgebeformates erreichen können.
 
 Außerdem ist die Vebreitung von OTR noch sehr limitiert: Von den in \tabref{Formatvergleich} betrachteten Testframeworks ist lediglich phpunit in der Lage, OTR nativ zu erzeugen. Außerdem kann junit5 (welches, wie eingangs erwähnt, vom selben Entwicklerteam wie OTR betreut wird) zumindest über Plugins eine OTR-Ausgabe erzeugen.
+
+\subsubsection{Fazit zu OTR}
+
 % pytest with TAP plugin
 % https://github.com/python-tap/pytest-tap
 
@@ -199,6 +220,7 @@ Was CTRF aus den übrigen Formaten herrausstechen lässt, ist die Tatsache, dass
 
 \subsubsection{Eignung}
 
+\subsubsection{Fazit zu CTFR}
 
 \subsection{Andere Formate}
 teamcity, testdox?
@@ -302,6 +324,7 @@ Bezieht sich nur auf über die offiziellen von den jeweiligen package managern b
 %         }
 %     ]
 % }
-\section{Fazit}
-Anhand der Evaluation der unterschiedlichen Ausganbeformate in \chapref{Vergleich Testausgabefomate} wird deutlich, dass es keinen eindeutigen Kandidaten für die Auswahl des Testausgabeformat, welches vom Tool als Input akzeptiert wird, gibt. Ein gemeinsames Problem: zeigen keine nicht-ausgeführten tests an
+\section{Fazit zur Evaluation der Testausgabenformate}
+Anhand der Evaluation der unterschiedlichen Testausgabeformate in \chapref{Vergleich Testausgabefomate} wird deutlich, dass es keinen eindeutigen Kandidaten für die Auswahl des Testausgabeformat, welches alle in \chapref{Anforderungen Testausgabeformat} gelisteten Anforderungen erfüllt.\\
+Ein gemeinsames Problem: zeigen keine nicht-ausgeführten tests an
 % - erfüllt nicht alle Anforderungen, aber erklären, warum gut genug
