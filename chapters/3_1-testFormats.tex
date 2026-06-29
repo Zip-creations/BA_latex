@@ -71,11 +71,46 @@ JUnit XML ist ein XML-basiertes Format, welches ursprünglich für das Java-Test
 . Auf diese Weise hat sich JUnit XML zu einem De-Facto Standart für Ausgabeformate von Testframeworks entwickelt.
 
 
-- Genaue Struktur (unterschiedliche root tags!)
-
-- Auf unterschiedliche Umsetzungen eingehen
-
 \subsubsection{Struktur}
+Wie bereits erwähnt gibt es bei JUnit XML keine standartisiertes Schema. Allerdings haben sich einige Strukturen durchgesetzt, die von nahezu allen Testframeworks, welche JUnit XML als Testausgabeformat anbieten, verwendet werden. Ein typisches Beispiel für die häufigste Struktur ist \lstref{JUNITbehat}:
+\begin{lstlisting}[caption={JUnit XML, erzeugt durch das PHP-Testframework behat.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={JUNITbehat}]
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="default">
+    <testsuite name="Basic tests" file=
+        "features/basic.feature" tests="4" skipped="0"
+        failures="2" errors="0" time="0.006">
+        <testcase name="test_neg" classname="Basic tests"
+            status="passed" time="0.004"
+            file="features/basic.feature" line="4"></testcase>
+    ...
+\end{lstlisting}
+Das root-element <testsuites> enthält eine Menge von <testsuite>-tags, welche jeweils eine Menge von <testcase>-tags enthalten. Jedes <testcase>-tag steht für einen Testcase aus der ursprünglichen Testsuite des zu testeneden Programms und enthält für gewöhnlich Informationen über das Testergebnis, den Ablauf, und den ursprünglichen Testcase. Hier ist allerdings wieder wichtig zu erwähnen, dass der Inhalt dieses tags ebensowenig standartisiert ist, wie der Inhalt der übrigen tags. Deutlich wird dieser Sachverhalt in \lstref{JUNITcompare}. Unterschiede in der grundlegenden Struktur zeigen sich z.B. in \lstref{JUNITtasty}. Hier wird das tag <testsuite> verschachtelt verwendet, statt wie sonst üblich nur einmal.
+
+\begin{lstlisting}[caption={direkter Vergleich verschiedener Implementierungen des <testcase>-tags in ausgewählten JUnit-XML Ausgaben. Verglichen wird jeweils die Ausgabe des fehlerlosen, nicht übersprungenen Testcases test\_neg.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={JUNITcompare}]
+junit5 (maven), Java:
+<testcase name="test_neg" classname="BasicTest"
+    time="0.012"/>
+phpunit, PHP:
+<testcase name="test_neg" file="/home/.../test.php"
+    line="7" class="BasicTest" classname="BasicTest"
+    assertions="1" time="0.000645"/>
+gtest, C++:
+<testcase name="test_neg" file="./test/gtest/test.cpp"
+    line="3" status="run" result="completed" time="0."
+    timestamp="2026-06-23T22:50:35.285" classname="BasicTests" />
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption={JUnit XML, erzeugt durch das Haskell-Testframework tasty mit dem ant-Plugin.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={JUNITtasty}]
+<?xml version='1.0'?>
+<testsuites errors="0" failures="1" tests="5" time="0.001">
+    <testsuite name="AllTests" tests="5">
+        <testsuite name="Test1" tests="4">
+            <testcase name="test_neg" time="0.000"
+                classname="AllTests.Test1" />
+        ...
+\end{lstlisting}
+
 
 \subsubsection{Eignung}
 - Wurde speziell für Java beschrieben
@@ -102,7 +137,7 @@ Da die meisten Zusatzinformationen optional sind, zeigt \lstref{TAPmin} bereits 
     1..1
     ok
 \end{lstlisting}
-Solch eine Darstellung ist natürlich ungeeignet, da keine Zuordnung zwischen Testergebnis und Testcase möglich ist. In der Praxis kann dieser Zusammenhang allerdings durch die optionalen Zusatzinformationen gesesetzt werden, wie beispielhaft mit pytest in \lstref{TAPpy} demonstriert:
+Solch eine Darstellung ist natürlich ungeeignet, da so keine Zuordnung zwischen Testergebnis und Testcase möglich ist. In der Praxis kann dieser Zusammenhang allerdings durch die optionalen Zusatzinformationen gesesetzt werden, wie beispielhaft mit pytest in \lstref{TAPpy} demonstriert:
 
 \begin{lstlisting}[caption={TAP, erzeugt durch pytest.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={TAPpy}]
     # TAP results for test/pytest/test.py
@@ -115,7 +150,7 @@ Solch eine Darstellung ist natürlich ungeeignet, da keine Zuordnung zwischen Te
 \end{lstlisting}
 
 \subsubsection{Eignung}
-Eine eindeutige Zuordnung zwischen Testergebnis und Testcase ist nicht in allen untersuchten Testframeworks, die TAP als Ausgabeformat bieten, möglich. Nehmen wir catch2: Zwei Testscases dürfen in diesem Framework den selben Namen aufweisen, solange sie mit unterschiedlichen Labels getaggt sind. Diese Zusatzinformationen sind allerdings nicht zwingend im TAP-Format erforderlich, und werden vom catch2-Reporter schlicht nicht übernommen. Dies kann eine Ausgabe wie in \lstref{TAPcatch2} zur Folge haben:
+Eine eindeutige Zuordnung zwischen Testergebnis und Testcase ist nicht in allen untersuchten Testframeworks, die TAP als Ausgabeformat bieten, möglich. Nehmen wir catch2: Zwei Testscases dürfen in diesem Framework den selben Namen aufweisen, solange sie mit unterschiedlichen Labels getaggt sind. Diese Zusatzinformationen sind allerdings nicht zwingend im TAP-Format erforderlich, und werden vom catch2-Reporter schlicht nicht übernommen. Dies kann eine Ausgabe wie in \lstref{TAPcatch2} zur Folge haben, bei der zwei Testergebnisse mit dem selben Namen bezeichnet werden:
 \begin{lstlisting}[caption={TAP, erzeugt durch catch2.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={TAPcatch2}]
     ...
     # test_same_name
