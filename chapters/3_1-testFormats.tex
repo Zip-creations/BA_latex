@@ -3,6 +3,8 @@
 Um ein Tool zu entwickeln, welches framework-agnostisch eingesetzt werden kann, muss dieses Tool die Ausgabe eines Testlaufes unabhängig vom verwendeten Framework parsen können. Die Anforderungen an ein Testausgabeformat wurden bereits in \chapref{Anforderungen Testausgabeformat} untersucht.\\
 Für gewöhnlich geben Testframeworks das Ergebnis eines Testlauf in einem unstrukturiertem Format über die Konsole aus. Allerdings bieten fast alle etablierten Testframeworks auch eine Auswahl an Dateiformaten an, über welche die Testausgabe ebenfalls präsentiert werden kann.\\
 Für diese Dateiformate wurden über die Jahre einige framework-übergreifende Ausgabeformate entwickelt, die sich in unterschiedlicher Ausprägung durchsetzen konnten.\\
+
+\section{Methodik}
 Aufgrund der Vielzahl von verschiedenen Testframeworks und der Vielfältigkeit ihrer Ausgabeformate können im Rahmen dieser Bachelorarbeit nur die verbreitesten Formate untersucht werden.\\
 % Die Verbreitung der Testausgabeformate bei anderen Komponenten einer CI-Pipeline, wie bespiel
 Zur Untersuchung der praktischen Umsetzung einzelner Formate und zur exemplarischer Erfassung ihrer Verbreitung wird ein limitierter Datensatz betrachtet. Dabei gilt zu beachten, dass bei diesem Datensatz nur eine kleine Menge von Programmiersprachen beinhaltet. Außerdem beschränken sich die untersuchten Testframeworks auf die am weitesten verbreiteten in ihrer jeweiligen Sprache, um die Etablierung von Testausgabeformaten möglichst praxisnahe darstellen zu können. Außerdem bieten länger etablierte Testframeworks erfahrungsgemäß eine breitere Auswahl von Testausgabeformaten, als weniger verbreitete Testframeworks.\\
@@ -28,7 +30,7 @@ Zur Untersuchung der praktischen Umsetzung einzelner Formate und zur exemplarisc
         \hline
         junit5 & Java & & & \tabYes & & & & & \\
         \hline
-        junit5 & Java & maven & & \tabYes & & \tabPartial & & & \tabPartial\\
+        junit5 & Java & \makecell{maven\\surefire}  & & \tabYes & & \tabPartial & & & \tabPartial\\
         \hline
         junit5 & Java & gradle & & \tabYes & & \tabPartial & & & \tabYes \\
         \hline
@@ -195,7 +197,7 @@ Eine eindeutige Zuordnung zwischen Testergebnis und Testcase ist nicht in allen 
 Dies macht TAP in diesem Falle als Ausgabeformat ungeeignet. Andere Testframeworks wie bespielsweise pytest oder tasty sorgen allerdings für eine eindeutige Zuordnung in ihren jeweiligen Ausgaben. 
 
 \subsubsection{Fazit zu TAP}
-TAP ist aufgrund seiner sehr geringer Minimalstruktur und vor allem seiner nur mäßigen Verbreitung eher nicht als Testausgabeformat für das Tool geeignet.
+TAP ist aufgrund seiner sehr geringen Minimalstruktur und vor allem seiner nur mäßigen Verbreitung eher nicht als Testausgabeformat für das Tool geeignet.
 
 \subsection{Open Test Reporting (OTR)}
 \subsubsection{Übersicht}
