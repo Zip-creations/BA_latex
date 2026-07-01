@@ -1,0 +1,46 @@
+\begin{table}[htbp] % [H] to force the table to this position
+    \centering
+\makebox[\textwidth][c]{
+    \begin{tabular}{|c|c||c|c|c|}
+        \hline
+        Framework & Sprache & \makecell{Zuordnung über\\
+        name+classname} & \makecell{Zuordnung über\\andere Attribute} & \makecell{Namen der\\alternativen Attribute}\\
+        \hline
+        \hline
+        catch2 & C++ & \tabYes & \tabUnused & \tabUnused\\
+        \hline
+        doctest & C++ & \tabYes & \tabUnused & \tabUnused\\
+        \hline
+        gtest & C++ & \tabYes & \tabUnused & \tabUnused\\
+        \hline
+        hspec & Haskell & \tabYes & \tabUnused & \tabUnused\\
+        \hline
+        tasty & Haskell & \tabYes & \tabUnused & \tabUnused\\
+        \hline
+        junit5 & Java &  &  & \\
+        \hline
+        junit5 & Java (maven) & \tabYes & \tabUnused & \tabUnused\\
+        \hline
+        junit5 & Java (gradle) & \tabYes & \tabUnused & \tabUnused\\
+        \hline
+        behat & PHP & \tabYes & \tabUnused & \tabUnused\\
+        \hline
+        codeception & PHP & \tabNo & \tabYes & name+class\\
+        \hline
+        phpunit & PHP & \tabYes & \tabUnused & \tabUnused\\
+        \hline
+        pytest & Python & \tabYes & \tabUnused & \tabUnused\\
+        \hline
+        unittest & Python & \tabYes & \tabUnused & \tabUnused\\
+        \hline
+    \end{tabular}
+}
+    \vspace{1em}
+    \begin{tabular}{ll}
+        \tabYes & Eindeutige Zuordnung möglich \\
+        \tabUnused & nicht notwendig\\
+        \tabNo & Eindeutige Zuordnung nicht möglich\\
+    \end{tabular}
+    \caption{Übersicht zur eindeutigen Zuordnung vom Testergebnis zum ursprünglichen Testcase über Attribute in Junit XML}
+    \label{Vergleich_Zuordnung}
+\end{table}

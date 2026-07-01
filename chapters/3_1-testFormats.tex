@@ -28,52 +28,7 @@ In der zweiten Datei liegt ein Testcase im Namespace \textbf{BasicTest2}:
 
 \tabref{Formatvergleich} zeigt die Ergebnisse des Datensatzes zur Untersuchung der Verbreitung von Testausgabeformaten.
 
-\begin{table}[htbp]
-    \centering
-\makebox[\textwidth][c]{
-    \begin{tabular}{|c|c|c|c||c|c|c|c|c|c|}
-        \hline
-        Framework & Sprache & \makecell{Test-\\Runner} & \makecell{Test-\\Reporter} & JUnit XML & \makecell{XML\\(anderes)} & OTR & TAP & JSON & HTML\\
-        \hline
-        \hline
-        catch2 & C++ &  &  & \tabYes & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo\\
-        \hline
-        doctest & C++ &  &  & \tabYes & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo\\
-        \hline
-        gtest & C++ &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
-        \hline
-        hspec & Haskell &  &  & \tabPartial & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
-        \hline
-        tasty & Haskell &  &  & \tabPartial & \tabNo & \tabNo & \tabPartial & \tabNo & \tabNo\\
-        \hline
-        junit5 & Java & & & \tabYes & & & & & \\
-        \hline
-        junit5 & Java & \makecell{maven\\surefire}  & & \tabYes & & \tabPartial & & & \tabPartial\\
-        \hline
-        junit5 & Java & gradle & & \tabYes & & \tabPartial & & & \tabYes \\
-        \hline
-        behat & PHP &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
-        \hline
-        codeception & PHP &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabYes\\
-        \hline
-        phpunit & PHP &  &  & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo & \tabYes\\
-        \hline
-        pytest & Python &  &  & \tabYes & \tabNo & \tabNo & \tabPartial & \tabPartial & \tabPartial \\
-        \hline
-        unittest & Python &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
-        \hline
-    \end{tabular}
-}
-    \vspace{1em}
-    \begin{tabular}{ll}
-        \tabYes & Nativ unterstützt \\
-        \tabPartial & Über Plugins unterstützt\\
-        \tabNo & Nicht offiziell unterstützt\\
-    \end{tabular}
-    \caption{Übersicht der Verbreitung bestimmter Formate}
-    \label{Formatvergleich}
-
-\end{table}
+\input{tables/testformat_evaluation.tex}
 
 \section{Evaluation der häufigsten Formate}
 In diesem Kapitel werden die häufigsten frameworkübergreifend verwendeten Testausgabeformate kurz vorgestellt und nach den in \chapref{Anforderungen Testausgabeformat} festgesetzen Kriterien auf ihre Eignung zur Benutzung als Testausgabeformat für das zu entwickelnde Tool evaluiert.
@@ -125,52 +80,7 @@ Dieser Trend aus \lstref{JUNITcompare} setzt sich auch in den übrigen im Datens
 <testcase name="test_neg" class="BasicTest" file="/home/.../Test.php" time="0.000252" assertions="1"/>
 \end{lstlisting}
 
-\begin{table}[htbp] % [H] to force the table to this position
-    \centering
-\makebox[\textwidth][c]{
-    \begin{tabular}{|c|c||c|c|c|}
-        \hline
-        Framework & Sprache & \makecell{Zuordnung über\\
-        name+classname} & \makecell{Zuordnung über\\andere Attribute} & \makecell{Namen der\\alternativen Attribute}\\
-        \hline
-        \hline
-        catch2 & C++ & \tabYes & \tabUnused & \tabUnused\\
-        \hline
-        doctest & C++ & \tabYes & \tabUnused & \tabUnused\\
-        \hline
-        gtest & C++ & \tabYes & \tabUnused & \tabUnused\\
-        \hline
-        hspec & Haskell & \tabYes & \tabUnused & \tabUnused\\
-        \hline
-        tasty & Haskell & \tabYes & \tabUnused & \tabUnused\\
-        \hline
-        junit5 & Java &  &  & \\
-        \hline
-        junit5 & Java (maven) & \tabYes & \tabUnused & \tabUnused\\
-        \hline
-        junit5 & Java (gradle) & \tabYes & \tabUnused & \tabUnused\\
-        \hline
-        behat & PHP & \tabYes & \tabUnused & \tabUnused\\
-        \hline
-        codeception & PHP & \tabNo & \tabYes & name+class\\
-        \hline
-        phpunit & PHP & \tabYes & \tabUnused & \tabUnused\\
-        \hline
-        pytest & Python & \tabYes & \tabUnused & \tabUnused\\
-        \hline
-        unittest & Python & \tabYes & \tabUnused & \tabUnused\\
-        \hline
-    \end{tabular}
-}
-    \vspace{1em}
-    \begin{tabular}{ll}
-        \tabYes & Eindeutige Zuordnung möglich \\
-        \tabUnused & nicht notwendig\\
-        \tabNo & Eindeutige Zuordnung nicht möglich\\
-    \end{tabular}
-    \caption{Übersicht zur eindeutigen Zuordnung vom Testergebnis zum ursprünglichen Testcase über Attribute in Junit XML}
-    \label{Vergleich_Zuordnung}
-\end{table}
+\input{tables/attribute_zuordnung.tex}
 
 \subsubsection{Eignung}
 Da JUnit XML ursprünglich spezifisch für das Testframework Junit entwickelt wurde, folgt die grundelegende Struktur den Gegebenheiten und Anforderungen dieses Frameworks. Zwar folgen viele weitere Testframeworks auch in anderen Sprachen einer ähnlichen Strukur oder können die Junit XML Struktur trotz einiger Unterschiede benutzen, in einzelnen Fällen kommt es jedoch zu Schwierigkeiten und ungewöhnlichen Anpassungen der XML-Struktur.\\
