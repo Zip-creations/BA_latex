@@ -170,13 +170,66 @@ Was CTRF aus den übrigen Formaten herrausstechen lässt, ist die Tatsache, dass
 \subsection{Andere Formate}
 teamcity, testdox?
 
-Neben den bisher untersuchten ganz oder zeilweise strukturierten Formaten 
+Neben den bisher untersuchten ganz oder teilweise strukturierten Formaten 
 
 Selbes Problem wie JSON. Beispielsweise HTML, CSV, Markdown etc. Nicht strukturierte Ausgaben (pretty etc.) werden nicht betrachtet.
 
-Bezieht sich nur auf über die offiziellen von den jeweiligen package managern bereitgestellte Formate. Es gibt viele weitere Plugins im unabhängigen Bereich.
 
 \section{Fazit zur Evaluation der Testausgabenformate}
 Anhand der Evaluation der unterschiedlichen Testausgabeformate in \chapref{Vergleich Testausgabefomate} wird deutlich, dass es keinen eindeutigen Kandidaten für die Auswahl des Testausgabeformat, welches alle in \chapref{Anforderungen Testausgabeformat} gelisteten Anforderungen erfüllt.\\
 Ein gemeinsames Problem: zeigen keine nicht-ausgeführten tests an
 % - erfüllt nicht alle Anforderungen, aber erklären, warum gut genug
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        node distance=1.1cm and 2.0cm,
+        box/.style={
+            draw,
+            rectangle,
+            thick,
+            minimum width=3.4cm,
+            minimum height=1.1cm,
+            align=center
+        },
+        smallbox/.style={
+            draw,
+            rectangle,
+            thick,
+            minimum width=3.1cm,
+            minimum height=0.9cm,
+            align=center
+        },
+        botharrow/.style={
+            <->,
+            >=Latex,
+            thick
+        }
+    ]
+
+        % Zentrale Komponente
+        \node[box] (script) {Script};
+        % Linke Eingaben
+        % above left=1.0cm and 1.0cm
+        \node[smallbox, left=1.2cm of script] (ci) {CI};
+        \node[smallbox, below left=1.2cm and 1cmof script] (dev) {Entwickler\\(lokal)};
+
+        % Rechte Komponenten
+        \node[smallbox, right=2.2cm of script, yshift=1.4cm] (notes) {git notes/\\sonstiges};
+        \node[smallbox, right=2.2cm of script, yshift=-0.4cm] (discovery) {testDiscovery.sh};
+        \node[smallbox, below=0.5cm of discovery] (auditor) {testAuditor};
+        \node[smallbox, below=0.5cm of auditor] (execution) {testExecution.sh};
+
+        % Bidirektionale Verbindungen links
+        \draw[botharrow] (ci.south) -- ++(0,-0.45) -| (script.north west);
+        \draw[botharrow] (dev.east) -- (script.west);
+
+        % Bidirektionale Verbindungen rechts
+        \draw[botharrow] (script.north east) -- (notes.west);
+        \draw[botharrow] (script.east) -- (discovery.west);
+        \draw[botharrow] (script.south east) -- (auditor.west);
+        \draw[botharrow] (script.south) -- (execution.west);
+    \end{tikzpicture}
+    \caption{Schematische Darstellung der Interaktion zwischen CI, lokalem Entwickler, Script und Hilfskomponenten}
+    \label{fig:tool-overview}
+\end{figure}
