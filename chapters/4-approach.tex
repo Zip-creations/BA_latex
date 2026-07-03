@@ -33,8 +33,7 @@ Damit das Tool die Gesamtmenge aller Tests im Projekt kennt, muss im Projekt ein
 \subsubsection{test execution}\label{test execution}
 Zum Anderen muss dem Tool ein zweites Script zur Verfügung gestellt werden, welches eine Liste von zuvor in \chapref{test discovery} beschriebenen qualifiedNames entgegennimmt, nur diese Tests ausführt, und das Ergebnis (auch wieder JUnit XML) an das Tool zurückmeldet, welches dann diesen Input zusätzlich an die gitnotes anhängt.
 
-Absehen von diesen Anforderungen muss dem Tool lediglich der Pfad zu einem Ordner, der alle relevanten JUnit-XML Dateien enthält, mitgegeben werden.\\
-Zur Vereinfachung dieses Prozesses benutzt das Tool die Datei "config.json", in der die Argumente zum Aufrufen der beiden Skripten, sowie der Pfad zu dem Ordner mit den JUnit-XML Dateien hinterlegt werden.
+Absehen von diesen Anforderungen muss dem Tool lediglich der Pfad zu einem Ordner, der alle relevanten JUnit-XML Dateien enthält, mitgegeben werden.
 
 -> Hier Diagram mit Interaktion zwischen Scripten/Tool einfügen
 
@@ -62,3 +61,9 @@ Zur Vereinfachung dieses Prozesses benutzt das Tool die Datei "config.json", in 
 % git commit -m "foo bar"
 git notes add -F "\$(realpath code/out/report.xml)" HEAD
 % git push
+
+
+\section{git notes}
+müssen nicht zwingend verwendet werden, auch andere Kommunikationswege mit Tool könnten etabliert werden. Hier nur Mittel der Wahl, weil ändern Code nicht.
+
+Nicht zu empfehlen: Dateien im repo lagern.

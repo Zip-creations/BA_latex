@@ -1,4 +1,4 @@
-\chapter{Anforderungen}\label{chap:Hintergrund}
+\chapter{Hintergrund}\label{chap:Hintergrund}
 % Explain the general context of your work.
 % Explain mathematical background required and introduce notation.
 % \input{figures/background/algBackpropagation}
@@ -8,8 +8,8 @@ Folgende Anforderungen werden an einen Durchlauf des zu entwickelnden Tools gest
 \begin{itemize}
     \item \textbf{Die Wahl der verwendeten Programmiersprache(n) und Testframework(s) ist unerheblich}\\
     Das Tool soll framework-agnostisch funktionieren, auch wenn innerhalb des Projektes verschiedene Testframeworks zum Einsatz kommen.
-    \item \textbf{Nach Ablauf des Tools wurde jeder Testcase für den aktuellen Stand des Codes genau einmal durchgeführt}\\
-    Kein Test darf mehr als genau einmal ausgeführt werden, um die Laufzeit so gering wie möglich zu halten. Trotzdem muss die gesamten Testsuite komplett abgedeckt sein, um die Aussagekraft des Testlaufen im Vergleich zu einem komplett neuen Durchlauf nicht zu beinträchtigen.
+    \item \textbf{Nach Ablauf des Tools wurde jeder Testcase für den aktuellen Stand des Codes mindestens einmal durchgeführt}\\
+    Testcases können manuell mehrfach ausgeführt werden, allerdings darf das Tool selbst keinen Testcase ausführen, der bereits ausgeführt wurde, um die Laufzeit der Testphase so gering wie möglich zu halten. Trotzdem muss die gesamten Testsuite komplett abgedeckt sein, um die Aussagekraft des Testlaufes im Vergleich zu einem komplett neuen Durchlauf nicht zu beinträchtigen.
     \item \textbf{Das Ergbnis der durch das Tool durchgeführten Testläufe ist am selben Ort verfügbar, wie die Ergebnisse der vorherigen Testläufe, auf die das Tool zugreift}
 \end{itemize}
 
@@ -31,12 +31,21 @@ Mit Blick auf diese sowie die under \chapref{Anforderungen Tool} beschriebenen A
     Es wäre utopisch anzunehmen, dass ein strukturiertes Format existiert, welches von jedem existierendem Testframework gleichermaßen benutzt wird. Dennoch gibt es durchaus gängige Formate, die von unterschiedlichen Testframeworks aus unterschiedlichen Sprachen unterstützt werden, wie folgend in \chapref{Vergleich Testausgabefomate} untersucht wird. 
 \end{itemize}
 
-\section{Wie Output entsteht}
-Hier die Pipeline Test Runner -> Test Reporter
+\section{Generierung eines Testausgabeformats}
+Die genaue Struktur und das finale Aussehen der Ausgabe eines Testlaufes hängen im Wesentlichen von den folgenden Faktoren ab, deren Aufteilung der in \cite{winkler} vorgestellten Struktur eines Testframeworks folgt: 
+\begin{itemize}
+    \item Struktur der zur Grunde liegenden Testdateien:\\
+    Die (Nicht-)Verwendung von Klassen, Testsuites oder anderen vom Testframework oder der Programmiersprache bereitgestellten Optionen zur Organisation der Testcases, sowie die Dateistruktur der Testdateien können einen Einfluss auf das Endresultat haben
+    \item verwendetes Testframework
+    \item verwendetes Testausgabeformat:\\
+    Damit ist sowohl das Dateiformat, als auch die Wahl eines strukturierten Ausgabeformats gemeint. Näheres dazu in \chapref{Vergleich Testausgabefomate}.
+    \item Test Runner:\\
+    Auch als \textit{Scheduler, Harness oder Orchestrator} bezeichnet, beschreibt der Begriff "Test Runner" hier die Komponente eines Testframewoks, welche die Testcases ausführt, und die Ergbenisse an den Test Reporter weiterreicht.
+    \item Test Reporter:\\
+    Auch als \textit{test generator} bezeichnet, beschreibt "Test Reporter" jene Komponente eines Testframeworks, welche aus dem vom Test Runner bestimmten Ergbenis der Testsuite die menschen- bzw. maschienenlesbare Ausgabe generiert.
+\end{itemize}
+In den meisten Testframeworks übernimmt das Testframework selbst die Aufgaben des Test Runners und des Test Reporters, in machen Fällen werden diese Komponenten aber auch durch andere Prozessen bereitgestellt. Dies ist zum Beipiel in der Programmiersprache Java der Fall: Hier stellen die beiden build-tools maven und gradle jeweils ihre eigenen Test Runner bzw. Test Reporter zur Verfügung, was unterschiedliche Kombinationen aus Testframework, Test Runner und Test Reporter erlaubt. Dass dies auch zu Unterschieden in der Testausgabe führen kann, ist in \lstref{JAVACompare} dargestellt.
 
-
-
-\section{git notes}
-müssen nicht zwingend verwendet werden, auch andere Kommunikationswege mit Tool könnten etabliert werden. Hier nur Mittel der Wahl, weil ändern Code nicht.
-
-Nicht zu empfehlen: Dateien im repo lagern.
+\begin{lstlisting}[caption={direkter Vergleich von Junit XML, erzeugt durch Junit5 in Java. Jeder Ausgabe liegen die selben Testdateien zu Grunde.}, label={JAVACompare}]
+    
+\end{lstlisting}
