@@ -32,20 +32,20 @@ Mit Blick auf diese sowie die under \chapref{Anforderungen Tool} beschriebenen A
 \end{itemize}
 
 \section{Generierung eines Testausgabeformats}
-Die genaue Struktur und das finale Aussehen der Ausgabe eines Testlaufes hängen im Wesentlichen von den folgenden Faktoren ab, deren Aufteilung der in \cite{winkler} vorgestellten Struktur eines Testframeworks folgt: 
+Die genaue Struktur und das finale Aussehen der Ausgabe eines Testlaufes hängen im Wesentlichen von den folgenden Faktoren ab, deren Aufteilung der in \cite{winkler} vorgestellten Struktur eines Testframeworks folgt: % TODO test discovery hinzufügen?
 \begin{itemize}
-    \item Struktur der zur Grunde liegenden Testdateien:\\
+    \item \textbf{Struktur der zur Grunde liegenden Testdateien:}\\
     Die (Nicht-)Verwendung von Klassen, Testsuites oder anderen vom Testframework oder der Programmiersprache bereitgestellten Optionen zur Organisation der Testcases, sowie die Dateistruktur der Testdateien können einen Einfluss auf das Endresultat haben
-    \item verwendetes Testframework
-    \item verwendetes Testausgabeformat:\\
+    \item \textbf{verwendetes Testframework}
+    \item \textbf{verwendetes Testausgabeformat:}\\
     Damit ist sowohl das Dateiformat, als auch die Wahl eines strukturierten Ausgabeformats gemeint. Näheres dazu in \chapref{Vergleich Testausgabefomate}.
-    \item Test Runner:\\
-    Auch als \textit{Scheduler, Harness oder Orchestrator} bezeichnet, beschreibt der Begriff "Test Runner" hier die Komponente eines Testframewoks, welche die Testcases ausführt, und die Ergbenisse an den Test Reporter weiterreicht.
-    \item Test Reporter:\\
-    Auch als \textit{test generator} bezeichnet, beschreibt "Test Reporter" jene Komponente eines Testframeworks, welche aus dem vom Test Runner bestimmten Ergbenis der Testsuite die menschen- bzw. maschienenlesbare Ausgabe generiert.
+    \item \textbf{Test Runner:}\\
+    Auch als \textit{Scheduler, Harness oder Orchestrator} bezeichnet, beschreibt der Begriff "Test Runner" hier die Komponente eines Testframewoks, welche die Testcases ausführt, und die Ergbenisse an den Test Reporter weiterreicht. Der Test Runner beeinflusst beispielsweise die Darstellung von Ereignissen, die während der Ausführung der Testsuite auftreten und in die Ausgabe übernommen werden.
+    \item \textbf{Test Reporter:}\\
+    Auch als \textit{test generator} bezeichnet, beschreibt "Test Reporter" hier jene Komponente eines Testframeworks, welche aus dem vom Test Runner bestimmten Ergbenis der Testsuite die menschen- bzw. maschienenlesbare Ausgabe generiert.
 \end{itemize}
 In den meisten Testframeworks übernimmt das Testframework selbst die Aufgaben des Test Runners und des Test Reporters, in machen Fällen werden diese Komponenten aber auch durch andere Prozessen bereitgestellt. Dies ist zum Beipiel in der Programmiersprache Java der Fall: Hier stellen die beiden build-tools maven und gradle jeweils ihre eigenen Test Runner bzw. Test Reporter zur Verfügung, was unterschiedliche Kombinationen aus Testframework, Test Runner und Test Reporter erlaubt. Dass dies auch zu Unterschieden in der Testausgabe führen kann, ist in \lstref{JAVACompare} dargestellt.
 
-\begin{lstlisting}[caption={direkter Vergleich von Junit XML, erzeugt durch Junit5 in Java. Jeder Ausgabe liegen die selben Testdateien zu Grunde.}, label={JAVACompare}]
+\begin{lstlisting}[caption={direkter Vergleich von Junit XML, erzeugt durch Junit5 mit Jupiter in Java. Jeder Ausgabe liegen die selben Testdateien zu Grunde.}, label={JAVACompare}]
     
 \end{lstlisting}

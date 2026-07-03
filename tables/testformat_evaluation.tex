@@ -1,36 +1,36 @@
 \begin{table}[htbp]
     \centering
 \makebox[\textwidth][c]{
-    \begin{tabular}{|c|c|c|c||c|c|c|c|c|c|}
+    \begin{tabular}{|c|c||c|c|c|c|c|c|}
         \hline
-        Framework & Sprache & \makecell{Test-\\Runner} & \makecell{Test-\\Reporter} & JUnit XML & \makecell{XML\\(anderes)} & OTR & TAP & JSON & HTML\\
+        Framework & Sprache & JUnit XML & \makecell{XML\\(anderes)} & OTR & TAP & JSON & HTML\\
         \hline
         \hline
-        catch2 & C++ &  &  & \tabYes & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo\\
+        catch2 & C++ & \tabYes & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo\\
         \hline
-        doctest & C++ &  &  & \tabYes & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo\\
+        doctest & C++ & \tabYes & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo\\
         \hline
-        gtest & C++ &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
+        gtest & C++ & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
         \hline
-        hspec & Haskell &  &  & \tabPartial & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
+        hspec & Haskell & \tabPartial & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
         \hline
-        tasty & Haskell &  &  & \tabPartial & \tabNo & \tabNo & \tabPartial & \tabNo & \tabNo\\
+        tasty & Haskell & \tabPartial & \tabNo & \tabNo & \tabPartial & \tabNo & \tabNo\\
         \hline
-        junit5 & Java & & & \tabYes & & & & & \\
+        junit5/jupiter & Java & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo & \tabNo\\
         \hline
-        junit5 & Java & \makecell{maven\\surefire}  & & \tabYes & & \tabPartial & & & \tabPartial\\
+        \makecell{junit5/jupiter\\(maven surefire)} & Java & \tabYes & \tabNo & \tabPartial & \tabNo & \tabNo & \tabPartial\\
         \hline
-        junit5 & Java & gradle & & \tabYes & & \tabPartial & & & \tabYes \\
+        \makecell{junit5/jupiter\\(gradle test task)} & Java & \tabYes & \tabNo & \tabPartial & \tabNo & \tabNo & \tabYes \\
         \hline
-        behat & PHP &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
+        behat & PHP & \tabYes & \tabNo & \tabNo & \tabNo & \tabYes & \tabNo\\
         \hline
-        codeception & PHP &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabYes\\
+        codeception & PHP & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabYes\\
         \hline
-        phpunit & PHP &  &  & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo & \tabYes\\
+        phpunit & PHP & \tabYes & \tabNo & \tabYes & \tabNo & \tabNo & \tabYes\\
         \hline
-        pytest & Python &  &  & \tabYes & \tabNo & \tabNo & \tabPartial & \tabPartial & \tabPartial \\
+        pytest & Python & \tabYes & \tabNo & \tabNo & \tabPartial & \tabPartial & \tabPartial \\
         \hline
-        unittest & Python &  &  & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
+        unittest & Python & \tabYes & \tabNo & \tabNo & \tabNo & \tabNo & \tabNo\\
         \hline
     \end{tabular}
 }
