@@ -33,9 +33,7 @@ Damit das Tool die Gesamtmenge aller Tests im Projekt kennt, muss im Projekt ein
 \subsubsection{test execution}\label{test execution}
 Zum Anderen muss dem Tool ein zweites Script zur Verfügung gestellt werden, welches eine Liste von zuvor in \chapref{test discovery} beschriebenen qualifiedNames entgegennimmt, nur diese Tests ausführt, und das Ergebnis (auch wieder JUnit XML) an das Tool zurückmeldet, welches dann diesen Input zusätzlich an die gitnotes anhängt.
 
-Absehen von diesen Anforderungen muss dem Tool lediglich der Pfad zu einem Ordner, der alle relevanten JUnit-XML Dateien enthält, mitgegeben werden.
-
--> Hier Diagram mit Interaktion zwischen Scripten/Tool einfügen
+\input{figures/tool_script_interaction.tex}
 
 \section{Anforderungen an ein Framework}
 - kann JUnit XML
