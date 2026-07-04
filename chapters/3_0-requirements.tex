@@ -10,7 +10,7 @@ Folgende Anforderungen werden an einen Durchlauf des zu entwickelnden Tools gest
     Das Tool soll framework-agnostisch funktionieren, auch wenn innerhalb des Projektes verschiedene Testframeworks zum Einsatz kommen.
     \item \textbf{Nach Ablauf des Tools wurde jeder Testcase für den aktuellen Stand des Codes mindestens einmal durchgeführt}\\
     Testcases können manuell mehrfach ausgeführt werden, allerdings darf das Tool selbst keinen Testcase ausführen, der bereits ausgeführt wurde, um die Laufzeit der Testphase so gering wie möglich zu halten. Trotzdem muss die gesamten Testsuite komplett abgedeckt sein, um die Aussagekraft des Testlaufes im Vergleich zu einem komplett neuen Durchlauf nicht zu beinträchtigen.
-    \item \textbf{Das Ergbnis der durch das Tool durchgeführten Testläufe ist am selben Ort verfügbar, wie die Ergebnisse der vorherigen Testläufe, auf die das Tool zugreift}
+    % \item \textbf{Das Ergbnis der durch das Tool durchgeführten Testläufe ist am selben Ort verfügbar, wie die Ergebnisse der vorherigen Testläufe, auf die das Tool zugreift}
 \end{itemize}
 
 \section{Anforderungen an ein Testausgabeformat}\label{Anforderungen Testausgabeformat}
@@ -46,6 +46,34 @@ Die genaue Struktur und das finale Aussehen der Ausgabe eines Testlaufes hängen
 \end{itemize}
 In den meisten Testframeworks übernimmt das Testframework selbst die Aufgaben des Test Runners und des Test Reporters, in machen Fällen werden diese Komponenten aber auch durch andere Prozessen bereitgestellt. Dies ist zum Beipiel in der Programmiersprache Java der Fall: Hier stellen die beiden build-tools maven und gradle jeweils ihre eigenen Test Runner bzw. Test Reporter zur Verfügung, was unterschiedliche Kombinationen aus Testframework, Test Runner und Test Reporter erlaubt. Dass dies auch zu Unterschieden in der Testausgabe führen kann, ist in \lstref{JAVACompare} dargestellt.
 
-\begin{lstlisting}[caption={direkter Vergleich von Junit XML, erzeugt durch Junit5 mit Jupiter in Java. Jeder Ausgabe liegen die selben Testdateien zu Grunde.}, label={JAVACompare}]
-    
+\begin{lstlisting}[caption={direkter Vergleich von Junit XML, erzeugt durch Junit5 mit Jupiter in Java. Jeder Ausgabe liegen die selben beiden Testdateien zu Grunde.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={JAVACompare}]
+(*@\underline{\texttt{Junit5, Jupiter:}}@*)
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="JUnit Jupiter" tests="5" skipped="1" failures="1" errors="0" time="0.036" hostname="DESKTOP-I9APAL0" timestamp="2026-07-04T00:45:01">
+<properties>
+<property name="file.encoding" value="UTF-8"/>
+<property name="file.separator" value="/"/>
+...
+<testcase name="test_neg()" classname="BasicTest" time="0.006">
+(*@\underline{\texttt{Junit5, Jupiter mit maven surefire:}}@*)
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation=
+"https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="BasicTest" time="0.013" tests="4" errors="0" skipped="1" failures="1">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    ...
+  <testcase name="test_neg" classname="BasicTest" time="0.0"/>
+  ...
+(*@\underline{\texttt{Junit5, Jupiter mit gradle test task:}}@*)
+  <?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="BasicTest" tests="4" skipped="1" failures="1" errors="0" timestamp="2026-07-03T22:47:00.701Z" hostname="DESKTOP-I9APAL0" time="0.009">
+  <properties/>
+  <testcase name="test_neg()" classname="BasicTest" time="0.001"/>
+  ...
 \end{lstlisting}
+Obwohl für jede Ausgabe Junit5 mit Jupiter als Testframework benutzt wird, jede Ausgabe Junit XML als Format aufweißt, und jede Ausgabe auf den selben beiden Testdateien basiert, gibt es durch die unterscheidlichen Test Runner und Test Reporter deutliche Unterschiede in der Testausgabe.\\
+So ignoriert gradle beispielsweise in diesem exemplarischen Fall das tag <properties>, während maven und Jupiter (ohne build-tool) eine exessive Liste von <property> in der Testausgabe mitgeben. \\
+Auch die Bennenung der Testcases unterscheidet sich:\\
+Jupiter und gradle behalten den Namen test\_neg() bei, so wie er auch in der Testdatei verwendet wird, während maven den Namen zu test\_neg kürzt.\\
+Ähnliches bei der Bennenug der Testsuite: Da gradle und maven für jede Datei eine eigene Ausgabedatei erzeugen, benutzen die beiden build-tool den Namen der jeweiligen Testsuite, hier "BasicTest", als Wert des Attributes "name" im tag <testsuite>. Jupiter gibt dagegen nur eine Ausgabedatei aus, die das Ergebnis aller Testdateien enthält, und benutzt in dieser den Standartwert "Junit Jupiter" als namen für <testsuite>.
