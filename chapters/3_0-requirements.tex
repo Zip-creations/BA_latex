@@ -9,8 +9,8 @@ Folgende Anforderungen werden an einen Durchlauf des zu entwickelnden Tools gest
     \item \textbf{Die Wahl der verwendeten Programmiersprache(n) und Testframework(s) ist unerheblich}\\
     Das Tool soll framework-agnostisch funktionieren, auch wenn innerhalb des Projektes verschiedene Testframeworks zum Einsatz kommen.
     \item \textbf{Nach Ablauf des Tools wurde jeder Testcase für den aktuellen Stand des Codes mindestens einmal durchgeführt}\\
-    Testcases können manuell mehrfach ausgeführt werden, allerdings darf das Tool selbst keinen Testcase ausführen, der bereits ausgeführt wurde, um die Laufzeit der Testphase so gering wie möglich zu halten. Trotzdem muss die gesamten Testsuite komplett abgedeckt sein, um die Aussagekraft des Testlaufes im Vergleich zu einem komplett neuen Durchlauf nicht zu beinträchtigen.
-    % \item \textbf{Das Ergbnis der durch das Tool durchgeführten Testläufe ist am selben Ort verfügbar, wie die Ergebnisse der vorherigen Testläufe, auf die das Tool zugreift}
+    Testcases können manuell mehrfach ausgeführt werden, allerdings darf das Tool selbst keinen Testcase ausführen, der bereits ausgeführt wurde, um die Laufzeit der Testphase so gering wie möglich zu halten. Trotzdem muss die gesamte Testsuite komplett abgedeckt sein, um die Aussagekraft des Testlaufes im Vergleich zu einem komplett neuen Durchlauf nicht zu beinträchtigen.
+    % \item \textbf{Das Ergebnis der durch das Tool durchgeführten Testläufe ist am selben Ort verfügbar, wie die Ergebnisse der vorherigen Testläufe, auf die das Tool zugreift}
 \end{itemize}
 
 \section{Anforderungen an ein Testausgabeformat}\label{Anforderungen Testausgabeformat}
@@ -21,7 +21,7 @@ Mit Blick auf diese sowie die under \chapref{Anforderungen Tool} beschriebenen A
 \textbf{Ein ideales Ausgabeformat für Tests:}
 \begin{itemize}
     \item \textbf{enthält die Gesamtmenge aller Tests im Projekt}\\
-    Dieser Punkt ist essenziell, zum Einen um eine Aussage darüber treffen zu können, ob eine 100\%ige Testcoverage erzielt wurde, zum Anderen muss das Tool zum Erzielen einer absoluten Coverage auch auf potentiell jeden vorhandenen Testcase zugreifen können. Dazu muss dem Tool selbstverständlich auch jeder Testcase innerhalb des Projektes bekannt sein.
+    Dieser Punkt ist essenziell, zum einen um eine Aussage darüber treffen zu können, ob eine 100\%ige Testcoverage erzielt wurde, zum anderen muss das Tool zum Erzielen einer absoluten Coverage auch auf potentiell jeden vorhandenen Testcase zugreifen können. Dazu muss dem Tool selbstverständlich auch jeder Testcase innerhalb des Projektes bekannt sein.
     \item \textbf{identifiziert jeden Testcase eindeutig}\\
     Je nach Testframework und Implementierung ist es gestattet, mehreren Testcases, die in unterschiedlichen Namespaces leben, mit dem selben Namen zu bezeichnen. Aus dem Ausgabeformat muss in jedem Falle eine eindeutige Zuordnung der Testcases und den Ergebnissen möglich sein. 
     \item \textbf{sagt für jeden Testcase einzelnd aus, ob er ausgeführt wurde oder nicht}
@@ -34,17 +34,17 @@ Mit Blick auf diese sowie die under \chapref{Anforderungen Tool} beschriebenen A
 \section{Generierung eines Testausgabeformats}
 Die genaue Struktur und das finale Aussehen der Ausgabe eines Testlaufes hängen im Wesentlichen von den folgenden Faktoren ab, deren Aufteilung der in \cite{winkler} vorgestellten Struktur eines Testframeworks folgt: % TODO test discovery hinzufügen?
 \begin{itemize}
-    \item \textbf{Struktur der zur Grunde liegenden Testdateien:}\\
+    \item \textbf{Struktur der zurgrunde liegenden Testdateien:}\\
     Die (Nicht-)Verwendung von Klassen, Testsuites oder anderen vom Testframework oder der Programmiersprache bereitgestellten Optionen zur Organisation der Testcases, sowie die Dateistruktur der Testdateien können einen Einfluss auf das Endresultat haben
     \item \textbf{verwendetes Testframework}
     \item \textbf{verwendetes Testausgabeformat:}\\
     Damit ist sowohl das Dateiformat, als auch die Wahl eines strukturierten Ausgabeformats gemeint. Näheres dazu in \chapref{Vergleich Testausgabefomate}.
     \item \textbf{Test Runner:}\\
-    Auch als \textit{Scheduler, Harness oder Orchestrator} bezeichnet, beschreibt der Begriff ''Test Runner'' hier die Komponente eines Testframewoks, welche die Testcases ausführt, und die Ergbenisse an den Test Reporter weiterreicht. Der Test Runner beeinflusst beispielsweise die Darstellung von Ereignissen, die während der Ausführung der Testsuite auftreten und in die Ausgabe übernommen werden.
+    Auch als \textit{Scheduler, Harness oder Orchestrator} bezeichnet, beschreibt der Begriff ''Test Runner'' hier die Komponente eines Testframewoks, welche die Testcases ausführt, und die Ergebnisse an den Test Reporter weiterreicht. Der Test Runner beeinflusst beispielsweise die Darstellung von Ereignissen, die während der Ausführung der Testsuite auftreten und in die Ausgabe übernommen werden.
     \item \textbf{Test Reporter:}\\
-    Auch als \textit{test generator} bezeichnet, beschreibt ''Test Reporter'' hier jene Komponente eines Testframeworks, welche aus dem vom Test Runner bestimmten Ergbenis der Testsuite die menschen- bzw. maschienenlesbare Ausgabe generiert.
+    Auch als \textit{test generator} bezeichnet, beschreibt ''Test Reporter'' hier jene Komponente eines Testframeworks, welche aus dem vom Test Runner bestimmten Ergebnis der Testsuite die menschen- bzw. maschinenlesbare Ausgabe generiert.
 \end{itemize}
-In den meisten Testframeworks übernimmt das Testframework selbst die Aufgaben des Test Runners und des Test Reporters, in machen Fällen werden diese Komponenten aber auch durch andere Prozessen bereitgestellt. Dies ist zum Beipiel in der Programmiersprache Java der Fall: Hier stellen die beiden build-tools maven und gradle jeweils ihre eigenen Test Runner bzw. Test Reporter zur Verfügung, was unterschiedliche Kombinationen aus Testframework, Test Runner und Test Reporter erlaubt. Dass dies auch zu Unterschieden in der Testausgabe führen kann, ist in \lstref{JAVACompare} dargestellt.
+In den meisten Testframeworks übernimmt das Testframework selbst die Aufgaben des Test Runners und des Test Reporters, in manchen Fällen werden diese Komponenten aber auch durch andere Prozessen bereitgestellt. Dies ist zum Beispiel in der Programmiersprache Java der Fall: Hier stellen die beiden build-tools maven und gradle jeweils ihre eigenen Test Runner bzw. Test Reporter zur Verfügung, was unterschiedliche Kombinationen aus Testframework, Test Runner und Test Reporter erlaubt. Dass dies auch zu Unterschieden in der Testausgabe führen kann, ist in \lstref{JAVACompare} dargestellt.
 
 \begin{lstlisting}[caption={direkter Vergleich von Junit XML, erzeugt durch Junit5 mit Jupiter in Java. Jeder Ausgabe liegen die selben beiden Testdateien zu Grunde.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={JAVACompare}]
 (*@\underline{\texttt{Junit5, Jupiter:}}@*)
