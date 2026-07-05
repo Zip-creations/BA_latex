@@ -9,7 +9,7 @@ Nehmen wir z.B. einen Entwickler, der bei einem großen Softwareprojekt die Funk
 Dennoch muss zur Validierung des Codes regelmäßig jede Testsuite des Softwareprojektes durchlaufen werden, damit durch das partielle Testen des Codes keine Fehler unbemerkt im Projekt verbleiben.\\
 Um dies zu gewährleisten, wird für gewöhnlich auf dem Build-Server nach einem Commit noch einmal die gesamte Testsuite des Projektes durchlaufen, auch wenn manche Testcases möglicherweise bereits ausgeführt wurden, ohne dass sich der Code in der Zwischenzeit geändert hat. Dadurch wird die Laufzeit der gesamten CI-Pipeline unnötig verlängert.
 
-\section{Zielsetzung}
+\section{Zielsetzung}\label{Zielsetzung}
 % Ziel dieser Bachelorarbeit ist die Entwicklung eines Verfahrens, welches erfolgreich die Laufzeit einer CI-Pipeline verringert, indem nur Testcases ausgeführt werden, für welche im aktuellen Commit noch kein Ergebnis vorhanden ist. Dabei muss zwingend eine komplette Abdeckung aller Testcases erhalten bleiben. Das Ergebnis jedes Testcases muss identisch mit dem Ergebnis bei einem kompletten Neudurchlauf aller Testcases sein, mit Ausname von Meta-Daten wie beispielsweise dem Zeitstempel des Testdurchlaufs. Dabei soll die Wahl des Testframeworks möglichst keine Rolle spielen.
 
 Ziel dieser Bachelorarbeit ist die Entwicklung eines Lösungsansatzes für die folgende Fragestellung:\\
@@ -28,6 +28,7 @@ Gemessen wird der Erfolg der Entwicklung des Verfahrens anhand einer Evaluation,
       %\item Overhead des Verfahrens
 \end{itemize}
 Zusätzlich werden die Testergebnisse der Durchläufe mit und ohne Verwendung des Verfahrens miteinander verglichen, um die Gleichwertigkeit der Testergebnisse zu überprüfen.
+% Implementation war erfolgreich, wenn...
 
 \section{Beschränkung des Scopes}
 Nicht Teil dieser Bachelorarbeit sind die folgenden Punkte:

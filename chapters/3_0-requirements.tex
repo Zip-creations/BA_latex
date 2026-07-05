@@ -1,48 +1,51 @@
-\chapter{Hintergrund}\label{chap:Hintergrund}
+\chapter{Hintergrund und Anforderungsanalyse}\label{chap:Hintergrund}
+In diesem Kapitel werden die Anforderungen an das Verhalten des Verfahrens, die sich aus \chapref{Zielsetzung} ergeben, näher erörtert.\\
+Ebenso werden Grundlagen sowie Anforderungen bezüglich Testausgabeformate vorgestellt. 
 % Explain the general context of your work.
 % Explain mathematical background required and introduce notation.
 % \input{figures/background/algBackpropagation}
 % \input{figures/background/figTikz}
 \section{Anforderungen an das Verfahren}\label{Anforderungen Tool}
-Folgende Anforderungen werden an einen Durchlauf einer CI-Pipeline gestellt, welche das vorgestellte Verfahren nutzt:
+Folgende Anforderungen werden an einen Durchlauf des Verfahrens gestellt:
 \begin{itemize}
-    \item \textbf{Die Wahl der verwendeten Programmiersprache(n) und Testframework(s) ist unerheblich}\\
-    Das Tool soll framework-agnostisch funktionieren, auch wenn innerhalb des Projektes verschiedene Testframeworks zum Einsatz kommen.
-    \item \textbf{Nach Ablauf des Tools wurde jeder Testcase für den aktuellen Stand des Codes mindestens einmal durchgeführt}\\
-    Testcases können manuell mehrfach ausgeführt werden, allerdings darf das Tool selbst keinen Testcase ausführen, der bereits ausgeführt wurde, um die Laufzeit der Testphase so gering wie möglich zu halten. Trotzdem muss die gesamte Testsuite komplett abgedeckt sein, um die Aussagekraft des Testlaufes im Vergleich zu einem komplett neuen Durchlauf nicht zu beinträchtigen.
+    \item \textbf{Die Wahl der verwendeten Testframework(s) ist unerheblich}\\
+    Das Verfahren soll framework-agnostisch funktionieren, auch wenn innerhalb des Projektes verschiedene Testframeworks zum Einsatz kommen.
+    \item \textbf{Nach Abschluss des Verfahrens wurde jeder Testcase für den aktuellen Stand des Codes mindestens einmal durchgeführt}\\
+    Testcases können vor Duchlauf des Verfehrens mehrfach ausgeführt worden sein, allerdings darf während des Verfahrens selbst keinen Testcase ausgeführt werden, der bereits ausgeführt wurde, um die Laufzeit der Testphase so gering wie möglich zu halten. Trotzdem muss die gesamte Testsuite komplett abgedeckt sein, um die Aussagekraft des Testlaufes im Vergleich zu einem komplett neuen Durchlauf nicht zu beinträchtigen.
     % \item \textbf{Das Ergebnis der durch das Tool durchgeführten Testläufe ist am selben Ort verfügbar, wie die Ergebnisse der vorherigen Testläufe, auf die das Tool zugreift}
 \end{itemize}
 
 \section{Anforderungen an ein Testausgabeformat}\label{Anforderungen Testausgabeformat}
-Jedes Testframework verfügt über eines oder meherere mögliche Ausgabeformate, welches die Informationen über das Ergebnis eines Testlaufes enthält.\\
-Damit ein Tool entwickelt werden kann, welches möglichst frameworkunabhägig funktioniert, muss ein Ausgabeformat gefunden werden, dass von möglichst vielen verschiedenen Testframeworks auf die selbe Art und Weise verwendet wird, damit die Dateien vom Tool über eine Schnittstelle eingelesen werden können.\\
-Mit Blick auf diese sowie die under \chapref{Anforderungen Tool} beschriebenen Anforderungen an das Tool, ergeben sich folgende Anforderungen an ein potentielle nutzbares Ausgabeformat:
-
+Um ein framework-agnostisches Verfahren zu ermöglichen, muss ein testframework-agnostisches Testausgabeformat gefunden werden, in welchem die Ergebnisse eines Testlaufs in einer standartisierten Form festgehalten werden.\\
+\textit{testAuditor} ist der Kern des Verfahrens, und benötigt zur korrekten Funktion Zugriff auf die Gesamtheit aller Testcases sowie Informationen über den Status von bereits gelaufenen Testcases.\\
+% Jedes Testframework verfügt über eines oder meherere mögliche Ausgabeformate, welches die Informationen über das Ergebnis eines Testlaufes enthält.\\
+% Damit ein Tool entwickelt werden kann, welches möglichst frameworkunabhägig funktioniert, muss ein Ausgabeformat gefunden werden, dass von möglichst vielen verschiedenen Testframeworks auf die selbe Art und Weise verwendet wird, damit die Dateien vom Tool über eine Schnittstelle eingelesen werden können.\\
+Mit Blick auf diese sowie die under \chapref{Anforderungen Tool} beschriebenen Anforderungen an das Verfahren, würde ein ideales Testausgabeformat sämtliche hier gestellten Anforderungen erfüllen:\\
 \textbf{Ein ideales Ausgabeformat für Tests:}
 \begin{itemize}
-    \item \textbf{enthält die Gesamtmenge aller Tests im Projekt}\\
-    Dieser Punkt ist essenziell, zum einen um eine Aussage darüber treffen zu können, ob eine 100\%ige Testcoverage erzielt wurde, zum anderen muss das Tool zum Erzielen einer absoluten Coverage auch auf potentiell jeden vorhandenen Testcase zugreifen können. Dazu muss dem Tool selbstverständlich auch jeder Testcase innerhalb des Projektes bekannt sein.
+    \item \textbf{ermöglicht die vollständige Ermittlung aller im Projekt vorhandenen Testcases}\\
+    Dieser Punkt ist essenziell, zum einen damit \textit{testAuditor} eine Aussage darüber treffen kann, ob eine vollständige Abddeckung aller Testcases erzielt wurde, Zum anderen muss \textit{testAuditor} zum Erzielen einer vollständigen Abdeckung auch auf potentiell jeden vorhandenen Testcase zugreifen können. Dazu muss \textit{testAuditor} selbstverständlich auch jeder Testcase innerhalb des Projektes bekannt sein.
     \item \textbf{identifiziert jeden Testcase eindeutig}\\
     Je nach Testframework und Implementierung ist es gestattet, mehreren Testcases, die in unterschiedlichen Namespaces leben, mit dem selben Namen zu bezeichnen. Aus dem Ausgabeformat muss in jedem Falle eine eindeutige Zuordnung der Testcases und den Ergebnissen möglich sein. 
     \item \textbf{sagt für jeden Testcase einzelnd aus, ob er ausgeführt wurde oder nicht}
     \item \textbf{ist ein strukturiertes Format}\\
-    Es muss eine erfassbare Struktur für das Testausgabeformats vorhanden sein, damit ein entsprechender Parser für das Tool entwickelt werden kann.
+    Es muss eine erfassbare Struktur für das Testausgabeformats vorhanden sein, damit ein entsprechender Parser für \textit{testAuditor} entwickelt werden kann.
     \item \textbf{ist in vielen Frameworks über viele Programmiersprachen hinweg vertreten}\\
     Es wäre utopisch anzunehmen, dass ein strukturiertes Format existiert, welches von jedem existierendem Testframework gleichermaßen benutzt wird. Dennoch gibt es durchaus gängige Formate, die von unterschiedlichen Testframeworks aus unterschiedlichen Sprachen unterstützt werden, wie folgend in \chapref{Vergleich Testausgabefomate} untersucht wird. 
 \end{itemize}
 
-\section{Generierung eines Testausgabeformats}
+\section{Entstehung eines Testausgabeformats}
 Die genaue Struktur und das finale Aussehen der Ausgabe eines Testlaufes hängen im Wesentlichen von den folgenden Faktoren ab, deren Aufteilung der in \cite{winkler} vorgestellten Struktur eines Testframeworks folgt: % TODO test discovery hinzufügen?
 \begin{itemize}
     \item \textbf{Struktur der zurgrunde liegenden Testdateien:}\\
     Die (Nicht-)Verwendung von Klassen, Testsuites oder anderen vom Testframework oder der Programmiersprache bereitgestellten Optionen zur Organisation der Testcases, sowie die Dateistruktur der Testdateien können einen Einfluss auf das Endresultat haben
     \item \textbf{verwendetes Testframework}
-    \item \textbf{verwendetes Testausgabeformat:}\\
-    Damit ist sowohl das Dateiformat, als auch die Wahl eines strukturierten Ausgabeformats gemeint. Näheres dazu in \chapref{Vergleich Testausgabefomate}.
     \item \textbf{Test Runner:}\\
     Auch als \textit{Scheduler, Harness} oder \textit{Orchestrator} bezeichnet, beschreibt der Begriff ''Test Runner'' hier die Komponente eines Testframewoks, welche die Testcases ausführt, und die Ergebnisse an den Test Reporter weiterreicht. Der Test Runner beeinflusst beispielsweise die Darstellung von Ereignissen, die während der Ausführung der Testsuite auftreten und in die Ausgabe übernommen werden.
     \item \textbf{Test Reporter:}\\
     Auch als \textit{test generator} bezeichnet, beschreibt ''Test Reporter'' hier jene Komponente eines Testframeworks, welche aus dem vom Test Runner bestimmten Ergebnis der Testsuite die menschen- bzw. maschinenlesbare Ausgabe generiert.
+    \item \textbf{verwendetes Testausgabeformat:}\\
+    Damit ist sowohl das Dateiformat, als auch die Wahl eines strukturierten Ausgabeformats gemeint. Näheres dazu in \chapref{Vergleich Testausgabefomate}.
 \end{itemize}
 In den meisten Testframeworks übernimmt das Testframework selbst die Aufgaben des Test Runners und des Test Reporters, in manchen Fällen werden diese Komponenten aber auch durch andere Prozessen bereitgestellt. Dies ist zum Beispiel in der Programmiersprache Java der Fall: Hier stellen die beiden build-tools maven und gradle jeweils ihre eigenen Test Runner bzw. Test Reporter zur Verfügung, was unterschiedliche Kombinationen aus Testframework, Test Runner und Test Reporter erlaubt. Dass dies auch zu Unterschieden in der Testausgabe führen kann, ist in \lstref{JAVACompare} dargestellt.
 
@@ -77,3 +80,5 @@ So ignoriert gradle beispielsweise in diesem exemplarischen Fall das tag <proper
 Auch die Bennenung der Testcases unterscheidet sich:\\
 Jupiter und gradle behalten den Namen test\_neg() bei, so wie er auch in der Testdatei verwendet wird, während maven den Namen zu test\_neg kürzt.\\
 Ähnliches bei der Bennenug der Testsuite: Da gradle und maven für jede Datei eine eigene Ausgabedatei erzeugen, benutzen die beiden build-tool den Namen der jeweiligen Testsuite, hier ''BasicTest'', als Wert des Attributes ''name'' im tag <testsuite>. Jupiter gibt dagegen nur eine Ausgabedatei aus, die das Ergebnis aller Testdateien enthält, und benutzt in dieser den Standardwert ''Junit Jupiter'' als Namen für <testsuite>.
+
+Es ist also ersichtlich, dass
