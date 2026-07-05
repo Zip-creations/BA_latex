@@ -4,33 +4,38 @@
 build quality into a product without test and analysis.''\\
 \cite[S.~XVII]{PezzeYoung}
 
-Jedes größere Softwareprojekt benötigt eine Vielzahl von Testfälle (fortfolgend als Testcases bezeichnet), um die Qualität der Software zu sichern. Dabei werden die einzelnen Testcases für gewöhnlich in verschiedene Klassen unterteilt (fortfolgend als Testsuites bezeichnet), die verschiedene Abschnitte der Software abdecken. Die meisten gängigen Testframeworks bieten die Möglichkeit, einzelne Testsuites und/oder Testcases gezielt auszuführen, ohne die restlichen Testcases dabei mit auszuführen.\\
-Nehmen wir z.B. einen Entwickler, der bei einem großen Softwareprojekt die Funktionalität einer Datenbank-Schnittstelle anpasst. Testcases, welche die Funktion dieser Schnittstelle abtesten, sind hier sehr relevant - andere Testcases, die sich mit anderen Abschnitten des Projektes befassen, wie etwa UI-Tests oder Tests für Netzwerkverbindungen, sollten bei einem sauber modularisiertem Projekt mit hoher Wahrscheinlichkeit unabhängig von Änderungen der Datenbank-Schnittstelle das selbe Ergbnis wie vor den Änderungen des Entwicklers liefern. Da manche Testcases viel Zeit für ihre Durchführung in Anspruch nehmen, ist es daher sinnvoll, bei der Entwicklung nur einzelene relevante Abschnitte zu testen.\\ 
+Jedes größere Softwareprojekt benötigt eine Vielzahl von Testfällen (fortfolgend als Testcases bezeichnet), um die Qualität der Software zu sichern. Dabei werden die einzelnen Testcases für gewöhnlich in verschiedene Klassen unterteilt (fortfolgend als Testsuites bezeichnet), die verschiedene Abschnitte der Software abdecken. Die meisten gängigen Testframeworks bieten die Möglichkeit, einzelne Testsuites und/oder Testcases gezielt auszuführen, ohne die restlichen Testcases dabei mit auszuführen.\\
+Nehmen wir z.B. einen Entwickler, der bei einem großen Softwareprojekt die Funktionalität einer Datenbank-Schnittstelle anpasst. Testcases, welche die Funktion dieser Schnittstelle abtesten, sind hier sehr relevant - andere Testcases, die sich mit anderen Abschnitten des Projektes befassen, wie etwa UI-Tests oder Tests für Netzwerkverbindungen, sollten bei einem sauber modularisiertem Projekt mit hoher Wahrscheinlichkeit unabhängig von Änderungen der Datenbank-Schnittstelle das selbe Ergbnis wie vor den Änderungen des Entwicklers liefern. Da manche Testcases viel Zeit für ihre Durchführung in Anspruch nehmen, ist es daher sinnvoll, bei der Entwicklung nur einzelne relevante Abschnitte zu testen.\\ 
 Dennoch muss zur Validierung des Codes regelmäßig jede Testsuite des Softwareprojektes durchlaufen werden, damit durch das partielle Testen des Codes keine Fehler unbemerkt im Projekt verbleiben.\\
 Um dies zu gewährleisten, wird für gewöhnlich auf dem Build-Server nach einem Commit noch einmal die gesamte Testsuite des Projektes durchlaufen, auch wenn manche Testcases möglicherweise bereits ausgeführt wurden, ohne dass sich der Code in der Zwischenzeit geändert hat. Dadurch wird die Laufzeit der gesamten CI-Pipeline unnötig verlängert.
 
 \section{Zielsetzung}
 % Ziel dieser Bachelorarbeit ist die Entwicklung eines Verfahrens, welches erfolgreich die Laufzeit einer CI-Pipeline verringert, indem nur Testcases ausgeführt werden, für welche im aktuellen Commit noch kein Ergebnis vorhanden ist. Dabei muss zwingend eine komplette Abdeckung aller Testcases erhalten bleiben. Das Ergebnis jedes Testcases muss identisch mit dem Ergebnis bei einem kompletten Neudurchlauf aller Testcases sein, mit Ausname von Meta-Daten wie beispielsweise dem Zeitstempel des Testdurchlaufs. Dabei soll die Wahl des Testframeworks möglichst keine Rolle spielen.
 
-Ziel dieser Bachelorarbeit ist das Ermitteln eines Lösungsansatzes für die folgende Fragestellung:\\
-\textit{\textbf{Wie kann die Laufzeit von Testphasen in CI-Pipelines unabhängig von verwendeten Testframework durch die Wiederverwendung bereits vorhandener Testergebnisse reduziert werden, ohne die Aussagekraft des Testergebnisses zu beeinträchtigen?}}\\
-Zur Beantwortung dieser Frage soll ein Verfahren entwickelt werden, welches anhand der Ergebnisse vergangener Testläufe entscheiden kann, für welche Testcases noch kein Ergebnis vorliegt, und ausschließlich für diese Testcases ein Ergebnis produziert. Dabei muss zwingend eine komplette Abdeckung aller Testcases erhalten bleiben. Das Ergebnis jedes Testcases muss identisch mit dem Ergebnis bei einem kompletten Neudurchlauf aller Testcases sein, mit Ausname von Meta-Daten wie beispielsweise dem Zeitstempel des Testdurchlaufs. Dabei soll die Wahl des Testframeworks möglichst keine Rolle spielen.
+Ziel dieser Bachelorarbeit ist die Entwicklung eines Lösungsansatzes für die folgende Fragestellung:\\
+\textit{\textbf{Wie kann die Laufzeit von Testphasen in CI-Pipelines unabhängig vom verwendeten Testframework durch die Wiederverwendung bereits vorhandener Testergebnisse reduziert werden, ohne die Aussagekraft der Testergebnisse zu beeinträchtigen?}}\\
+Zur Beantwortung dieser Frage soll ein Verfahren entwickelt werden, welches anhand der Ergebnisse vergangener Testläufe ermittelt, für welche Testcases noch kein Ergebnis vorliegt, und ausschließlich diese Testcases eine Ausführung veranlasst. Dabei muss zwingend eine komplette Abdeckung aller Testcases erhalten bleiben. Das Ergebnis jedes Testcases muss identisch mit dem Ergebnis bei einem kompletten Neudurchlauf aller Testcases sein, mit Ausnahme von Meta-Daten wie beispielsweise dem Zeitstempel des Testdurchlaufs. Dabei soll die Wahl des Testframeworks möglichst keine Rolle spielen.
 
-Gemessen wird der Erfolg der Etwicklung des Verfahrens anhand einer Evaluation, welche für eine bespielhafte Implementierung des Verfahrens folgende Kennzahlen sammelt:
+Zur praktischen Umsetzung des Verfahrens wird ein Prototyp mit einer beispielhafte Implementation des Verfahrens entwickelt. 
+
+Gemessen wird der Erfolg der Entwicklung des Verfahrens anhand einer Evaluation, welche für die gennante Implementation folgende Kennzahlen sammelt:
 \begin{itemize}
       \item Gesamtzahl aller Testcases
       \item Zahl der vom Verfahren als bereits durchgeführt eingestuften Testcases
-      \item Zahl der vom Terfahren als nicht bereits durchgeführt eingestufter Testcases / durch das Verfahren ausgeführte Testcases
+      \item Zahl der vom Verfahren als nicht bereits durchgeführt eingestufter Testcases / durch das Verfahren ausgeführte Testcases
       \item Laufzeit der Testpipeline unter Verwendung des Verfahrens
       \item Laufzeit der Testpipeline ohne Verwendung des Verfahrens
       %\item Overhead des Verfahrens
 \end{itemize}
-Zusätzlich werden die Testergebnisse der Durchläufe mit und ohne Verwednung des Verfahrens miteinander verglichen, um die Gleichwertigkeit der Testeregbnisse zu überprüfen.
+Zusätzlich werden die Testergebnisse der Durchläufe mit und ohne Verwendung des Verfahrens miteinander verglichen, um die Gleichwertigkeit der Testergebnisse zu überprüfen.
 
+\section{Beschränkung des Scopes}
 Nicht Teil dieser Bachelorarbeit sind die folgenden Punkte:
 \begin{itemize}
-      \item Authenzität:\\
-      Sämtliche Dateien, welche dem Verfahren von einem Projekt zu Verfügung gestellt werden, werden als legitim betrachtet. Eine Überprüfung der Authenzität oder Autorenschaft einzelner Dateien fidet nicht statt.
+      \item Authentizität:\\
+      Sämtliche Dateien, welche dem Verfahren von einem Projekt zur Verfügung gestellt werden, werden als legitim betrachtet. Eine Überprüfung der Authentizität oder Autorenschaft einzelner Dateien findet nicht statt.
+      \item Aktualität von Testergebnissen:\\
+      Das Verfahren arbeitet mit Testergebnissen, die von einem Akteur innerhalb des Projektes erzeugt werden. Eine Überprüfung, ob die Testergebnisse aus dem aktuellen Stand des Codes entspringen, oder ob der Code oder die Testcases zwischenzeitlich geändert wurden, findet nicht statt.
 \end{itemize}
 
 % Diese Bachelorarbeit untersucht, ob es möglich ist, die Laufzeit einer Testsuite (und damit der gesamten CI-Pipeline) zu reduzieren, indem eine verlässliche Aussage darüber getroffen wird, welche Teilmenge der Testsuite für den aktuellen Stand des Codes bereits durchlaufen wurde, und welche Teilmenge noch laufen muss, um eine 100\%-ige Abdeckung der Testsuite zu erreichen. Dabei soll die Wahl des Testframeworks möglichst keine Rolle spielen.\\
