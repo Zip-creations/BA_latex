@@ -1,12 +1,14 @@
 \begin{figure}[htbp]
     \centering
+    \makebox[\textwidth][c]{%
+    \hspace*{1cm}%
     \begin{tikzpicture}[
-        node distance=0.7cm and 2cm,
+        node distance=0.7cm and 1.8cm,
         box/.style={
             draw,
             rectangle,
             thick,
-            minimum width=3cm,
+            minimum width=2.5cm,
             minimum height=1.2cm,
             align=center
         },
@@ -14,7 +16,7 @@
             draw,
             rectangle,
             thick,
-            minimum width=3.2cm,
+            minimum width=3cm,
             minimum height=0.95cm,
             align=center
         },
@@ -25,26 +27,25 @@
             rounded corners=2pt
         }
     ]
-        % obere Reihe
         \node[box] (manager) {controller};
         \node[box, left=of manager] (user) {\textbf{user}};
         \node[smallbox, right=of manager] (output) {testDiscovery};
-
-        % rechte Spalte
+        
         \node[smallbox, below=0.6cm of output] (discovery) {test archive};
         \node[smallbox, below=0.5cm of discovery] (auditor) {\textit{testAuditor}};
         \node[smallbox, below=0.5cm of auditor] (execution) {testExecution};
+        \node[smallbox, right=of execution] (framework) {Testframework};
 
-        % links: User <-> Manager
         \draw[botharrow] (user.east) -- (manager.west);
+        \draw[botharrow] (execution.east) -- (framework.west);
 
-        % rechts: Manager <-> Komponenten, mit verschiedenen Startpunkten
-        \draw[botharrow] ([yshift=12pt]manager.east) -- ++(1.6,0) |- (output.west);
+        \draw[botharrow] ([yshift=12pt]manager.east) -- ++(1.4,0) |- (output.west);
         \draw[botharrow] ([yshift=4pt]manager.east) -- ++(1.2,0) |- (discovery.west);
         \draw[botharrow] ([yshift=-4pt]manager.east) -- ++(0.8,0) |- (auditor.west);
         \draw[botharrow] ([yshift=-12pt]manager.east) -- ++(0.4,0) |- (execution.west);
 
-    \end{tikzpicture}
-    \caption{Schematische Darstellung der Interaktion von User, Manager, \textit{testAuditor} und Hilfskomponenten.}
+    \end{tikzpicture}%
+    }
+    \caption{Schematische Darstellung der Interaktion von user, controller, \textit{testAuditor}, Hilfskomponenten und dem Testframework.}
     \label{fig:tool-overview}
 \end{figure}
