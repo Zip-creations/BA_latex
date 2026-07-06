@@ -27,7 +27,8 @@ Mit Blick auf diese sowie die under \chapref{Anforderungen Tool} beschriebenen A
     Dieser Punkt ist essenziell, zum einen damit \textit{testAuditor} eine Aussage darüber treffen kann, ob eine vollständige Abddeckung aller Testcases erzielt wurde, Zum anderen muss \textit{testAuditor} zum Erzielen einer vollständigen Abdeckung auch auf potentiell jeden vorhandenen Testcase zugreifen können. Dazu muss \textit{testAuditor} selbstverständlich auch jeder Testcase innerhalb des Projektes bekannt sein.
     \item \textbf{identifiziert jeden Testcase eindeutig}\\
     Je nach Testframework und Implementierung ist es gestattet, mehreren Testcases, die in unterschiedlichen Namespaces leben, mit dem selben Namen zu bezeichnen. Aus dem Ausgabeformat muss in jedem Falle eine eindeutige Zuordnung der Testcases und den Ergebnissen möglich sein. 
-    \item \textbf{sagt für jeden Testcase einzelnd aus, ob er ausgeführt wurde oder nicht}
+    \item \textbf{sagt für jeden Testcase einzelnd aus, ob er ausgeführt wurde oder nicht}\\
+    Dieser Punkt setzt die Erfüllung der ersten beiden Punkte voraus. Zusätzlich muss aus dem Eintrag eines Testcases im Ausgabeformat erkennbar sein, ob der Test ausgeführt worden ist.
     \item \textbf{ist ein strukturiertes Format}\\
     Es muss eine erfassbare Struktur für das Testausgabeformats vorhanden sein, damit ein entsprechender Parser für \textit{testAuditor} entwickelt werden kann.
     \item \textbf{ist in vielen Frameworks über viele Programmiersprachen hinweg vertreten}\\
@@ -35,7 +36,8 @@ Mit Blick auf diese sowie die under \chapref{Anforderungen Tool} beschriebenen A
 \end{itemize}
 
 \section{Entstehung eines Testausgabeformats}
-Die genaue Struktur und das finale Aussehen der Ausgabe eines Testlaufes hängen im Wesentlichen von den folgenden Faktoren ab, deren Aufteilung der in \cite{winkler} vorgestellten Struktur eines Testframeworks folgt: % TODO test discovery hinzufügen?
+Um zu Verdeutlichen, wie die finale Form Testausgabeformates entsteht, wird im diesem Kapitel auf die näher auf die Faktoren eingegangen, welche die genaue Struktur und das finale Aussehen des Testausgabeformates beeinflussen.
+Die Form eines Testausgabeformates hängt im Wesentlichen von den folgenden Faktoren ab, deren Aufteilung der in \cite{winkler} vorgestellten Struktur eines Testframeworks folgt: % TODO test discovery hinzufügen?
 \begin{itemize}
     \item \textbf{Struktur der zurgrunde liegenden Testdateien:}\\
     Die (Nicht-)Verwendung von Klassen, Testsuites oder anderen vom Testframework oder der Programmiersprache bereitgestellten Optionen zur Organisation der Testcases, sowie die Dateistruktur der Testdateien können einen Einfluss auf das Endresultat haben

@@ -1,46 +1,46 @@
-
 \chapter{Vergleich von Testausgabeformaten}\label{Vergleich Testausgabefomate}
-Um ein Tool zu entwickeln, welches framework-agnostisch eingesetzt werden kann, muss dieses Tool die Ausgabe eines Testlaufes unabhängig vom verwendeten Framework parsen können. Die Anforderungen an ein Testausgabeformat wurden bereits in \chapref{Anforderungen Testausgabeformat} untersucht.\\
+Um das Tool \textit{testAuditor} zu entwickeln, welches framework-agnostisch eingesetzt werden kann, muss \textit{testAuditor} die Ausgabe eines Testlaufes unabhängig vom verwendeten Framework parsen können. Die Anforderungen an ein Testausgabeformat wurden bereits in \chapref{Anforderungen Testausgabeformat} untersucht.\\
 Standartmäßig geben die meisten Testframeworks das Ergebnis eines Testlauf in einem unstrukturiertem Format über die Konsole aus. Allerdings bieten fast alle etablierten Testframeworks auch eine Auswahl an Dateiformaten an, über welche die Testausgabe ebenfalls präsentiert werden kann.\\
 Für diese Dateiformate wurden über die Jahre einige framework-übergreifende Ausgabeformate entwickelt, die sich in unterschiedlicher Ausprägung durchsetzen konnten.\\
-Es gilt nun, ein geeignetes Testausgabeformat zu finden, dass vom Tool als Eingabe benutzt werden kann. 
+Es gilt nun, ein geeignetes Testausgabeformat zu finden, dass von \textit{testAuditor} als Quelle für Testergebnisse genutzt werden kann. 
 
 \section{Methodik}
 Aufgrund der Vielzahl von verschiedenen Testframeworks und der Vielfältigkeit ihrer Ausgabeformate können im Rahmen dieser Bachelorarbeit nur die verbreitesten Formate untersucht werden.\\
 % Die Verbreitung der Testausgabeformate bei anderen Komponenten einer CI-Pipeline, wie bespiel
-Zur Untersuchung der praktischen Umsetzung einzelner Formate und zur exemplarischer Erfassung ihrer Verbreitung wird ein limitierter Datensatz betrachtet. Dabei gilt zu beachten, dass bei diesem Datensatz nur eine kleine Menge von Programmiersprachen beinhaltet. Außerdem beschränken sich die untersuchten Testframeworks auf die am weitesten verbreiteten in ihrer jeweiligen Sprache, um die Etablierung von Testausgabeformaten möglichst praxisnahe darstellen zu können. Außerdem bieten länger etablierte Testframeworks erfahrungsgemäß eine breitere Auswahl von Testausgabeformaten, als weniger verbreitete Testframeworks.\\
-Bei der Untersuchung von Plugins für zusätzliche Testausgabeformate wurden ausschließlich Plugins berücksichtigt, welche über den hier benutzten package manager nix vereitgestellt werden. Würden externe Plugins, zumeist über unabhängig gepflegte Repositorien, ebenfalls betrachtet werden, würde die Zahl der unterstützten Testausgabeformate bei den meisten untersuchten Testframeworks deutlich steigen. Da keine Aussage über die Vertrauenswürdigkeit und Qualität der externen Plugins getroffen werden kann, beschränkt sich diese Untersuchung auf von nix bereitgestelle Plugins.
+Zur Untersuchung der praktischen Umsetzung einzelner Formate und zur exemplarischer Erfassung ihrer Verbreitung wird ein limitierter Datensatz betrachtet. Dabei gilt zu beachten, dass bei diesem Datensatz nur eine kleine Menge ausgewählter Programmiersprachen beinhaltet. Außerdem beschränken sich die untersuchten Testframeworks auf die am weitesten verbreiteten in ihrer jeweiligen Sprache, um die Etablierung von Testausgabeformaten möglichst praxisnahe darstellen zu können. Außerdem bieten länger etablierte Testframeworks erfahrungsgemäß eine breitere Auswahl von Testausgabeformaten, als weniger verbreitete oder neue Testframeworks.\\
+Bei der Untersuchung von Plugins für zusätzliche Testausgabeformate wurden ausschließlich Plugins berücksichtigt, welche über den hier benutzten package manager nix bereitgestellt werden. Würden externe Plugins, welche zumeist aus unabhängig gepflegten Repositorien stammen, ebenfalls betrachtet werden, würde die Zahl der unterstützten Testausgabeformate bei den meisten untersuchten Testframeworks deutlich steigen. Da keine Aussage über die Vertrauenswürdigkeit und Qualität der externen Plugins getroffen werden kann, beschränkt sich diese Untersuchung auf von nix bereitgestelle Plugins.
 \subsection{Struktur der Testdateien}
-Die Struktur der Testdateien wird für jede untersuchte Programmiersprache möglichst identisch gehalten:\\
-Es existieren zwei Testdateien. Sofern das Testframework die Möglichkeit bereitstellt, besitzt jede der Dateien ihren eigenen Namespace. Die Bezeichnung der Namespace kann variieren, da manche Testframeworks eine bestimmte Namenskonvention voraussetzen.\\
+Die Struktur der Testdateien wird für jede untersuchte Programmiersprache soweit möglich identisch gehalten.\\
+Es existieren zwei Testdateien. Sofern das Testframework die Möglichkeit bereitstellt, besitzt jede der Dateien ihren eigenen Namespace. Die Bezeichnung der Namespaces kann variieren, da manche Testframeworks eine bestimmte Namenskonvention voraussetzen.\\
 In der ersten Datei liegen 4 Testcases im Namespace \textbf{BasicTest}:
 \begin{itemize}
-    \item \textbf{test\_neg:} Ein einfacher Testcase, der eine korrekte Assertion beinhaltet und nicht fehlschlägt.
-    \item \textbf{test\_pos:} Ein einfacher Testcase, der eine falsche Assertion beinhaltet und fehlschlägt.
-    \item \textbf{test\_skip:} Ein Testcase, der übersprungen wird. Manche Testframeworks unterscheiden zwischen übersprungenen, und ignorierten Testcases: Übersprungene Testcases werden nicht ausgeführt, aber als übersprungen in der Testausgabe markiert. Ignorierte Testcases werden werder ausgeführt, noch in die Testausgabe übernommen. Letzteres ist für die Evaluation der Testausgabeformate uninteressant. 
-    \item \textbf{test\_same\_name:} Ein einfacher Testcase, der eine korrekte Assertion beinhaltet und nicht fehlschlägt. In der zweiten Datei existiert ein Testcase mit dem selben Namen.
+    \item \textbf{test\_neg():} Ein einfacher Testcase, der eine korrekte Assertion beinhaltet und nicht fehlschlägt.
+    \item \textbf{test\_pos():} Ein einfacher Testcase, der eine falsche Assertion beinhaltet und fehlschlägt.
+    \item \textbf{test\_skip():} Ein Testcase, der übersprungen wird. Manche Testframeworks unterscheiden zwischen übersprungenen, und ignorierten Testcases: Übersprungene Testcases werden nicht ausgeführt, aber als übersprungen in der Testausgabe markiert. Ignorierte Testcases werden werder ausgeführt, noch in die Testausgabe übernommen. Dies macht ignorierte Testcases für die Evaluation der Testausgabeformate uninteressant. 
+    \item \textbf{test\_same\_name():} Ein einfacher Testcase, der eine korrekte Assertion beinhaltet und nicht fehlschlägt. In der zweiten Datei existiert ein Testcase mit dem selben Namen.
 \end{itemize}
 In der zweiten Datei liegt ein Testcase im Namespace \textbf{BasicTest2}:
 \begin{itemize}
-    \item \textbf{test\_same\_name:} Ein einfacher Testcase, der eine korrekte Assertion beinhaltet und nicht fehlschlägt. In der ersten Datei existiert ein Testcase mit dem selben Namen.
+    \item \textbf{test\_same\_name():} Ein einfacher Testcase, der eine korrekte Assertion beinhaltet und nicht fehlschlägt. In der ersten Datei existiert ein Testcase mit dem selben Namen.
 \end{itemize}
 \textbf{test\_same\_name} untersucht, ob es aus der Testausgabe heraus möglich ist, einen Testcase eindeutig zu indentifizieren, auch wenn in unterschiedlichen Namespaces verschiedene Testcases den selben Namen aufweisen.
 
 \tabref{Formatvergleich} zeigt die Ergebnisse des Datensatzes zur Untersuchung der Verbreitung von Testausgabeformaten.
 
 \input{tables/testformat_evaluation.tex}
+\newpage
 
 \section{Evaluation der häufigsten Formate}
 In diesem Kapitel werden die häufigsten frameworkübergreifend verwendeten Testausgabeformate kurz vorgestellt und nach den in \chapref{Anforderungen Testausgabeformat} festgesetzen Kriterien auf ihre Eignung zur Benutzung als Testausgabeformat für das zu entwickelnde Tool evaluiert.
 
 \subsection{JUnit XML}\label{JUNIT}
 \subsubsection{Übersicht}
-JUnit XML ist ein XML-basiertes Format, welches ursprünglich für das Java-Testframework JUnit entwickelt wurde. Für JUnit XML existiert kein einheitlicher Standart, d.h. es existiert auch keine beschreibendes .xsd Schema, wie sonst für XML Formate üblich. Trotzdem wurde JUnit XML von vielen Testframeworks in gleicher oder ähnlicher Form adaptiert, wie es ursprünglich für JUnit entworfen wurde. Außerdem existieren viele weitere für das Software-Testing relevante Programme, welche JUnit XML verarbeiten können, beispielswese viele CI/CD-Systeme%TODO:change "systeme"
-. Auf diese Weise hat sich JUnit XML zu einem De-Facto Standart für Ausgabeformate von Testframeworks entwickelt.
+JUnit XML ist ein XML-basiertes Format, welches ursprünglich für das Java-Testframework JUnit entwickelt wurde. Für JUnit XML existiert kein einheitlicher Standart, d.h. es existiert auch keine beschreibendes .xsd Schema, wie sonst für XML Formate üblich. Trotzdem wurde JUnit XML von vielen Testframeworks in gleicher oder ähnlicher Form adaptiert, wie es ursprünglich für JUnit entworfen wurde. Außerdem existieren viele weitere Schnittstellen zwischen JUnit XMl und andere für das Software-Testing relevante Programme, beispielswese viele CI/CD-Systeme. %TODO:change "systeme"
+Auf diese Weise hat sich JUnit XML zu einem De-Facto Standart für Ausgabeformate von Testframeworks entwickelt.
 
 
 \subsubsection{Struktur}
-Wie bereits erwähnt gibt es bei JUnit XML keine standartisiertes Schema. Allerdings haben sich einige Strukturen durchgesetzt, die von nahezu allen Testframeworks, welche JUnit XML als Testausgabeformat anbieten, verwendet werden. Ein typisches Beispiel für die häufigste Struktur ist \lstref{JUNITbehat}:
+Wie bereits erwähnt gibt es bei JUnit XML keine standartisiertes Schema. Allerdings haben sich eine Grundstruktur durchgesetzt, die von nahezu allen Testframeworks, welche JUnit XML als Testausgabeformat anbieten, verwendet wird. Ein typisches Beispiel für diese Grundstruktur ist \lstref{JUNITbehat}:
 \begin{lstlisting}[caption={JUnit XML, erzeugt durch das PHP-Testframework behat.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={JUNITbehat}]
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites name="default">
@@ -84,10 +84,39 @@ Dieser Trend aus \lstref{JUNITcompare} setzt sich auch in den übrigen im Datens
 
 \subsubsection{Eignung}
 Da JUnit XML ursprünglich spezifisch für das Testframework Junit entwickelt wurde, folgt die grundelegende Struktur den Gegebenheiten und Anforderungen dieses Frameworks. Zwar folgen viele weitere Testframeworks auch in anderen Sprachen einer ähnlichen Strukur oder können die Junit XML Struktur trotz einiger Unterschiede benutzen, in einzelnen Fällen kommt es jedoch zu Schwierigkeiten und ungewöhnlichen Anpassungen der XML-Struktur.\\
-Abgesehen davon ist Junit XML das einzige Testausgabeformat, dass von jedem im Datensatz untersuchten Testframework ausgegeben werden kann, zumeist sogar nativ, vereinzelt muss die Unterstützung erst über offiziell unterstützte Plugins hinzugefügt werden. Für viele Testframeworks ist Junit XML das primäre strukturierte Ausgabeformat für ihre Testläufe.%Bei manchen Testframeworks ist Junit XML sogar die standart-Ausgabe, beispielsweise bei
+Abgesehen davon ist Junit XML das einzige Testausgabeformat, dass von jedem im Datensatz untersuchten Testframework ausgegeben werden kann. Zumeist sogar nativ, vereinzelt muss die Unterstützung erst über offiziell unterstützte Plugins hinzugefügt werden. Für einige Testframeworks ist Junit XML das primäre strukturierte Ausgabeformat für ihre Testläufe. % Den letzten Satz beweisen, oder weglassen
+%Bei manchen Testframeworks ist Junit XML sogar die standart-Ausgabe, beispielsweise bei
+
+\subsubsection{Evaluation nach \chapref{Anforderungen Testausgabeformat}}
+\begin{table}[htbp]
+    \centering
+    \makebox[\textwidth][c]{
+    \begin{tabular}{|c|c|}
+        \hline
+        Anforderung & Bewertung\\
+        \hline
+        \hline
+        \makecell{ermöglicht Ermittlung aller\\ vorhandenen Testcases} & \tabNo \\
+        \hline
+        eindeutige Identifizierung von Testcases & \tabPartial \\
+        \hline
+        \makecell{sagt für jeden Testcase einzelnd aus,\\ ob er ausgeführt wurde oder nicht} & \tabPartial \\
+        \hline
+        strukturiertes Format & \tabPartial \\
+        \hline
+        weite Verbreitung & \tabYes \\
+        \hline
+    \end{tabular}
+    }
+    \begin{tabular}{ll}
+        \tabYes & Erfüllt \\
+        \tabPartial & In Teilen erfüllt\\
+        \tabNo & Nicht erfüllt\\
+    \end{tabular}
+\end{table}
 
 \subsubsection{Fazit zu JUnit XML}
-Aufgrund der weiten Verbreitung und der in der Praxis ähnlichen Umsetzung in vielen Frameworks ist JUnit XML trotz der fehlenden Standartisierung ein geeignetes Testausgabeformat für das Tool, welches mit einer Vielzahl von Testframeworks kompatibel ist.
+Aufgrund der weiten Verbreitung und der trotz der fehlenden Standartisierung ähnlichen Umsetzung in vielen Testframeworks, ist JUnit XML ein geeignetes Testausgabeformat für \textit{testAuditor}, da es in der Praxis trotz einiger potentieller Fehlerquellen mit einer Vielzahl von Testframeworks kompatibel ist.
 
 \subsection{Test Anything Protocol (TAP)}
 \subsubsection{Übersicht}
@@ -179,5 +208,3 @@ Selbes Problem wie JSON. Beispielsweise HTML, CSV, Markdown etc. Nicht strukturi
 Anhand der Evaluation der unterschiedlichen Testausgabeformate in \chapref{Vergleich Testausgabefomate} wird deutlich, dass es keinen eindeutigen Kandidaten für die Auswahl des Testausgabeformat, welches alle in \chapref{Anforderungen Testausgabeformat} gelisteten Anforderungen erfüllt.\\
 Ein gemeinsames Problem: zeigen keine nicht-ausgeführten tests an
 % - erfüllt nicht alle Anforderungen, aber erklären, warum gut genug
-
-
