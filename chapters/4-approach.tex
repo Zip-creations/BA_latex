@@ -16,8 +16,8 @@ Im Folgenden werden die einzelnen Komponenten des Verfahrens, so wie ihr Zusamme
 
 % Qualified names etl. hier vorher erklären?
 
-\subsection{testDiscovery}\label{Komponente_testDiscovery}
-Durch die Wahl für JUnit XML als Ausgabeformat, das vom Verfahren verstanden werden soll, müssen die in \chapref{Evaluation_Junit} aufgelisteten Anforderungen, die von JUnit XML nicht erfüllt werden, anderweitig umgesetzt werden.\\
+\subsection{testDiscovery}\label{chap:Komponente_testDiscovery}
+Durch die Wahl für JUnit XML als Ausgabeformat, das vom Verfahren verstanden werden soll, müssen die in \chapref{Evaluation_Junit} aufgelisteten Anforderungen, die von JUnit XML nicht erfüllt werden, anderweitig umgesetzt werden, damit alle in \chapref{Anforderungen Tool} gesetzten Ziele erreicht werden können.\\
 Die größte Herausforderung ist, dass aus einer JUnit-XML Ausgabe nur jene Testcases ermittelt werden können, welche während des Testlaufes ausgeführt wurden. \textit{testAuditor} benötigt jedoch zwingend Informationen über die Gesamtheit aller Testcases im Projekt.
 
 Diesem Zweck dient die \textit{testDiscovery:}\\
@@ -51,42 +51,47 @@ $T_{ges}$ wird von testDiscovery bereitgestellt, während das test archive $T_{r
 Zu guter Letzt gibt \textit{testAuditor} eine Menge von qualifiedNames an den controller zurück. Diese Menge beschreibt $T_{todo}$. 
 
 \subsubsection{Format zur Kommunikation mit \textit{testAuditor}}
+-> TODO: Format beschreiben
 
 \subsubsection{Parser für JUnit XML}
 Das Parsen des vorangehend beschriebenen Kommunikationsformat, sowie des in \chapref{chap:Komponente_testDiscovery_format} beschriebenen Format der testDiscovery ist trivial.\\
 Interessanter ist die Umsetzung eines Parsers für den nicht-standartisierten Aufbau on JUnit XML. 
 
-
+-> TODO: Parser beschreiben. 
 
 \subsection{testExecution}\label{Komponente_testExecution}
-Die Komponente testExecution ist eng mit der Komponente testDiscovery verwoben, denn die testExecution erwartet eine Menge von Namen, über welche sie gezielt die beschriebene Menge on Testcases an das Testframework übergibt, welches diese Menge dann ausführt. Die genaue Struktur dieser Namen wird durch das jeweilige Testframework vorgegeben, und wird von der Testdiscovery 
+Die Komponente testExecution ist eng mit der Komponente testDiscovery verwoben, denn die testExecution erwartet eine Menge von Namen, über welche sie gezielt die beschriebene Menge on Testcases an das Testframework übergibt, welches diese Menge dann ausführt. Die genaue Struktur dieser Namen wird durch das jeweilige Testframework vorgegeben, und wird von der testDiscovery 
 
 Ebenso wie die testDiscovery ist die testExecution hochgradig vom verwendeten Testframework abhängig, da sie direkt mit dem jeweiligen Testframework kommuniziert. 
 \subsection{controller}
 \subsection{user}
 Die Bezechnung der Komponente ''user'' ist bewusst breit interpretierbar gehalten, 
 
+\section{Anforderungen an ein Testframework}\label{chap:req_testframework}
+Das beschriebene Verfahren kann mit jedem Testframework angewandt werden, welches diese Vorrausetzungen erfüllt:
+\begin{itemize}
+    \item Eine beliebig kleine Untermenge aller Testcases kann gezielt ausgeführt werden
+    \item Ein Testcase kann eindeutig über die Kombination der Attribute \textit{name} und \textit{classname} identifiziert werden
+    \item JUnit XML wird als Ausgabeformat für Testdurchläufe verwendet
+\end{itemize}
 
 \section{Anforderungen an ein Projekt}
-\subsection{Deterministische builds - 'it works on my machine'}
-Damit in dem hier vorstegtellten Verfahren eine qualifizierte Aussage über die Testergebnisse treffen kann, muss gewährleistet sein, dass alle Tests unabhängig von der Entwicklungsumgebung immer das selbe Testergebnis liefern. Ein Testfall, der auf der Machine eines Entwicklers ein bestimmtes Ergebnis liefert, muss auch zwingend auf einem Build-Server das selbe Ergebnis liefern. Andernfalls könnte eine Diskrepanz zwischen den Testergebnissen zu einer verfälschten Aussage des Verfahrens über den aktuellen Stand der Test führen. 
+Nachdem die Anforderungen und Funktionsweisen der beteiligten Komponenten und Dateien auführlich diskutiert wurden, können daraus nun die Anforderungen an ein Projekt abgeleitet werden, um das Verfahren implementieren zu können:
+\begin{itemize}
+    \item Determinismus ist gegeben - Jeder Testdurchlauf erzeugt bei gleichem Input und gleicher Konfiguration der Testcases das selbe Ergebnis, unabhängig von der Entwicklungsumgebung
+    \item Es wird eine Komponente zur Verfügung gestellt, welche die in \chapref{chap:Komponente_testDiscovery} beschriebene Funktionalität bereitstellt
+    \item Das verwendete Testframework erfüllt alle in \chapref{chap:req_testframework} dargestellten Anforderungen
+\end{itemize}
 
-Da Junit XML nicht alle in \chapref{Anforderungen Testausgabeformat} aufgeführten Anforderungen erfüllt, ergeben sich einige weitere Anforderungen an ein Projekt, in welchem das Verfahren angewerdet werden soll, damit alle in \chapref{Anforderungen Tool} gesetzten Ziele erreicht werden können.
 
-\subsection{Benötigte Schnittstellen}
+% \subsection{Benötigte Schnittstellen}
 
-\subsubsection{test discovery}\label{test discovery}
--> qualifiedname: Eine Zeichenfolge, die einen Test innerhalb eines Testframeworks eindeutig identifiziert. Bespiele in vers. TestFrameworks bringen!
+% \subsubsection{test discovery}\label{test discovery}
+% -> qualifiedname: Eine Zeichenfolge, die einen Test innerhalb eines Testframeworks eindeutig identifiziert. Bespiele in vers. TestFrameworks bringen!
 
-\section{Anforderungen an ein Framework}
-- kann JUnit XML
-
-- enthält essenzielle Informationen für einen Test (genau ausführen!)
-
-- kann tests einzeln aufrufen 
 
 \section{Exemplarischer Ablauf}
 % git add -A
 % git commit -m "foo bar"
-git notes add -F "\$(realpath code/out/report.xml)" HEAD
+% git notes add -F "\$(realpath code/out/report.xml)" HEAD
 % git push

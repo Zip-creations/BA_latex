@@ -35,6 +35,9 @@ Mit Blick auf diese sowie die under \chapref{Anforderungen Tool} beschriebenen A
     Es wäre utopisch anzunehmen, dass ein strukturiertes Format existiert, welches von jedem existierendem Testframework gleichermaßen benutzt wird. Dennoch gibt es durchaus gängige Formate, die von unterschiedlichen Testframeworks aus unterschiedlichen Sprachen unterstützt werden, wie folgend in \chapref{Vergleich Testausgabefomate} untersucht wird. 
 \end{itemize}
 
+\section{Deterministische builds - 'it works on my machine'}
+Damit in dem hier vorgestellten Verfahren eine qualifizierte Aussage über die Testergebnisse treffen kann, muss gewährleistet sein, dass alle Tests unabhängig von der Entwicklungsumgebung immer das selbe Testergebnis liefern. Ein Testfall, der auf der Machine eines Entwicklers ein bestimmtes Ergebnis liefert, muss auch zwingend auf einem Build-Server das selbe Ergebnis liefern. Andernfalls könnte eine Diskrepanz zwischen den Testergebnissen zu einer verfälschten Aussage des Verfahrens über den aktuellen Stand der Test führen. 
+
 \section{Entstehung eines Testausgabeformats}
 Um zu Verdeutlichen, wie die finale Form Testausgabeformates entsteht, wird im diesem Kapitel auf die näher auf die Faktoren eingegangen, welche die genaue Struktur und das finale Aussehen des Testausgabeformates beeinflussen.
 Die Form eines Testausgabeformates hängt im Wesentlichen von den folgenden Faktoren ab, deren Aufteilung der in \cite{winkler} vorgestellten Struktur eines Testframeworks folgt: % TODO test discovery hinzufügen?
