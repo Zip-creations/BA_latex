@@ -1,4 +1,35 @@
 \chapter{Umsetzung}\label{chap:approach}
+\section{Komponenten des Verfahrens}
+In diesem Kapitel werden die einzelnen Komponenten des Verfahrens, so wie ihr Zusammenspiel untereinander im Detail erläutert.
+
+\subsection{testDiscovery}
+Durch die Wahl für JUnit XML als Ausgabeformat, das vom Verfahren verstanden werden soll, müssen die in \chapref{Evaluation_Junit} aufgelisteten Anforderungen, die von JUnit XML nicht erfüllt werden, anderweitig umgesetzt werden.\\
+Die größte Herausforderung ist, dass aus einer JUnit-XML Ausgabe nur jene Testcases ermittelt werden können, welche während des Testlaufes ausgeführt wurden. \textit{testAuditor} benötigt jedoch zwingend Informationen über die Gesamtheit aller Testcases im Projekt.
+
+Diesem Zweck dient die \textit{testDiscovery:}\\
+Bei dieser Komponente ist die Implementierung als shellscript am geeignetsten, da sie bei einem Aufruf die Gesamtheit aller Testcases des Projektes in einem definierten Format zurückgibt. Manche Testframeworks bieten Zugriff auf ihre interne Discovery für Testcases, was in diesem Fällen die Implementation recht einfach gestaltet. 
+
+\subsubsection{Format der Ausgabe der testDiscovery}
+\textit{testAuditor} erwartet die Ausgabe der testDiscovery in diesem Format:
+\begin{lstlisting}[caption={Format der testDiscovery}, label={TAPmin}]
+<?xml version="1.0" encoding="utf-8"?>
+<testsuite>
+    <testcase classname="" name="" qualifiedName=""/>
+    <testcase classname="" name="" qualifiedName=""/>
+</testsuite>
+\end{lstlisting}
+Der Inhalt der beiden tags ''classname'' und ''name'' für einen Testcase muss dabei zwingend identisch mit dem Inhalt der beiden tags in der JUnit-XML Ausgabe des Testcase sein, da in einem späterem Schritt über die Kombination dieser beiden tags die Testcases eindeutig identifiziert werden.\\
+''qualifiedName'' enthält eine Zeichenfolge, über die das Testframework einen Testcase identifizieren, und ausführen kann. Je nach Testframework werden dazu der Name des Testcase, Dateipfade, Namen von klassen oder Testsuites und/oder weitere Informationen benötigt. ''qualifiedName'' dient in dem Schritt der testExecution (siehe \chapref{Komponente_testExecution}) bei der Ausführung einzelner Testcases.
+
+Die testDiscovery ist hochgradig vom verwendeten Testframework abhängig, da die spezielle Implementierung der Testausführung des jeweiligen Testframeworks beachtet werden muss. Daher muss diese Komponente für jedes Softwareprojekt eigens angepasst werden.
+
+
+\subsection{\textit{testAuditor}}\label{Komponente_testAuditor}
+
+\subsection{testExecution}\label{Komponente_testExecution}
+\subsection{manager}
+\subsection{user}
+
 % The approach starts with the problem definition and continues with what you have done. Try to give an intuition first and describe everything with words and then be more formal like `Let $g$ be ...'.
 
 % Strive to make the following items crystal clear to your readers.
@@ -14,14 +45,11 @@
 
 \section{Anforderungen an ein Projekt}
 \subsection{Deterministische builds - 'it works on my machine'}
-Damit das Tool eine qualifizierte Aussage über die Testergebnisse treffen kann, muss gewährleistet sein, dass alle Tests unabhängig von der Entwicklungsumgebung immer das selbe Testergebnis liefern. Ein Testfall, der auf der Machine eines Entwicklers ein bestimmtes Ergebnis liefert, muss auch zwingend auf einem Build-Server das selbe Ergebnis liefern. Andernfalls könnte eine Diskrepanz zwischen den Testergebnissen zu einer verfälschten Aussage des Tools über den aktuellen Stand der Test führen. 
+Damit in dem hier vorstegtellten Verfahren eine qualifizierte Aussage über die Testergebnisse treffen kann, muss gewährleistet sein, dass alle Tests unabhängig von der Entwicklungsumgebung immer das selbe Testergebnis liefern. Ein Testfall, der auf der Machine eines Entwicklers ein bestimmtes Ergebnis liefert, muss auch zwingend auf einem Build-Server das selbe Ergebnis liefern. Andernfalls könnte eine Diskrepanz zwischen den Testergebnissen zu einer verfälschten Aussage des Verfahrens über den aktuellen Stand der Test führen. 
 
-Da Junit XML nicht alle in \chapref{Anforderungen Testausgabeformat} aufgeführten Anforderungen erfüllt, ergeben sich einige weitere Anforderungen an ein Projekt, das das Tool nutzen möchte, um trotzdem das geforderte Ziel zu erreichen.
-% Start with a very short motivation why this is important. Then, as stated above, describe the problem with words before getting formal.
+Da Junit XML nicht alle in \chapref{Anforderungen Testausgabeformat} aufgeführten Anforderungen erfüllt, ergeben sich einige weitere Anforderungen an ein Projekt, in welchem das Verfahren angewerdet werden soll, damit alle in \chapref{Anforderungen Tool} gesetzten Ziele erreicht werden können.
 
 \subsection{Benötigte Schnittstellen}
-
-
 
 \subsubsection{test discovery}\label{test discovery}
 Damit das Tool die Gesamtmenge aller Tests im Projekt kennt, muss im Projekt ein Script vorhanden sein, welches die die Gesamtmenge aller Tests in einem spezifiziertem Format augibt. 
