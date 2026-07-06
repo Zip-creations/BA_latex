@@ -3,10 +3,10 @@
 Das vorgestellte Verfahren besteht aus den folgenden Komponenten:
 \begin{itemize}
     \item testDiscovery: liefert die Gesamtheit aller Testcases
-    \item output: Enthält die Ausgabe aller bisher durchführten Testdurchläufe
+    \item test archive: Enthält die Ausgabe aller Testdurchläufe, die für den aktuellen Stand beachtet werden sollen
     \item \textit{testAuditor}: Evaluiert, welche Testcases noch ausgeführt werden müssen
-    \item testExecution: Führt eine gegebene Menge von Testcases aus, befüllt output
-    \item manager: Steuert die Interaktion mit dem user, sowie die Kommunikation von  Komponenten untereinander
+    \item testExecution: Führt eine gegebene Menge von Testcases aus
+    \item controller: Steuert die Interaktion mit dem user, sowie die Kommunikation von  Komponenten untereinander
     \item user: Interagiert nach eigenem Ermessen mit dem manager
 \end{itemize}
 Eine Übersicht zur Interaktion der einzelnen Komponenten liefert \figref{fig:tool-overview}:
@@ -14,14 +14,16 @@ Eine Übersicht zur Interaktion der einzelnen Komponenten liefert \figref{fig:to
 
 Im Folgenden werden die einzelnen Komponenten des Verfahrens, so wie ihr Zusammenspiel untereinander im Detail erläutert.
 
-\subsection{testDiscovery}
+% Qualified names etl. hier vorher erklären?
+
+\subsection{testDiscovery}\label{Komponente_testDiscovery}
 Durch die Wahl für JUnit XML als Ausgabeformat, das vom Verfahren verstanden werden soll, müssen die in \chapref{Evaluation_Junit} aufgelisteten Anforderungen, die von JUnit XML nicht erfüllt werden, anderweitig umgesetzt werden.\\
 Die größte Herausforderung ist, dass aus einer JUnit-XML Ausgabe nur jene Testcases ermittelt werden können, welche während des Testlaufes ausgeführt wurden. \textit{testAuditor} benötigt jedoch zwingend Informationen über die Gesamtheit aller Testcases im Projekt.
 
 Diesem Zweck dient die \textit{testDiscovery:}\\
 Bei dieser Komponente ist die Implementierung als shellscript am geeignetsten, da sie bei einem Aufruf die Gesamtheit aller Testcases des Projektes in einem definierten Format zurückgibt. Manche Testframeworks bieten Zugriff auf ihre interne Discovery für Testcases, was in diesem Fällen die Implementation recht einfach gestaltet. 
 
-\subsubsection{Format der Ausgabe der testDiscovery}
+\subsubsection{Format der Ausgabe der testDiscovery}\label{chap:Komponente_testDiscovery_format}
 \textit{testAuditor} erwartet die Ausgabe der testDiscovery in diesem Format:
 \begin{lstlisting}[caption={Format der testDiscovery}, label={TAPmin}]
 <?xml version="1.0" encoding="utf-8"?>
@@ -35,27 +37,35 @@ Der Inhalt der beiden tags ''classname'' und ''name'' für einen Testcase muss d
 
 Die testDiscovery ist hochgradig vom verwendeten Testframework abhängig, da die spezielle Implementierung der Testausführung des jeweiligen Testframeworks beachtet werden muss. Daher muss diese Komponente für jedes Softwareprojekt eigens angepasst werden.
 
+\subsection{test archive}
+\subsubsection{git notes}
+müssen nicht zwingend verwendet werden, auch andere Kommunikationswege könnten etabliert werden. Hier nur Mittel der Wahl, weil ändern Code nicht.
+
+Nicht zu empfehlen: Dateien im repo lagern.
+
 
 \subsection{\textit{testAuditor}}\label{Komponente_testAuditor}
+Die Kernfunktionalität von \textit{testAuditor} lässt sich am Besten mit einer einfachen Mengengleichung beschreiben:\\
+Sei $T_{ges}$ die Menge aller Testcases eines Projektes, $T_{run}$ die Menge aller Testcases, für die ein Ergebnis vorliegt. \textit{testAuditor} berechnet $T_{ges}-T_{run}=T_{todo}$, wobei $T_{todo}$ die Menge aller Testcases ist, für die noch kein Ergebnis vorliegt. Da nach \chapref{chap:limit_scope} von der Korrektheit und Vollständigkeit von $T_{run}$ ausgegangen werden darf, ist trivial, dass $T_{run}\subset T_{ges}$, sowie $T_{todo}\subset T_{ges}$.\\
+$T_{ges}$ wird von testDiscovery bereitgestellt, während das test archive $T_{run}$ enthält. Beide Datenmengen werden \textit{testAuditor} vom controller über ein definiertes Format übermittelt.\\
+Zu guter Letzt gibt \textit{testAuditor} eine Menge von qualifiedNames an den controller zurück. Diese Menge beschreibt $T_{todo}$. 
+
+\subsubsection{Format zur Kommunikation mit \textit{testAuditor}}
 
 \subsubsection{Parser für JUnit XML}
+Das Parsen des vorangehend beschriebenen Kommunikationsformat, sowie des in \chapref{chap:Komponente_testDiscovery_format} beschriebenen Format der testDiscovery ist trivial.\\
+Interessanter ist die Umsetzung eines Parsers für den nicht-standartisierten Aufbau on JUnit XML. 
+
+
 
 \subsection{testExecution}\label{Komponente_testExecution}
-\subsection{manager}
+Die Komponente testExecution ist eng mit der Komponente testDiscovery verwoben, denn die testExecution erwartet eine Menge von Namen, über welche sie gezielt die beschriebene Menge on Testcases an das Testframework übergibt, welches diese Menge dann ausführt. Die genaue Struktur dieser Namen wird durch das jeweilige Testframework vorgegeben, und wird von der Testdiscovery 
+
+Ebenso wie die testDiscovery ist die testExecution hochgradig vom verwendeten Testframework abhängig, da sie direkt mit dem jeweiligen Testframework kommuniziert. 
+\subsection{controller}
 \subsection{user}
+Die Bezechnung der Komponente ''user'' ist bewusst breit interpretierbar gehalten, 
 
-% The approach starts with the problem definition and continues with what you have done. Try to give an intuition first and describe everything with words and then be more formal like `Let $g$ be ...'.
-
-% Strive to make the following items crystal clear to your readers.
-% \begin{itemize}
-% \item What is the problem you are treating?
-% \item What are the research questions you want to answer in this work?
-% \item What are your own contributions and what is work of others? If
-%   you are working in a team, it is important to demarcate against the
-%   contributions of others in your team.
-% \end{itemize}
-
-% Describe each major technical problem and how it was solved.
 
 \section{Anforderungen an ein Projekt}
 \subsection{Deterministische builds - 'it works on my machine'}
@@ -66,15 +76,7 @@ Da Junit XML nicht alle in \chapref{Anforderungen Testausgabeformat} aufgeführt
 \subsection{Benötigte Schnittstellen}
 
 \subsubsection{test discovery}\label{test discovery}
-Damit das Tool die Gesamtmenge aller Tests im Projekt kennt, muss im Projekt ein Script vorhanden sein, welches die die Gesamtmenge aller Tests in einem spezifiziertem Format augibt. 
-
 -> qualifiedname: Eine Zeichenfolge, die einen Test innerhalb eines Testframeworks eindeutig identifiziert. Bespiele in vers. TestFrameworks bringen!
-
--> Hier Format beschreiben/definieren
-
-\subsubsection{test execution}\label{test execution}
-Zum Anderen muss dem Tool ein zweites Script zur Verfügung gestellt werden, welches eine Liste von zuvor in \chapref{test discovery} beschriebenen qualifiedNames entgegennimmt, nur diese Tests ausführt, und das Ergebnis (auch wieder JUnit XML) an das Tool zurückmeldet, welches dann diesen Input zusätzlich an die gitnotes anhängt.
-
 
 \section{Anforderungen an ein Framework}
 - kann JUnit XML
@@ -83,26 +85,8 @@ Zum Anderen muss dem Tool ein zweites Script zur Verfügung gestellt werden, wel
 
 - kann tests einzeln aufrufen 
 
-\section{Einschränkungen}
-- Annahme: keine deliberate bad actors; keine Authentifizierung
-
-- Annhame: An gitnotes angehängte Dateien spiegeln aktuellen Stand vom Code wieder, keine Veränderung der Codebase im Nachhinein
-
-\section{Codestruktur}
-
-\subsection{Parser für JUnit XML}
-- Parser des tools
-- leerzeilen als standart-separator von gitnotes
-
-
 \section{Exemplarischer Ablauf}
 % git add -A
 % git commit -m "foo bar"
 git notes add -F "\$(realpath code/out/report.xml)" HEAD
 % git push
-
-
-\section{git notes}
-müssen nicht zwingend verwendet werden, auch andere Kommunikationswege mit Tool könnten etabliert werden. Hier nur Mittel der Wahl, weil ändern Code nicht.
-
-Nicht zu empfehlen: Dateien im repo lagern.

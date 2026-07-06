@@ -30,13 +30,15 @@ Gemessen wird der Erfolg der Entwicklung des Verfahrens anhand einer Evaluation,
 Zusätzlich werden die Testergebnisse der Durchläufe mit und ohne Verwendung des Verfahrens miteinander verglichen, um die Gleichwertigkeit der Testergebnisse zu überprüfen.
 % Implementation war erfolgreich, wenn...
 
-\section{Beschränkung des Scopes}
+\section{Begrenzung des Scopes}\label{chap:limit_scope}
 Nicht Teil dieser Bachelorarbeit sind die folgenden Punkte:
 \begin{itemize}
       \item Authentizität:\\
       Sämtliche Dateien, welche dem Verfahren von einem Projekt zur Verfügung gestellt werden, werden als legitim betrachtet. Eine Überprüfung der Authentizität oder Autorenschaft einzelner Dateien findet nicht statt.
       \item Aktualität von Testergebnissen:\\
       Das Verfahren arbeitet mit Testergebnissen, die von einem Akteur innerhalb des Projektes erzeugt werden. Eine Überprüfung, ob die Testergebnisse aus dem aktuellen Stand des Codes entspringen, oder ob der Code oder die Testcases zwischenzeitlich geändert wurden, findet nicht statt.
+      \item Überprüfung der Korrektheit von Daten:\\
+      Es wird davon ausgegangen, dass dem Verfahren bereitgestellte Daten und Dateien, wie sie beispielsweise in \chapref{Komponente_testDiscovery} korrekt und vollständig sind.
 \end{itemize}
 
 % Diese Bachelorarbeit untersucht, ob es möglich ist, die Laufzeit einer Testsuite (und damit der gesamten CI-Pipeline) zu reduzieren, indem eine verlässliche Aussage darüber getroffen wird, welche Teilmenge der Testsuite für den aktuellen Stand des Codes bereits durchlaufen wurde, und welche Teilmenge noch laufen muss, um eine 100\%-ige Abdeckung der Testsuite zu erreichen. Dabei soll die Wahl des Testframeworks möglichst keine Rolle spielen.\\

@@ -26,12 +26,12 @@
         }
     ]
         % obere Reihe
-        \node[box] (manager) {Manager};
+        \node[box] (manager) {Controller};
         \node[box, left=of manager] (user) {\textbf{User}};
-        \node[smallbox, right=of manager] (output) {output};
+        \node[smallbox, right=of manager] (output) {testDiscovery};
 
         % rechte Spalte
-        \node[smallbox, below=0.6cm of output] (discovery) {testDiscovery};
+        \node[smallbox, below=0.6cm of output] (discovery) {test archive};
         \node[smallbox, below=0.5cm of discovery] (auditor) {\textit{testAuditor}};
         \node[smallbox, below=0.5cm of auditor] (execution) {testExecution};
 
