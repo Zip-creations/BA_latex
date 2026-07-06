@@ -1,6 +1,18 @@
 \chapter{Umsetzung}\label{chap:approach}
 \section{Komponenten des Verfahrens}
-In diesem Kapitel werden die einzelnen Komponenten des Verfahrens, so wie ihr Zusammenspiel untereinander im Detail erläutert.
+Das vorgestellte Verfahren besteht aus den folgenden Komponenten:
+\begin{itemize}
+    \item testDiscovery: liefert die Gesamtheit aller Testcases
+    \item output: Enthält die Ausgabe aller bisher durchführten Testdurchläufe
+    \item \textit{testAuditor}: Evaluiert, welche Testcases noch ausgeführt werden müssen
+    \item testExecution: Führt eine gegebene Menge von Testcases aus, befüllt output
+    \item manager: Steuert die Interaktion mit dem user, sowie die Kommunikation von  Komponenten untereinander
+    \item user: Interagiert nach eigenem Ermessen mit dem manager
+\end{itemize}
+Eine Übersicht zur Interaktion der einzelnen Komponenten liefert \figref{fig:tool-overview}:
+\input{figures/tool_script_interaction}
+
+Im Folgenden werden die einzelnen Komponenten des Verfahrens, so wie ihr Zusammenspiel untereinander im Detail erläutert.
 
 \subsection{testDiscovery}
 Durch die Wahl für JUnit XML als Ausgabeformat, das vom Verfahren verstanden werden soll, müssen die in \chapref{Evaluation_Junit} aufgelisteten Anforderungen, die von JUnit XML nicht erfüllt werden, anderweitig umgesetzt werden.\\
@@ -18,13 +30,15 @@ Bei dieser Komponente ist die Implementierung als shellscript am geeignetsten, d
     <testcase classname="" name="" qualifiedName=""/>
 </testsuite>
 \end{lstlisting}
-Der Inhalt der beiden tags ''classname'' und ''name'' für einen Testcase muss dabei zwingend identisch mit dem Inhalt der beiden tags in der JUnit-XML Ausgabe des Testcase sein, da in einem späterem Schritt über die Kombination dieser beiden tags die Testcases eindeutig identifiziert werden.\\
+Der Inhalt der beiden tags ''classname'' und ''name'' für einen Testcase muss dabei zwingend identisch mit dem Inhalt der beiden tags sein, wie er in der JUnit-XML Ausgabe des Testcase steht, da in einem späterem Schritt über die Kombination dieser beiden tags die Testcases eindeutig im JUnit XML identifiziert werden.\\
 ''qualifiedName'' enthält eine Zeichenfolge, über die das Testframework einen Testcase identifizieren, und ausführen kann. Je nach Testframework werden dazu der Name des Testcase, Dateipfade, Namen von klassen oder Testsuites und/oder weitere Informationen benötigt. ''qualifiedName'' dient in dem Schritt der testExecution (siehe \chapref{Komponente_testExecution}) bei der Ausführung einzelner Testcases.
 
 Die testDiscovery ist hochgradig vom verwendeten Testframework abhängig, da die spezielle Implementierung der Testausführung des jeweiligen Testframeworks beachtet werden muss. Daher muss diese Komponente für jedes Softwareprojekt eigens angepasst werden.
 
 
 \subsection{\textit{testAuditor}}\label{Komponente_testAuditor}
+
+\subsubsection{Parser für JUnit XML}
 
 \subsection{testExecution}\label{Komponente_testExecution}
 \subsection{manager}
@@ -61,7 +75,6 @@ Damit das Tool die Gesamtmenge aller Tests im Projekt kennt, muss im Projekt ein
 \subsubsection{test execution}\label{test execution}
 Zum Anderen muss dem Tool ein zweites Script zur Verfügung gestellt werden, welches eine Liste von zuvor in \chapref{test discovery} beschriebenen qualifiedNames entgegennimmt, nur diese Tests ausführt, und das Ergebnis (auch wieder JUnit XML) an das Tool zurückmeldet, welches dann diesen Input zusätzlich an die gitnotes anhängt.
 
-\input{figures/tool_script_interaction.tex}
 
 \section{Anforderungen an ein Framework}
 - kann JUnit XML
