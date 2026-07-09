@@ -43,7 +43,7 @@ Es gilt zu beachten, dass die Benchmark die Dauer des gesamten Prozesses der Tes
 Um einen direkten Verleich der Ergebnisse zu ermöglichen, werden für jeden Durchlauf einer Konfiguration zwei idividuelle Durchläufe gestartet:\\
 Der erste Lauf besteht auf der konventionellen Ausführung von Tests, bei der alle vorhandenen Testcases neu ausgeführt werden. Der zweite Lauf benutzt das in dieser Bachelorarbeit entwickelte Verfahren, um auf Grundlage der im archive liegenden Testausgaben die Mehrfache Ausführung von Testcases zu vermeiden.
 
-Um den Einfluss von äußeren Einflüssen aus dem System auf den Ablauf der Benchmark bei der Datenerhebung zu verringern, wird jede Konfigration der Bechmark zehnmal ausgeführt. Das durchschnittliche Ergebnis ist dann die Grundage für \chapref{chap:result_benchmark}. 
+Um die Auswirkungen von äußeren Einflüssen aus dem System auf den Ablauf der Benchmark bei der Datenerhebung auf die Ergebnisse zu verringern, die gesamte Bechmark zehnmal vollständig ausgeführt. Das durchschnittliche Ergebnis ist dann die Grundage für \chapref{chap:result_benchmark}. 
 
 \newpage
 \subsection{Ergebnisse der Benchmark}\label{chap:result_benchmark}
@@ -57,33 +57,33 @@ $I$ bezeichnet die Anzahl an Iterationen pro Testcase.
         }%
     }
     \hfill
-    \subfloat[viele kurze Testcases]{%
+    \subfloat[viele kurze Testcases: $T$=100, $I$=10]{%
         \resizebox{0.45\textwidth}{!}{%
-            \input{figures/fast_few.tex}%
+            \input{figures/fast_many.tex}%
         }%
     }
     \vspace{0.5em}
-    \subfloat[wenige mittellange Testcases]{%
+    \subfloat[wenige mittellange Testcases: $T$=10, $I$=1000000]{%
         \resizebox{0.45\textwidth}{!}{%
-            \input{figures/fast_few.tex}%
+            \input{figures/medium_few.tex}%
         }%
     }
     \hfill
-    \subfloat[viele mittellange Testcases]{%
+    \subfloat[viele mittellange Testcases: $T$=1000, $I$=10000]{%
         \resizebox{0.45\textwidth}{!}{%
-            \input{figures/fast_few.tex}%
+            \input{figures/medium_many.tex}%
         }%
     }
     \vspace{0.5em}
-    \subfloat[wenige langsame Testcases]{%
+    \subfloat[wenige langsame Testcases: $T$=10, $I$=10000000]{%
         \resizebox{0.45\textwidth}{!}{%
-            \input{figures/fast_few.tex}%
+            \input{figures/slow_few.tex}%
         }%
     }
     \hfill
-    \subfloat[viele langsame Testcases]{%
+    \subfloat[viele langsame Testcases: $T$=10000, $I$=10000]{%
         \resizebox{0.45\textwidth}{!}{%
-            \input{figures/fast_few.tex}%
+            \input{figures/slow_many.tex}%
         }%
     }
     \caption{Ergebnisse der Benchmark. Sämtliche dieser Übersicht zugrunde liegenden Daten können in dem Repository der Benchmark (siehe \chapref{Links}) eingesehen und überprüft werden.}
