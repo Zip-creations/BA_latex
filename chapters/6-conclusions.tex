@@ -4,10 +4,55 @@
 % Directions for future work (if applicable).
 
 \section{Evaluation}
+% Experiments often include benchmarks.
+% You need to describe you benchmarking setup: parameters of the machine used (architecture, memory, etc), parameters of the software used (OS version, libraries used and their version), the benchmark programs.
+% The programs need not be part of the thesis, but they should be described and available separately.
+
+% If you measure run times and evaluate your findings statistically, then there is great potential for errors.
+% Consult SIGPLAN's checklist for empirical evaluations \url{http://www.sigplan.org/Resources/EmpiricalEvaluation/} for advice. 
+
 \subsection{Methodik der Benchmark}
 \subsection{Ergebnisse der Benchmark}
--> TODO: Benchmark-Ergbnisse präsentieren
-
+\begin{figure}[htbp]
+    \centering
+    \subfloat[wenige kurze Testcases]{%
+        \resizebox{0.45\textwidth}{!}{%
+            \input{figures/fast_few.tex}%
+        }%
+    }
+    \hfill
+    \subfloat[viele kurze Testcases]{%
+        \resizebox{0.45\textwidth}{!}{%
+            \input{figures/fast_few.tex}%
+        }%
+    }
+    \vspace{0.5em}
+    \subfloat[wenige mittellange Testcases]{%
+        \resizebox{0.45\textwidth}{!}{%
+            \input{figures/fast_few.tex}%
+        }%
+    }
+    \hfill
+    \subfloat[viele mittellange Testcases]{%
+        \resizebox{0.45\textwidth}{!}{%
+            \input{figures/fast_few.tex}%
+        }%
+    }
+    \vspace{0.5em}
+    \subfloat[wenige langsame Testcases]{%
+        \resizebox{0.45\textwidth}{!}{%
+            \input{figures/fast_few.tex}%
+        }%
+    }
+    \hfill
+    \subfloat[viele langsame Testcases]{%
+        \resizebox{0.45\textwidth}{!}{%
+            \input{figures/fast_few.tex}%
+        }%
+    }
+    \caption{Ergebnisse der Benchmark}
+    \label{fig:sechs-grafiken}
+\end{figure}
 
 \section{Zusammenfassung der Ergebnisse}
 
