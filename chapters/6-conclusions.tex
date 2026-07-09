@@ -1,9 +1,9 @@
-\chapter{Fazit}\label{chap:conclusion}
-
+\chapter{Evaluation}\label{chap:conclusion}
+In diesem Kapitel werden die Ergebnisse der begleitenden Benchmark präsentiert und erörtert, sowie Möglichkeiten zur Verbesserung des Verfahrens diskutiert.
 % Brief wrapup of the achievements of this thesis.
 % Directions for future work (if applicable).
 
-\section{Evaluation}
+\section{Benchmark}
 % Experiments often include benchmarks.
 % You need to describe you benchmarking setup: parameters of the machine used (architecture, memory, etc), parameters of the software used (OS version, libraries used and their version), the benchmark programs.
 % The programs need not be part of the thesis, but they should be described and available separately.
@@ -31,9 +31,11 @@ Jede Konfiguration enthält außerdem die Datei out.xml im Ordner archive. Diese
 Durch die drei Geschwindigkeitsklassen, die beiden unterschiedlichen Mengen von Testcases, und den unterschiedliche gefüllten Archiven beträgt die Gesamtzahl der in der Benchmark überprüften Konfigurationen 36. 
 
 \subsubsection{Spezifikationen des ausführenden Systems}
-Der Computer, auf dem die Benchmark ausgeführt wurde, weißt folgende Hardware-Spezifikationen auf:
+Der Computer, auf dem die Benchmark ausgeführt wurde, weist folgende Hardware-Spezifikationen auf:
 \begin{itemize}
-    \item 
+    \item Prozessor: 3801 MHz, 6 Kerne, 12 logische Prozessoren
+    \item RAM: 32,0 GB DDR5-6000
+    \item SSD: 1TB NVMe
 \end{itemize}
 Die Benchmark wurde unter wsl ausgeführt. Nähere Informationen zur Softwareumgebung sind aus der Datei flake.lock im Repository der Benchmark (siehe \chapref{Links}) zu entnehmen.
 
