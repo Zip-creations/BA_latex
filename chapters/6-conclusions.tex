@@ -11,11 +11,40 @@
 % If you measure run times and evaluate your findings statistically, then there is great potential for errors.
 % Consult SIGPLAN's checklist for empirical evaluations \url{http://www.sigplan.org/Resources/EmpiricalEvaluation/} for advice. 
 
-\subsection{Methodik der Benchmark}
+\subsection{Aufbau der Benchmark}
+Die Benchmark ist in python für das Framework pytest geschrieben, und untersucht 6 verschiedene Konfigurationen. Die Konfigurationen unterscheiden sich in der Gesamtzahl der Testcases, sowie der Ausführungsdauer eines einzelnen Testcase.\\
+Dabei werden die sogennaten parametrisierten Tests in pytest benutzt, demonstriert in \lstref{paratestPytest}:
+\begin{lstlisting}[caption={Inhalt von test\_simple.py aus der Benchmark ''bench\_fast\_few\_FullArchive''}, label={paratestPytest}]
+@pytest.mark.parametrize("case", range(10))
+def test_simple(case):
+    index = 0
+    for i in range(100):
+        index += 1
+    assert index == 100
+\end{lstlisting}
+range(x) in der obersten Zeile bestimmt, wie viele Kopien des Testcase mit durchnummerierten Namen beim Ausführen des Testcase erstellt werden.\\
+range(y) in der for-Schleife in der vierten Zeile bestimmt die Anzahl der Iterationen, die im Testcase ausgeführt werden, bevor er terminiert.\\
+Das in \lstref{paratestPytest} demonstrierte Beispiel erzeugt also 10 Testcases, welche jeweils 100 Iterationen ausführen.
+Die Benchmarks werden in 3 Geschwindigkeiten unterteilt: \textit{fast}, \textit{medium} und \textit{slow}. Für jede dieser Geschwindigkeiten existieren zwei Untergruppen: \textit{few} bezeichnet eine Benchmark mit wenigen Testcases, \textit{many} eine mit vielen. Dabei wird die Gesamtmenge der Iterationen zur Erhaltung der Vergleichbarkeit innerhalb einer Geschwindigkeitsklasse gleich gehalten. Ein Beispiel: Während die Benchmark ''fast\_few'' 10 Testcases mit je 100 Iterationen enthält, enthält Benchmark ''fast\_many'' 100 Testcases mit je 10 Iterationen. Somit werden in beiden Benchmarks $10 \times 100=1000$ Iterationen ausgeführt, jedoch in unterschiedlichen Konfigurationen. 
+
+\subsubsection{Spezifikationen der Maschine}
+Der Computer, auf dem die Benchmark ausgeführt wurde, weißt folgende Hardware-Spezifikationen auf:
+\begin{itemize}
+    \item 
+\end{itemize}
+Die Benchmark wurde unter wsl ausgeführt. Nähere Informationen zur Softwareumgebung sind aus der flake.lock Datei im Repository der Benchmark (siehe \chapref{Links}) zu entnehmen.
+
+\subsection{Datenerhebung der Benchmark}
+Es gilt zu beachten, dass die Benchmark die Dauer des gesamten Prozesses der Testerstellung misst. Für das in dieser Bacheloarbeit vorgestellte verfahren bedeutet dies, dass die Ausführung der testDiscovery, der Ablauf von \textit{testAuditor} sowie der Ablauf der testExecution gemessen werden. Die testDiscovery sowie die testExecution sorgen dabei für einen Testframeworkabhängigen Overhead. 
+
+
+\newpage
 \subsection{Ergebnisse der Benchmark}
+$T$ bezeichnet die Anzahl an durchgeführten Testcases.\\
+$I$ bezeichnet die Anzahl an Iterationen pro Testcase.
 \begin{figure}[htbp]
     \centering
-    \subfloat[wenige kurze Testcases]{%
+    \subfloat[wenige kurze Testcases: $T$=10, $I$=100]{%
         \resizebox{0.45\textwidth}{!}{%
             \input{figures/fast_few.tex}%
         }%
@@ -50,11 +79,11 @@
             \input{figures/fast_few.tex}%
         }%
     }
-    \caption{Ergebnisse der Benchmark}
+    \caption{Ergebnisse der Benchmark. Sämtliche dieser Übersicht zugrunde liegenden Daten können in dem Repository der Benchmark (siehe \chapref{Links}) eingesehen und überprüft werden.}
     \label{fig:sechs-grafiken}
 \end{figure}
 
-\section{Zusammenfassung der Ergebnisse}
+\subsection{Zusammenfassung der Ergebnisse}
 
 \section{Möglichkeiten zur Verbesserung}
 TODO: Überarbeiten.\\
