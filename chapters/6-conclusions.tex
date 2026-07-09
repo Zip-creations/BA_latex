@@ -12,8 +12,8 @@
 % Consult SIGPLAN's checklist for empirical evaluations \url{http://www.sigplan.org/Resources/EmpiricalEvaluation/} for advice. 
 
 \subsection{Aufbau der Benchmark}
-Die Benchmark ist in python für das Framework pytest geschrieben, und untersucht 6 verschiedene Konfigurationen. Die Konfigurationen unterscheiden sich in der Gesamtzahl der Testcases, sowie der Ausführungsdauer eines einzelnen Testcase.\\
-Dabei werden die sogennaten parametrisierten Tests in pytest benutzt, demonstriert in \lstref{paratestPytest}:
+Die hier benutzte Benchmark ist in python für das Framework pytest geschrieben, und untersucht 6 verschiedene Basis-Konfigurationen. Diese Konfigurationen unterscheiden sich in der Gesamtzahl der Testcases, die ausgeführt werden, sowie der Anzahl an Iterationen, die je Testcase ausgeführt werden, was die Ausführungsdauer eines Testcase bestimmt. Jede Konfiguration wird mit sechs verschieden gefüllten archives getestet.\\
+Dabei werden die sogenannten parametrisierten Tests in pytest benutzt, dargestellt in \lstref{paratestPytest}:
 \begin{lstlisting}[caption={Inhalt von test\_simple.py aus der Benchmark ''bench\_fast\_few\_FullArchive''}, label={paratestPytest}]
 @pytest.mark.parametrize("case", range(10))
 def test_simple(case):
@@ -25,21 +25,28 @@ def test_simple(case):
 range(x) in der obersten Zeile bestimmt, wie viele Kopien des Testcase mit durchnummerierten Namen beim Ausführen des Testcase erstellt werden.\\
 range(y) in der for-Schleife in der vierten Zeile bestimmt die Anzahl der Iterationen, die im Testcase ausgeführt werden, bevor er terminiert.\\
 Das in \lstref{paratestPytest} demonstrierte Beispiel erzeugt also 10 Testcases, welche jeweils 100 Iterationen ausführen.
-Die Benchmarks werden in 3 Geschwindigkeiten unterteilt: \textit{fast}, \textit{medium} und \textit{slow}. Für jede dieser Geschwindigkeiten existieren zwei Untergruppen: \textit{few} bezeichnet eine Benchmark mit wenigen Testcases, \textit{many} eine mit vielen. Dabei wird die Gesamtmenge der Iterationen zur Erhaltung der Vergleichbarkeit innerhalb einer Geschwindigkeitsklasse gleich gehalten. Ein Beispiel: Während die Benchmark ''fast\_few'' 10 Testcases mit je 100 Iterationen enthält, enthält Benchmark ''fast\_many'' 100 Testcases mit je 10 Iterationen. Somit werden in beiden Benchmarks $10 \times 100=1000$ Iterationen ausgeführt, jedoch in unterschiedlichen Konfigurationen. 
+Die Konfigurationen werden in 3 Geschwindigkeiten unterteilt: \textit{fast}, \textit{medium} und \textit{slow}. Für jede dieser Geschwindigkeiten existieren zwei Untergruppen: \textit{few} bezeichnet eine Konfiguration mit wenigen Testcases, \textit{many} eine mit vielen. Dabei wird die Gesamtmenge der Iterationen zur Erhaltung der Vergleichbarkeit innerhalb einer Geschwindigkeitsklasse gleich gehalten. Ein Beispiel: Während die Konfiguration ''fast\_few'' 10 Testcases mit je 100 Iterationen enthält, enthält die Konfiguration ''fast\_many'' 100 Testcases mit je 10 Iterationen. Somit werden in beiden Konfigurationen $10 \times 100=1000$ Iterationen ausgeführt, jedoch in unterschiedlichen Strukturen.\\
+Jede Konfiguration enthält außerdem die Datei out.xml im Ordnder archive. Diese Datei enthält das Ergebnis von vorherigen Testläufen, die vom Verfahren genutzt werden können, und erfüllt damit die Rolle der archive-Komponente (siehe \chapref{chap:Komponente_archive}). Dabei existieren für jede bisher vorgestelle Kombination aus Testcaseanzahl und Iterationsanzahl sechs Konfigurationen: Eine Konfiguration enthält ein leeres Archiv, folgend gibt es Konfigurationen mit Archiven, die jeweils 20, 40, 60, 80 und abschießend 100 Prozent der Testcases in der Konfiguration abdecken.
 
-\subsubsection{Spezifikationen der Maschine}
+Durch die drei Geschwindigkeitsklassen, die beiden unterschiedlichen Mengen von Testcases, und den unterschiedliche gefüllten Archiven beträgt die Gesamtzahl der in der Benchmark überprüften Konfigurationen 36. 
+
+\subsubsection{Spezifikationen des ausführenden Systems}
 Der Computer, auf dem die Benchmark ausgeführt wurde, weißt folgende Hardware-Spezifikationen auf:
 \begin{itemize}
     \item 
 \end{itemize}
-Die Benchmark wurde unter wsl ausgeführt. Nähere Informationen zur Softwareumgebung sind aus der flake.lock Datei im Repository der Benchmark (siehe \chapref{Links}) zu entnehmen.
+Die Benchmark wurde unter wsl ausgeführt. Nähere Informationen zur Softwareumgebung sind aus der Datei flake.lock im Repository der Benchmark (siehe \chapref{Links}) zu entnehmen.
 
 \subsection{Datenerhebung der Benchmark}
-Es gilt zu beachten, dass die Benchmark die Dauer des gesamten Prozesses der Testerstellung misst. Für das in dieser Bacheloarbeit vorgestellte verfahren bedeutet dies, dass die Ausführung der testDiscovery, der Ablauf von \textit{testAuditor} sowie der Ablauf der testExecution gemessen werden. Die testDiscovery sowie die testExecution sorgen dabei für einen Testframeworkabhängigen Overhead. 
+Es gilt zu beachten, dass die Benchmark die Dauer des gesamten Prozesses der Testerstellung misst. Für das in dieser Bacheloarbeit vorgestellte Verfahren bedeutet dies, dass die Ausführung der testDiscovery, der Ablauf von \textit{testAuditor} sowie der Ablauf der testExecution gemessen werden. Die testDiscovery sowie die testExecution sorgen dabei für einen Testframeworkabhängigen Overhead. 
 
+Um einen direkten Verleich der Ergebnisse zu ermöglichen, werden für jeden Durchlauf einer Konfiguration zwei idividuelle Durchläufe gestartet:\\
+Der erste Lauf besteht auf der konventionellen Ausführung von Tests, bei der alle vorhandenen Testcases neu ausgeführt werden. Der zweite Lauf benutzt das in dieser Bachelorarbeit entwickelte Verfahren, um auf Grundlage der im archive liegenden Testausgaben die Mehrfache Ausführung von Testcases zu vermeiden.
+
+Um den Einfluss von äußeren Einflüssen aus dem System auf den Ablauf der Benchmark bei der Datenerhebung zu verringern, wird jede Konfigration der Bechmark zehnmal ausgeführt. Das durchschnittliche Ergebnis ist dann die Grundage für \chapref{chap:result_benchmark}. 
 
 \newpage
-\subsection{Ergebnisse der Benchmark}
+\subsection{Ergebnisse der Benchmark}\label{chap:result_benchmark}
 $T$ bezeichnet die Anzahl an durchgeführten Testcases.\\
 $I$ bezeichnet die Anzahl an Iterationen pro Testcase.
 \begin{figure}[htbp]
