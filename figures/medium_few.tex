@@ -2,10 +2,14 @@
     \begin{axis}[
         width=0.8\textwidth,
         height=7cm,
-        xlabel={Abdeckungsgrad von archive in \%},
+        xlabel={Abdeckungsgrad der Tetcases im archive in \%},
         ylabel={Zeit in ms},
         grid=major,
-        legend pos=north west
+        legend style={
+            at={(0.5,1.0)},
+            anchor=south,
+            legend columns=2
+        }
     ]
     \addplot[
         thick,
@@ -22,6 +26,7 @@
     \addplot[
         thick,
         mark=square*,
+        gray!100,
     ] coordinates {
         (0, 546.8)
         (20, 497.2)
