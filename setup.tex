@@ -125,8 +125,8 @@
             at={(0.5,1.0)},
             anchor=south,
             legend columns=2
-        }
-    ]
+            }
+        ]
         \addplot[
             thick,
             mark=*,
@@ -139,6 +139,50 @@
             gray!100,
         ] coordinates {#2};
         \addlegendentry{Testlauf mit Verfahren}
+    \end{axis}
+    \end{tikzpicture}%
+    }
+
+    \newcommand{\benchmarkplotOverhead}[4]{%
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=0.8\textwidth,
+        height=6.7cm,
+        xlabel={Abdeckungsgrad der Testcases in archive in \%},
+        ylabel={Zeit in ms},
+        grid=major,
+        legend style={
+            at={(0.5,1.0)},
+            anchor=south,
+            legend columns=2
+            }
+        ]
+        \addplot[
+            thick,
+            mark=*,
+        ] coordinates {#1};
+        \addlegendentry{testDiscovery}
+
+        \addplot[
+            thick,
+            mark=square*,
+            gray!140,
+        ] coordinates {#2};
+        \addlegendentry{testAuditor}
+
+        \addplot[
+            thick,
+            mark=triangle*,
+            gray!120,
+        ] coordinates {#3};
+        \addlegendentry{testExecution}
+
+        \addplot[
+            thick,
+            mark=diamond*,
+            gray!90,
+        ] coordinates {#4};
+        \addlegendentry{sonstiger Overhead}
     \end{axis}
     \end{tikzpicture}%
     }

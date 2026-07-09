@@ -2,27 +2,41 @@
     \centering
     \subfloat[wenige kurze Testcases: $T$=10, $I$=100]{%
         \resizebox{0.45\textwidth}{!}{%
-        \benchmarkplot{
-            (0, 132.4)
-            (20, 129.3)
-            (40, 130.2)
-            (60, 133.4)
-            (80, 131.5)
-            (100, 129.6)}
+        \benchmarkplotOverhead{
+            (0, 122.0)
+            (20, 122.4)
+            (40, 124.5)
+            (60, 129.2)
+            (80, 120.6)
+            (100, 121.6)}
             {
-                (0, 375.5)
-                (20, 306.1)
-                (40, 308.8)
-                (60, 309.4)
-                (80, 300.3)
-                (100, 174.1)
+                (0, 3.6)
+                (20, 3.6)
+                (40, 3.6)
+                (60, 3.6)
+                (80, 3.5)
+                (100, 3.6)
+            }{
+                (0, 210.2)
+                (20, 138.8)
+                (40, 138.9)
+                (60, 134.9)
+                (80, 134.9)
+                (100, 9.6)
+            }{
+                (0, 39.6)
+                (20, 41.1)
+                (40, 41.6)
+                (60, 41.5)
+                (80, 41.1)
+                (100, 39.3)
             }%
         }%
     }
     \hfill
     \subfloat[viele kurze Testcases: $T$=100, $I$=10]{%
         \resizebox{0.45\textwidth}{!}{%
-        \benchmarkplot{
+        \benchmarkplotOverhead{
             (0, 161.8)
             (20, 165.9)
             (40, 162.5)
@@ -36,13 +50,13 @@
             (60, 336.6)
             (80, 367.9)
             (100, 177.9)
-        }%
+        }{}{}%
         }%
     }
     \vspace{-0.5em}
     \subfloat[wenige mittellange Testcases: $T$=10, $I$=1.000.000]{%
         \resizebox{0.45\textwidth}{!}{%
-        \benchmarkplot{
+        \benchmarkplotOverhead{
             (0, 456.6)
             (20, 427.6)
             (40, 372.0)
@@ -56,13 +70,13 @@
             (60, 400.1)
             (80, 347.3)
             (100, 175.0)
-        }%
+        }{}{}%
         }%
     }
     \hfill
     \subfloat[viele mittellange Testcases: $T$=1.000, $I$=10.000]{%
         \resizebox{0.45\textwidth}{!}{%
-        \benchmarkplot{
+        \benchmarkplotOverhead{
             (0, 783.7)
             (20, 789.6)
             (40, 778.1)
@@ -76,13 +90,13 @@
             (60, 830.1)
             (80, 596.4)
             (100, 215.2)
-        }%
+        }{}{}%
         }%
     }
     \vspace{-0.5em}
     \subfloat[wenige langsame Testcases: $T$=10, $I$=10.000.000]{%
         \resizebox{0.45\textwidth}{!}{%
-        \benchmarkplot{
+        \benchmarkplotOverhead{
             (0, 2580.0)
             (20, 2418.9)
             (40, 2739.4)
@@ -96,13 +110,13 @@
             (60, 1239.1)
             (80, 783.0)
             (100, 228.3)
-        }%
+        }{}{}%
         }%
     }
     \hfill
     \subfloat[viele langsame Testcases: $T$=10.000, $I$=10.000]{%
         \resizebox{0.45\textwidth}{!}{%
-        \benchmarkplot{
+        \benchmarkplotOverhead{
             (0, 7118.8)
             (20, 7074.7)
             (40, 7068.8)
@@ -116,9 +130,9 @@
             (60, 9229.9)
             (80, 5158.9)
             (100, 831.9)
-        }%
+        }{}{}%
         }%
     }
-    \caption{Ergebnisse der Benchmark. Sämtliche dieser Übersicht zugrunde liegenden Daten können in dem Repository der Benchmark (siehe \chapref{Links}) eingesehen und überprüft werden.}
-    \label{fig:benchmark_evaluation}
+    \caption{Detailansicht zu den Laufzeiten einzelner Komponenten des Verfahrens. Sämtliche dieser Übersicht zugrunde liegenden Daten können in dem Repository der Benchmark (siehe \chapref{Links}) eingesehen und überprüft werden.}
+    \label{fig:benchmark_overhead}
 \end{figure}
