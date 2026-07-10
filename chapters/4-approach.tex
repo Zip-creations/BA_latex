@@ -38,7 +38,7 @@ Der Inhalt der beiden tags ''classname'' und ''name'' für einen Testcase muss d
 Die testDiscovery ist hochgradig vom verwendeten Testframework abhängig, da die spezielle Implementierung der Testausführung des jeweiligen Testframeworks beachtet werden muss. Daher muss diese Komponente für jedes Softwareprojekt eigens angepasst werden.
 
 \subsection{test archive}\label{chap:Komponente_archive}
-Das test archive, kurz archive, beschreibt die Komponente des Verfahrens, welche die Testausgaben von vorherigen Testläufen beinhaltet, die \textit{testAuditor} als Input zur Verfügung stehen.\\
+Das test archive, kurz archive, beschreibt die Komponente des Verfahrens, welche die in JUnit XML festgehaltenen Testausgaben von vorherigen Testläufen beinhaltet, die \textit{testAuditor} als Input zur Verfügung stehen.\\
 Ein Projekt muss so konfiguriert werden, dass sichergestellt ist, dass keine Dateien aus dem archive, die sich auf einen alten Stand des Projekts beziehen, vom Verfahren genutzt werden. Hierfür bietet sich die Implementierung des archive über git notes an, wie im folgenden Abschnitt untersucht wird.
 
 \subsubsection{git notes}
@@ -57,20 +57,26 @@ Zu guter Letzt gibt \textit{testAuditor} eine Menge von qualifiedNames an den co
 
 \subsubsection{Parser für JUnit XML}
 Das Parsen des vorangehend beschriebenen Kommunikationsformat, sowie des in \chapref{chap:Komponente_testDiscovery_format} beschriebenen Format der testDiscovery ist trivial.\\
-Interessanter ist die Umsetzung eines Parsers für den nicht-standartisierten Aufbau on JUnit XML. 
+Interessanter ist die Umsetzung eines Parsers für das JUnit XML aus dem test archive. Wie in \chapref{JUNIT} behandelt, besitzt JUnit XML kein standartisiertes Schema. Demensprechend muss ein Parser für solche Dateien auf eine Art und Weise konfiguriert werden, die ohne eine festes erwartbare Struktur auskommt. Dafür wird bei der Implemntation des Parsers ein streaming-basierter Ansatz verwendet:\\
+Die XML-Datei wird sequenziell Element für Element eingelesen. Sobald ein Element mit dem namen <testcase> gefunden wird, wird überprüft, ob dieses Element die Attribute name und classname enthält. Ist dies der Fall, so wird das Element zu der Menge an bereits durchgeführten Testcases hinzugefügt.\\
+Durch diese Art der Implemntierung können zwar auch Testausgaben in JUnit XML geparst werden, welche die Attribute name und/oder classname nicht benutzen (siehe \lstref{JUNITcodeception}), jedoch wird durch das Fehlen von Attributen jeder Testcase als nicht ausgeführt betrachtet, was die Anwendung des Verfahrens hinfällig macht, da kein Testcase als durchgeführt betrachtet wird und in jedem Durchlauf jeder Testcase ausgeführt wird. 
 
--> TODO: Parser beschreiben. 
+Für die genau Implementierung im Code, siehe das in \chapref{Links} verlinkte Repository für \textit{testAuditor}.
 
 \subsection{testExecution}\label{Komponente_testExecution}
 Die Komponente testExecution ist eng mit der Komponente testDiscovery verwoben, denn die testExecution erwartet eine Menge von Namen, über welche sie gezielt die beschriebene Menge on Testcases an das Testframework übergibt, welches diese Menge dann ausführt. Die genaue Struktur dieser Namen wird durch das jeweilige Testframework vorgegeben, und wird von der testDiscovery 
 
-Ebenso wie die testDiscovery ist die testExecution hochgradig vom verwendeten Testframework abhängig, da sie direkt mit dem jeweiligen Testframework kommuniziert. 
+Ebenso wie die testDiscovery ist die testExecution hochgradig vom verwendeten Testframework abhängig, da sie direkt mit dem jeweiligen Testframework kommuniziert.
+
 \subsection{controller}
+Als controller wird jene zentrale Komponente beschrieben, welche als einzige Komponente direkt mit dem user interagiert, und sich mit der Ausführung der einzelnen Komponenten des Verfahren beschäftigt, sowie I/O Prozesse der Komponenten und Fehlerereignisse verwaltet.\\
+Typischerweise erfüllt eine CI-Pipeline die Rolle des controllers, allerdings kann der controller auch auf andere Weisen implementiert werden.
+
 \subsection{user}
-Die Bezechnung der Komponente ''user'' ist bewusst breit interpretierbar gehalten, 
+Die Bezechnung der Komponente ''user'' ist bewusst breit interpretierbar gehalten. Sie beschreibt jene Instanz, die mit dem controller interagiert, so den Ablauf des Verfahrens anstößt und/oder die Ausgabe des Verfahrens konsumiert. Dabei kann es sich um einen menschlichen Benutzer, oder um automatisierte Prozesse handeln. 
 
 \section{Anforderungen an ein Testframework}\label{chap:req_testframework}
-Das beschriebene Verfahren kann mit jedem Testframework angewandt werden, welches diese Vorrausetzungen erfüllt:
+Das beschriebene Verfahren kann mit jedem Testframework angewandt werden, welches diese Vorrausetzungen erfüllt, die sich unter Anderem auf \chapref{chap:conclusion_testformat_eval} ergeben:
 \begin{itemize}
     \item Eine beliebig kleine Untermenge aller Testcases kann gezielt ausgeführt werden
     \item JUnit XML wird als Ausgabeformat für Testdurchläufe verwendet
@@ -78,16 +84,12 @@ Das beschriebene Verfahren kann mit jedem Testframework angewandt werden, welche
 \end{itemize}
 
 \section{Anforderungen an ein Projekt}
-Nachdem die Anforderungen und Funktionsweisen der beteiligten Komponenten und Dateien auführlich diskutiert wurden, können daraus nun die Anforderungen an ein Projekt abgeleitet werden, um das Verfahren implementieren zu können:
+Nachdem die Anforderungen und Funktionsweisen der beteiligten Komponenten und Dateien auführlich diskutiert wurden, können daraus nun die Anforderungen an ein Projekt abgeleitet werden, die vorrausgesetzt werden, um das Verfahren implementieren zu können:
 \begin{itemize}
     \item Determinismus ist gegeben - Jeder Testdurchlauf erzeugt bei gleichem Input und gleicher Konfiguration der Testcases das selbe Ergebnis, unabhängig von der Entwicklungsumgebung
     \item Es wird eine Komponente zur Verfügung gestellt, welche die in \chapref{chap:Komponente_testDiscovery} beschriebene Funktionalität bereitstellt
     \item Das verwendete Testframework erfüllt alle in \chapref{chap:req_testframework} dargestellten Anforderungen
 \end{itemize}
-
-
-% \subsection{Benötigte Schnittstellen}
-
 % \subsubsection{test discovery}\label{test discovery}
 % -> qualifiedname: Eine Zeichenfolge, die einen Test innerhalb eines Testframeworks eindeutig identifiziert. Bespiele in vers. TestFrameworks bringen!
 
