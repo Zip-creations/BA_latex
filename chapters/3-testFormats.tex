@@ -35,9 +35,8 @@ In diesem Kapitel werden die häufigsten frameworkübergreifend verwendeten Test
 
 \subsection{JUnit XML}\label{JUNIT}
 \subsubsection{Übersicht}
-JUnit XML ist ein XML-basiertes Format, welches ursprünglich für das Java-Testframework JUnit entwickelt wurde. Für JUnit XML existiert kein einheitlicher Standart, d.h. es existiert auch keine beschreibendes .xsd Schema, wie sonst für XML Formate üblich. Trotzdem wurde JUnit XML von vielen Testframeworks in gleicher oder ähnlicher Form adaptiert, wie es ursprünglich für JUnit entworfen wurde. Außerdem existieren viele weitere Schnittstellen zwischen JUnit XMl und andere für das Software-Testing relevante Programme, beispielswese viele CI/CD-Systeme. %TODO:change "systeme"
-Auf diese Weise hat sich JUnit XML zu einem De-Facto Standart für Ausgabeformate von Testframeworks entwickelt.
-
+JUnit XML ist ein XML-basiertes Format, welches ursprünglich für das Java-Testframework JUnit entwickelt wurde. Für JUnit XML existiert kein einheitlicher Standard, d.h. es existiert auch kein beschreibendes .xsd Schema, wie sonst für XML-Formate üblich. Trotzdem wurde JUnit XML von vielen Testframeworks in gleicher oder ähnlicher Form adaptiert, wie es ursprünglich für JUnit entworfen wurde. Außerdem existieren viele weitere Schnittstellen zwischen JUnit XML und anderen für das Software-Testing relevante Programme, beispielsweise viele CI/CD-Systeme. %TODO:change "systeme"
+Auf diese Weise hat sich JUnit XML als das am Häufigsten benutze Testausgabeformat für Testframeworks entwickelt.
 
 \subsubsection{Struktur}
 Wie bereits erwähnt gibt es bei JUnit XML keine standartisiertes Schema. Allerdings haben sich eine Grundstruktur durchgesetzt, die von nahezu allen Testframeworks, welche JUnit XML als Testausgabeformat anbieten, verwendet wird. Ein typisches Beispiel für diese Grundstruktur ist \lstref{JUNITbehat}:
@@ -160,7 +159,7 @@ TAP ist aufgrund seiner sehr geringen Minimalstruktur und vor allem seiner nur m
 \subsubsection{Übersicht}
 % https://marcphilipp.de/de/startseite/
 % https://marcphilipp.de/blog/2025/03/21/stf-milestone-2-open-test-reporting/
-Open Test Reporting (OTR) wird von dem selben Entwicklerteam, welches auch hinter dem Framework Junit und damit auch hinter JUnit XML steht, als Nachfolger von eben diesem entwickelt. Dabei haben sie laut eigenen Angaben das Ziel, mit OTR die historisch gewachsenen Probleme von JUnit XML (siehe \chapref{JUNIT}) zu umgehen. OTR soll nach Vorstellungen der Entwickler auf lange Sicht JUnit XMLs Platz als de-facto Standart-Ausgabeformat für Testläufe einnehmen.
+Open Test Reporting (OTR) wird von dem selben Entwicklerteam, welches auch hinter dem Framework Junit und damit auch hinter JUnit XML steht, als Nachfolger von eben diesem entwickelt. Dabei haben sie laut eigenen Angaben das Ziel, mit OTR die historisch gewachsenen Probleme von JUnit XML (siehe \chapref{JUNIT}) zu umgehen. OTR soll nach Vorstellungen der Entwickler auf lange Sicht JUnit XMLs Platz als häufigstes Ausgabeformat für Testläufe einnehmen.
 
 Anders als die anderen vorstellten Formate gitb es bei OTR zwei mögliche Dateiformate: Es gibt Implementierungen für XML und HTML. Beide Implementierugnen sind im Gegensatz zu JUnit XML standartisiert und folgen einem definiertem Schema. Beim XML-Format wird zwischen zwei Strukture unterschieden: Hierachisch und eventbasiert. Beide Formate nutzen das selbe Set von Kernelementen, unterscheiden sich aber in ihrer Struktur. Für beide Strukturen gibt es Programmiersprachen-spezifische Erweiterungen.\\
 Das HTML-Format wird ausgehend von einer vorher erzeugten OTR-XML Datei erzeugt, und ist ebenso erweiterbar. 
@@ -171,17 +170,9 @@ Das HTML-Format wird ausgehend von einer vorher erzeugten OTR-XML Datei erzeugt,
 \subsubsection{Eignung}
 Da OTR zum Zeitpunkt der Niederschrift dieser Bachelorarbeit noch sehr jung ist und aktiv entwickelt wird, bleibt abzusehen, ob die Entwickler ihr Ziel eines standartiserten, Programiersprachen-agnostischen Testausgebeformates erreichen können.
 
-Außerdem ist die Vebreitung von OTR noch sehr limitiert: Von den in \tabref{Formatvergleich} betrachteten Testframeworks ist lediglich phpunit in der Lage, OTR nativ zu erzeugen. Außerdem kann junit5 (welches, wie eingangs erwähnt, vom selben Entwicklerteam wie OTR betreut wird) zumindest über Plugins eine OTR-Ausgabe erzeugen.
+Außerdem ist die Vebreitung von OTR noch sehr limitiert: Von den in \tabref{Formatvergleich} betrachteten Testframeworks sind lediglich phpunit und junit5 (welches, wie eingangs erwähnt, vom selben Entwicklerteam wie OTR betreut wird) mit jupiter als runner in der Lage, OTR nativ zu erzeugen. Außerdem kann junit5 mit den runnern von maven/gradle zumindest über Plugins eine OTR-Ausgabe erzeugen.
 
 \subsubsection{Fazit zu OTR}
-
-% pytest with TAP plugin
-% https://github.com/python-tap/pytest-tap
-
-% # TAP results for test/test_simple.py
-% ok 1 test/test_simple.py::test_simple
-% ok 2 test/test_simple.py::test_simple_two
-% 1..2
 
 % \subsection{Common Test Report Format (CTRF)}
 % \subsubsection{Übersicht}

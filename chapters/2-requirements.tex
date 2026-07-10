@@ -1,4 +1,4 @@
-\chapter{Hintergrund und Analyse der Anforderungen}\label{chap:Hintergrund}
+\chapter{Grundlagen und Analyse der Anforderungen}\label{chap:Hintergrund}
 In diesem Kapitel werden die Anforderungen an das Verhalten des Verfahrens, die sich aus \chapref{Zielsetzung} ergeben, näher erörtert.\\
 Ebenso werden Grundlagen sowie Anforderungen bezüglich Testausgabeformate vorgestellt. 
 
@@ -9,7 +9,8 @@ Folgende Anforderungen werden an einen Durchlauf des Verfahrens gestellt:
     Das Verfahren soll framework-agnostisch funktionieren, auch wenn innerhalb des Projektes verschiedene Testframeworks zum Einsatz kommen.
     \item \textbf{Nach Abschluss des Verfahrens wurde jeder Testcase für den aktuellen Stand des Codes mindestens einmal durchgeführt}\\
     Testcases können vor Duchlauf des Verfehrens mehrfach ausgeführt worden sein, allerdings darf während des Verfahrens selbst keinen Testcase ausgeführt werden, der bereits ausgeführt wurde, um die Laufzeit der Testphase so gering wie möglich zu halten. Trotzdem muss die gesamte Testsuite komplett abgedeckt sein, um die Aussagekraft des Testlaufes im Vergleich zu einem komplett neuen Durchlauf nicht zu beinträchtigen.
-    % \item \textbf{Das Ergebnis der durch das Tool durchgeführten Testläufe ist am selben Ort verfügbar, wie die Ergebnisse der vorherigen Testläufe, auf die das Tool zugreift}
+    \item \textbf{Die Ausgabe des durch das Verfahren ausgeführten Testlaufs ist auf die selbe Weise verfügbar, wie die anderen Ausgaben}\\
+    Die Ausgabe soll in dem selben Format, auf die selbe Art und Weise abgelegt werden, wie auch die anderen Ausgaben, die dem Verfahren zur Verfügung gestellt werden.
     \item \textbf{Die Laufzeit eines Testdurchlaufs unter Verwendung des Verfahrens ist kleiner oder gleich der Laufzeit eines kompletten Durchlaufs}\\
     Das Vefahren soll die Gesamtlaufzeit der Testausführung reduzieren.
 \end{itemize}
