@@ -61,11 +61,15 @@
 
     % bibliography is not in the table of contents per default, add it manually
     % enable the \renewcommand for german header
-    \renewcommand{\bibname}{Literaturverzeichnis}
-    \addcontentsline{toc}{chapter}{Literaturverzeichnis}
+    % \renewcommand{\bibname}{Literaturverzeichnis}
+    % \addcontentsline{toc}{chapter}{Literaturverzeichnis}
 
-    \bibliographystyle{plainnat}
-    \bibliography{bib/topic1,bib/topic2}
+    % \bibliographystyle{plainnat}
+    % \bibliography{bib/topic1,bib/topic2}
+    \printbibliography[
+      heading=bibintoc,
+      title={Literaturverzeichnis}
+    ]
     \input{chapters/10-links.tex}
     % \newpage
     \thispagestyle{empty}

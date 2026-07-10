@@ -39,7 +39,16 @@
     % \doublespacing  % uncomment for double spacing, e.g. for annotations in correction
 
     % ------------------- functional, default-------------------
-    \usepackage{natbib}
+    % \usepackage{natbib}
+    \usepackage[
+        backend=biber,
+        style=numeric,
+        sorting=none,
+        language=auto,
+        autolang=other
+    ]{biblatex}
+
+    \addbibresource{bib/topic1.bib}
     \usepackage[dvipsnames]{xcolor}  % more colors
     \usepackage{array}  % custom format per column in table - needed on the title page
     \usepackage{graphicx}  % include graphics
@@ -81,7 +90,6 @@
     \usepackage{pgfplots}
     \pgfplotsset{compat=1.18}
     % \usepackage{float}
-
     \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 
     \newcommand{\tabYes}{\cellcolor{green}\ding{51}}

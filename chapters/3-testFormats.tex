@@ -119,7 +119,7 @@ Aufgrund der weiten Verbreitung und der trotz der fehlenden Standartisierung äh
 
 \subsection{Test Anything Protocol (TAP)}
 \subsubsection{Übersicht}
-Das Test Anything Protocol wurde ursprünglich für die Programmiersprache Perl entworfen, wurde über die Jahre hinweg jedoch auch für Testframeworks in anderen Sprachen weiter entwickelt. Anders als bei JUnit XML wird für TAP ein standartisiertes Schema bereitgestellt und gepflegt (https://testanything.org/tap-version-14-specification.html). Anders als die meisten anderen hier untersuchten Testausgabeformate ist TAP keine spezialisierte Struktur eines bereits bestehenden Dateiformates, sondern ein eigenständiges Format.
+Das Test Anything Protocol wurde ursprünglich für die Programmiersprache Perl entworfen, wurde über die Jahre hinweg jedoch auch für Testframeworks in anderen Sprachen weiter entwickelt. Anders als bei JUnit XML wird für TAP ein standartisiertes Schema bereitgestellt und gepflegt, siehe \cite{TAP_14}. Anders als die meisten anderen hier untersuchten Testausgabeformate ist TAP keine spezialisierte Struktur eines bereits bestehenden Dateiformates, sondern ein eigenständiges Format.
 
 \subsubsection{Struktur}
 Zu Beginn einer Datei wird die Gesamtzahl aller Testcases der Datei angegeben. Danach folgt eine Auflistung der Testergebnisse mit optionalen Zusatzinformationen, zumeist der Name des Testcase. Übersprungene Tests können über zusätzliche Dekoratoren idikatiert werden, die in TAP als ''Derectives'' bezeichnet werden.\\
@@ -159,13 +159,13 @@ TAP ist aufgrund seiner sehr geringen Minimalstruktur und vor allem seiner nur m
 \subsubsection{Übersicht}
 % https://marcphilipp.de/de/startseite/
 % https://marcphilipp.de/blog/2025/03/21/stf-milestone-2-open-test-reporting/
-Open Test Reporting (OTR) wird von dem selben Entwicklerteam, welches auch hinter dem Framework Junit und damit auch hinter JUnit XML steht, als Nachfolger von eben diesem entwickelt. Dabei haben sie laut eigenen Angaben das Ziel, mit OTR die historisch gewachsenen Probleme von JUnit XML (siehe \chapref{JUNIT}) zu umgehen. OTR soll nach Vorstellungen der Entwickler auf lange Sicht JUnit XMLs Platz als häufigstes Ausgabeformat für Testläufe einnehmen.
+Open Test Reporting (OTR) wird von dem selben Entwicklerteam, welches auch hinter dem Framework Junit und damit auch hinter JUnit XML steht, als Nachfolger von eben diesem entwickelt. Dabei haben sie laut eigenen Angaben das Ziel, mit OTR die historisch gewachsenen Probleme von JUnit XML (siehe \chapref{JUNIT}) zu umgehen. OTR soll nach Vorstellungen der Entwickler auf lange Sicht JUnit XMLs Platz als häufigstes Ausgabeformat für Testläufe einnehmen. \cite{OTR_milestone}
 
 Anders als die anderen vorstellten Formate gitb es bei OTR zwei mögliche Dateiformate: Es gibt Implementierungen für XML und HTML. Beide Implementierugnen sind im Gegensatz zu JUnit XML standartisiert und folgen einem definiertem Schema. Beim XML-Format wird zwischen zwei Strukture unterschieden: Hierachisch und eventbasiert. Beide Formate nutzen das selbe Set von Kernelementen, unterscheiden sich aber in ihrer Struktur. Für beide Strukturen gibt es Programmiersprachen-spezifische Erweiterungen.\\
 Das HTML-Format wird ausgehend von einer vorher erzeugten OTR-XML Datei erzeugt, und ist ebenso erweiterbar. 
 
 \subsubsection{Struktur}
-
+hier nur XML
 
 \subsubsection{Eignung}
 Da OTR zum Zeitpunkt der Niederschrift dieser Bachelorarbeit noch sehr jung ist und aktiv entwickelt wird, bleibt abzusehen, ob die Entwickler ihr Ziel eines standartiserten, Programiersprachen-agnostischen Testausgebeformates erreichen können.
