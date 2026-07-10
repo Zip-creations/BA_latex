@@ -38,14 +38,16 @@ Der Inhalt der beiden tags ''classname'' und ''name'' für einen Testcase muss d
 Die testDiscovery ist hochgradig vom verwendeten Testframework abhängig, da die spezielle Implementierung der Testausführung des jeweiligen Testframeworks beachtet werden muss. Daher muss diese Komponente für jedes Softwareprojekt eigens angepasst werden.
 
 \subsection{test archive}\label{chap:Komponente_archive}
+Das test archive, kurz archive, beschreibt die Komponente des Verfahrens, welche die Testausgaben von vorherigen Testläufen beinhaltet, die \textit{testAuditor} als Input zur Verfügung stehen.\\
+Ein Projekt muss so konfiguriert werden, dass sichergestellt ist, dass keine Dateien aus dem archive, die sich auf einen alten Stand des Projekts beziehen, vom Verfahren genutzt werden. Hierfür bietet sich die Implementierung des archive über git notes an, wie im folgenden Abschnitt untersucht wird.
+
 \subsubsection{git notes}
-müssen nicht zwingend verwendet werden, auch andere Kommunikationswege könnten etabliert werden. Hier nur Mittel der Wahl, weil ändern Code nicht.
-
-Nicht zu empfehlen: Dateien im repo lagern.
-
+Eine wenig bekannte und selten genutzte Funktionalität von Git ist, dass an einen Commit sogenannte git notes angehängt werden können. Der Inhalt dieser notes wird separat vom eigentlichen Inhalt des Commits verwaltet, der Hash eines Commits wird nicht durch Veränderungen der notes beeinflusst. Dadurch können einem Commit zusätzliche Informationen hinzugefügt werden, ohne die Historie des Repositories zu verändern.\\
+Dadurch bieten sich git notes in zweierlei Hinsicht als test archive an:\\
+Zum einen wird das eigentliche Projekt nicht durch zusätzliche Dateien vom Verfahren verändert. Zum anderen gehört jede note zu genau einem Commit, wodurch vermieden wird, dass das Verfahren veraltete Dateien aus dem archive erhält.
 
 \subsection{\textit{testAuditor}}\label{Komponente_testAuditor}
-Die Kernfunktionalität von \textit{testAuditor} lässt sich am Besten mit einer einfachen Mengengleichung beschreiben:\\
+Die Funktionalität von \textit{testAuditor} als Kern des Verfahrens lässt sich am Besten mit einer einfachen Mengengleichung beschreiben:\\
 Sei $T_{ges}$ die Menge aller Testcases eines Projektes, $T_{run}$ die Menge aller Testcases, für die ein Ergebnis vorliegt. \textit{testAuditor} berechnet $T_{ges}-T_{run}=T_{todo}$, wobei $T_{todo}$ die Menge aller Testcases ist, für die noch kein Ergebnis vorliegt. Da nach \chapref{chap:limit_scope} von der Korrektheit und Vollständigkeit von $T_{run}$ ausgegangen werden darf, ist trivial, dass $T_{run}\subset T_{ges}$, sowie $T_{todo}\subset T_{ges}$.\\
 $T_{ges}$ wird von testDiscovery bereitgestellt, während das test archive $T_{run}$ enthält. Beide Datenmengen werden \textit{testAuditor} vom controller über ein definiertes Format übermittelt.\\
 Zu guter Letzt gibt \textit{testAuditor} eine Menge von qualifiedNames an den controller zurück. Diese Menge beschreibt $T_{todo}$. 
