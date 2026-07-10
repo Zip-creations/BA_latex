@@ -17,20 +17,20 @@ Folgende Anforderungen werden an einen Durchlauf des Verfahrens gestellt:
 
 \section{Anforderungen an ein Testausgabeformat}\label{Anforderungen Testausgabeformat}
 Um ein framework-agnostisches Verfahren zu ermöglichen, muss ein testframework-agnostisches Testausgabeformat gefunden werden, in welchem die Ergebnisse eines Testlaufs in einer standartisierten Form festgehalten werden.\\
-\textit{testAuditor} ist der Kern des Verfahrens, und benötigt zur korrekten Funktion Zugriff auf die Gesamtheit aller Testcases sowie Informationen über den Status von bereits gelaufenen Testcases. Eine detailiertere Beschreibung von \textit{testAuditor} findet sich in \chapref{Komponente_testAuditor}.\\
+\texttt{testAuditor} ist der Kern des Verfahrens, und benötigt zur korrekten Funktion Zugriff auf die Gesamtheit aller Testcases sowie Informationen über den Status von bereits gelaufenen Testcases. Eine detailiertere Beschreibung von \texttt{testAuditor} findet sich in \chapref{Komponente_testAuditor}.\\
 % Jedes Testframework verfügt über eines oder meherere mögliche Ausgabeformate, welches die Informationen über das Ergebnis eines Testlaufes enthält.\\
 % Damit ein Tool entwickelt werden kann, welches möglichst frameworkunabhägig funktioniert, muss ein Ausgabeformat gefunden werden, dass von möglichst vielen verschiedenen Testframeworks auf die selbe Art und Weise verwendet wird, damit die Dateien vom Tool über eine Schnittstelle eingelesen werden können.\\
 Mit Blick auf diese sowie die under \chapref{Anforderungen Tool} beschriebenen Anforderungen an das Verfahren, würde ein ideales Testausgabeformat sämtliche hier gestellten Anforderungen erfüllen:\\
 \textbf{Ein ideales Ausgabeformat für Tests:}
 \begin{itemize}
     \item \textbf{ermöglicht die vollständige Ermittlung aller im Projekt vorhandenen Testcases}\\
-    Dieser Punkt ist essenziell, zum einen damit \textit{testAuditor} eine Aussage darüber treffen kann, ob eine vollständige Abddeckung aller Testcases erzielt wurde, Zum anderen muss \textit{testAuditor} zum Erzielen einer vollständigen Abdeckung auch auf potentiell jeden vorhandenen Testcase zugreifen können. Dazu muss \textit{testAuditor} selbstverständlich auch jeder Testcase innerhalb des Projektes bekannt sein.
+    Dieser Punkt ist essenziell, zum einen damit \texttt{testAuditor} eine Aussage darüber treffen kann, ob eine vollständige Abddeckung aller Testcases erzielt wurde, Zum anderen muss \texttt{testAuditor} zum Erzielen einer vollständigen Abdeckung auch auf potentiell jeden vorhandenen Testcase zugreifen können. Dazu muss \texttt{testAuditor} selbstverständlich auch jeder Testcase innerhalb des Projektes bekannt sein.
     \item \textbf{identifiziert jeden Testcase eindeutig}\\
     Je nach Testframework und Implementierung ist es gestattet, mehreren Testcases, die in unterschiedlichen Namespaces leben, mit dem selben Namen zu bezeichnen. Aus dem Ausgabeformat muss in jedem Falle eine eindeutige Zuordnung der Testcases und den Ergebnissen möglich sein. 
     \item \textbf{sagt für jeden Testcase einzelnd aus, ob er ausgeführt wurde oder nicht}\\
     Dieser Punkt setzt die Erfüllung der ersten beiden Punkte voraus. Zusätzlich muss aus dem Eintrag eines Testcases im Ausgabeformat erkennbar sein, ob der Test ausgeführt worden ist.
     \item \textbf{ist ein strukturiertes Format}\\
-    Es muss eine erfassbare Struktur für das Testausgabeformats vorhanden sein, damit ein entsprechender Parser für \textit{testAuditor} entwickelt werden kann.
+    Es muss eine erfassbare Struktur für das Testausgabeformats vorhanden sein, damit ein entsprechender Parser für \texttt{testAuditor} entwickelt werden kann.
     \item \textbf{ist in vielen Frameworks über viele Programmiersprachen hinweg vertreten}\\
     Es wäre utopisch anzunehmen, dass ein strukturiertes Format existiert, welches von jedem existierendem Testframework gleichermaßen benutzt wird. Dennoch gibt es durchaus gängige Formate, die von unterschiedlichen Testframeworks aus unterschiedlichen Sprachen unterstützt werden, wie folgend in \chapref{Vergleich Testausgabefomate} untersucht wird. 
 \end{itemize}

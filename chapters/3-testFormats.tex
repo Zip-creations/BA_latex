@@ -1,8 +1,8 @@
 \chapter{Vergleich von Testausgabeformaten}\label{Vergleich Testausgabefomate}
-Um das Tool \textit{testAuditor} zu entwickeln, welches framework-agnostisch eingesetzt werden kann, muss \textit{testAuditor} die Ausgabe eines Testlaufes unabhängig vom verwendeten Framework parsen können. Die Anforderungen an ein Testausgabeformat wurden bereits in \chapref{Anforderungen Testausgabeformat} untersucht.\\
+Um das Tool \texttt{testAuditor} zu entwickeln, welches framework-agnostisch eingesetzt werden kann, muss \texttt{testAuditor} die Ausgabe eines Testlaufes unabhängig vom verwendeten Framework parsen können. Die Anforderungen an ein Testausgabeformat wurden bereits in \chapref{Anforderungen Testausgabeformat} untersucht.\\
 Standartmäßig geben die meisten Testframeworks das Ergebnis eines Testlauf in einem unstrukturiertem Format über die Konsole aus. Allerdings bieten fast alle etablierten Testframeworks auch eine Auswahl an Dateiformaten an, über welche die Testausgabe ebenfalls präsentiert werden kann.\\
 Für diese Dateiformate wurden über die Jahre einige framework-übergreifende Ausgabeformate entwickelt, die sich in unterschiedlicher Ausprägung durchsetzen konnten.\\
-Es gilt nun, ein geeignetes Testausgabeformat zu finden, dass von \textit{testAuditor} als Quelle für Testergebnisse genutzt werden kann. 
+Es gilt nun, ein geeignetes Testausgabeformat zu finden, dass von \texttt{testAuditor} als Quelle für Testergebnisse genutzt werden kann. 
 
 \section{Methodik}
 Aufgrund der Vielzahl von verschiedenen Testframeworks und der Vielfältigkeit ihrer Ausgabeformate können im Rahmen dieser Bachelorarbeit nur die verbreitesten Formate untersucht werden.\\
@@ -115,7 +115,7 @@ Abgesehen davon ist Junit XML das einzige Testausgabeformat, dass von jedem im D
 \end{table}
 
 \subsubsection{Fazit zu JUnit XML}
-Aufgrund der weiten Verbreitung und der trotz der fehlenden Standartisierung ähnlichen Umsetzung in vielen Testframeworks, ist JUnit XML ein geeignetes Testausgabeformat für \textit{testAuditor}, da es in der Praxis trotz einiger potentieller Fehlerquellen mit einer Vielzahl von Testframeworks kompatibel ist.
+Aufgrund der weiten Verbreitung und der trotz der fehlenden Standartisierung ähnlichen Umsetzung in vielen Testframeworks, ist JUnit XML ein geeignetes Testausgabeformat für \texttt{testAuditor}, da es in der Praxis trotz einiger potentieller Fehlerquellen mit einer Vielzahl von Testframeworks kompatibel ist.
 
 \subsection{Test Anything Protocol (TAP)}
 \subsubsection{Übersicht}
