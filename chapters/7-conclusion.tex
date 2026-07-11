@@ -1,7 +1,24 @@
 \chapter{Fazit}
 
 \section{Erfüllung der Anforderungen}
-Im Folgenden soll nun untersucht werden, ob die in \chapref{Anforderungen Tool} gestellten Anforderungen unter Berücksichtigung der Ergebnisse von \chapref{chap:result_benchmark} durch das Verfahren erfüllt werden konnten. 
+In diesem Kapitel folgt die Beurteilung, ob die in \chapref{Anforderungen Tool} gestellten Anforderungen unter Berücksichtigung der Ergebnisse von \chapref{chap:result_benchmark} durch das Verfahren erfüllt werden konnten. 
+
+\begin{itemize}
+    \item \textbf{Die Wahl der verwendeten Testframework(s) ist unerheblich}\\
+    Das Verfahren ist Frameworkunabhängig für jedes Testframework, welches die in \chapref{chap:Anforderungen_Framework} gestellten Anforderungen erfüllt, also für jedes Framework, welches JUnit XML als Ausgabeformat bereitstellt, und eine eindeutige Zuordnung zwischen Testausgabe und Testcase über die Attribute \texttt{name} und \texttt{classname} ermöglicht.
+    \item \textbf{Nach Abschluss des Verfahrens wurde jeder Testcase für den aktuellen Stand des Codes mindestens einmal durchgeführt}\\
+    Die Implementation von \texttt{testAuditor} in \chapref{Komponente_testAuditor} garantiert eine korrekte Entscheidung, da nach \chapref{chap:limit_scope} die Korrektheit des Inputs angenommen wird. 
+    \item \textbf{Die Ausgabe des durch das Verfahren ausgeführten Testlaufs ist auf die selbe Weise verfügbar, wie die anderen Ausgaben}\\
+    Diese Anforderung kann von einem korrekt Implementierten \texttt{controller} erfüllt werden, da die \texttt{testExecution} auf das selbe Testframework wie die vorherigen Testläufe zugreift, ihr Ergebnis an den \texttt{controller} zurückmeldet. Die genau Vorgehensweise ist jedoch von der jeweiligen Implementation des \texttt{archive} und \texttt{controllers} anhängig.
+    \item \textbf{Die Laufzeit eines Testdurchlaufs unter Verwendung des Verfahrens ist kleiner oder gleich der Laufzeit eines konventionellen Durchlaufs}\\
+    Diese Anforderung konnte mit Blick auf \chapref{chap:summary_benchmark} nur teilweise erfüllt werden, da die Laufzeit für einen Durchlauf ohne Inhalte im \texttt{archive} langsamer als ein konventioneller Durchlauf ist. Jedoch wird die Laufzeit des Verfahrens besser, je mehr Testcases bereits ausgeführt wurden und deren Ergebnis im \texttt{archive} liegt. Der Punkt, ab dem das Verfahren besser performt als ein konventioneller Durchlauf, ist abhängig von Anzahl und Ausführungsgeschwindigkeit der Testcases.
+\end{itemize}
+
+\section{Endfazit}
+Zusammenfassend lässt sich sagen, dass durch das in dieser Bachelorarbeit entwickelte Verfahren durchaus eine Verkürzung der Laufzeit von Testläufen erzielen lässt.
+
+Außerdem wurden die Schwierigkeiten beim Versuch, eine möglichst umfassende Unabhängigkeit vom benutzten Testframework zu erzielen, dargestellt. Es wurde die breite Verwendbarkeit des Verfahrens in verschiedenen Testframeworks, aber auch die Limitationen dieser Unabhängigkeit genau durchleutet. 
+
 
 \section{Möglichkeiten zur Verbesserung}
 TODO: Überarbeiten.\\

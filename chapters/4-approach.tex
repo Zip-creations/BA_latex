@@ -1,5 +1,5 @@
 \chapter{Umsetzung}\label{chap:approach}
-\section{Komponenten des Verfahrens}
+\section{Komponenten des Verfahrens}\label{chap:Komponenten}
 Das vorgestellte Verfahren besteht aus den folgenden Komponenten:
 \begin{itemize}
     \item \texttt{testDiscovery}: liefert die Gesamtheit aller Testcases
@@ -86,12 +86,12 @@ Das beschriebene Verfahren kann mit jedem Testframework angewandt werden, welche
     \item Ein Testcase kann eindeutig über die Kombination der Attribute \texttt{name} und \texttt{classname} identifiziert werden
 \end{itemize}
 
-\section{Anforderungen an ein Projekt}
+\section{Anforderungen an ein Projekt}\label{chap:Anforderungen_Framework}
 Nachdem die Anforderungen und Funktionsweisen der beteiligten Komponenten und Dateien auführlich diskutiert wurden, können daraus nun die Anforderungen an ein Projekt abgeleitet werden, die vorrausgesetzt werden, um das Verfahren implementieren zu können:
 \begin{itemize}
     \item Determinismus ist gegeben - Jeder Testdurchlauf erzeugt bei gleichem Input und gleicher Konfiguration der Testcases das selbe Ergebnis, unabhängig von der Entwicklungsumgebung
-    \item Es wird eine Komponente zur Verfügung gestellt, welche die in \chapref{chap:Komponente_testDiscovery} beschriebene Funktionalität bereitstellt
     \item Das verwendete Testframework erfüllt alle in \chapref{chap:req_testframework} dargestellten Anforderungen
+    \item Es werden Komponenten zur Verfügung gestellt, welche die in \chapref{chap:Komponenten} beschriebenen Funktionalitäten bereitstellen
 \end{itemize}
 % \subsubsection{test discovery}\label{test discovery}
 % -> qualifiedname: Eine Zeichenfolge, die einen Test innerhalb eines Testframeworks eindeutig identifiziert. Bespiele in vers. TestFrameworks bringen!
