@@ -152,7 +152,7 @@ Eine eindeutige Zuordnung zwischen Testergebnis und Testcase ist nicht in allen 
 \end{lstlisting}
 Dies macht TAP in diesem Falle als Ausgabeformat ungeeignet. Andere Testframeworks wie bespielsweise pytest oder tasty sorgen allerdings für eine eindeutige Zuordnung in ihren jeweiligen Ausgaben. 
 
-\subsubsection{Evaluation der Anforderungen nach \chapref{Anforderungen Testausgabeformat}}\label{Evaluation_Junit}
+\subsubsection{Evaluation der Anforderungen nach \chapref{Anforderungen Testausgabeformat}}\label{Evaluation_TAP}
 \begin{table}[htbp]
     \centering
     \makebox[\textwidth][c]{
@@ -192,14 +192,54 @@ Anders als die anderen vorstellten Formate gitb es bei OTR zwei mögliche Dateif
 Das HTML-Format wird ausgehend von einer vorher erzeugten OTR-XML Datei erzeugt, und ist ebenso erweiterbar. 
 
 \subsubsection{Struktur}
-hier nur XML
+Für diese Untersuchung wird nur die eventbasierte XML-Struktur betrachtet, da diese Struktur das von den im Datenatz untersuchten Testframeworks benutzte Format ist.\\
+Im event-basiertem Format werden die Ergebnisse nicht wie in Junit XML oder TAP durch ein einzelnes Element mit optionalen Attributen repräsentiert, sondern über verschiedene Elemente, welche jeweils das Ergebnis eines Event der Testausführung enthalten. Demonstriert ist diese Struktur in \lstref{OTR_example}:
+
+\begin{lstlisting}[caption={OTR von \texttt{test\_neg}, erzeugt durch phpunit.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={OTR_example}]
+...
+<e:started id="3" parentId="2" name="test_neg" time="2026-06-25T14:11:44.985961Z">
+...
+<e:finished id="3" time="2026-06-25T14:11:44.986266Z">
+...
+\end{lstlisting}
+Hierbei enthält das Element \texttt{<e:started>} Informationen über den Testcase aus der ursprünglichen Testdatei, während \texttt{<e:finished>} Informationen über das Ergebnis des Testlaufs enthält.\\
+Wie auch in JUnit XML und TAP sind die meisten Informationen und Attribute optional, mit einem entscheidenden Unterschied: Aus dem Schema von OTR lässt sich entnehmen, dass die Elemente \texttt{<e:started>} und \texttt{<e:finished>} folgende Attribute aufweisen müssen: \texttt{id}, \texttt{time} und \texttt{name}. Während \texttt{id} intern in der Ausgabe benötigt wird, um die verschiedenen Events einander zuzuordnen, und \texttt{time} lediglich den Zeitpunkt des Beginns des Events festhält, ist für die Eignung von OTR als Input für \texttt{testAuditor} vor allem \texttt{name} interessant: Dieses Attribut enthält den Namen des Testcase. Jedoch genügt wie bereits bei TAP in \lstref{TAPcatch2} gezeigt das Vorhandensein des bloßen Namens nicht zur eindeutigen Identifizierung eines Testcase. Die dazugehörige Suite wird in OTR innerhalb des Elements \texttt{<metadata>} angegeben. Dieses Element ist jedoch optional. Somit ist die eindeutige Zuordnung von Testcases zu ihrem Ergbnis zwar teilweise in der Struktur festgehalten, aber noch nicht ausreichend garantiert. 
 
 \subsubsection{Eignung}
 Da OTR zum Zeitpunkt der Niederschrift dieser Bachelorarbeit noch sehr jung ist und aktiv entwickelt wird, bleibt abzusehen, ob die Entwickler ihr Ziel eines standartiserten, Programiersprachen-agnostischen Testausgebeformates erreichen können.
 
 Außerdem ist die Vebreitung von OTR noch sehr limitiert: Von den in \tabref{Formatvergleich} betrachteten Testframeworks sind lediglich phpunit und junit5 (welches, wie eingangs erwähnt, vom selben Entwicklerteam wie OTR betreut wird) mit jupiter als runner in der Lage, OTR nativ zu erzeugen. Außerdem kann junit5 mit den runnern von maven/gradle zumindest über Plugins eine OTR-Ausgabe erzeugen.
 
+\subsubsection{Evaluation der Anforderungen nach \chapref{Anforderungen Testausgabeformat}}\label{Evaluation_OTR}
+\begin{table}[htbp]
+    \centering
+    \makebox[\textwidth][c]{
+    \begin{tabular}{|c|c|}
+        \hline
+        Anforderung & Bewertung\\
+        \hline
+        \hline
+        \makecell{ermöglicht Ermittlung aller\\ vorhandenen Testcases} & \tabNo \\
+        \hline
+        eindeutige Identifizierung von Testcases & \tabPartial \\
+        \hline
+        \makecell{sagt für jeden Testcase einzelnd aus,\\ ob er ausgeführt wurde oder nicht} & \tabPartial \\
+        \hline
+        strukturiertes Format & \tabYes \\
+        \hline
+        weite Verbreitung & \tabPartial \\
+        \hline
+    \end{tabular}
+    }
+    \begin{tabular}{ll}
+        \tabYes & Erfüllt \\
+        \tabPartial & In Teilen erfüllt\\
+        \tabNo & Nicht erfüllt\\
+    \end{tabular}
+\end{table}
+
 \subsubsection{Fazit zu OTR}
+Auch wenn OTR die am besten geeignetste Struktur der bisher untersuchten Testausgabeformate bietet, ist die Verbreitung von OTR zum aktuellen Zeitpunkt noch zu gering, um die framework-agnostik des Verfahrens gewährleisten zu können, sollte es als Input für \texttt{testAuditor} genutzt werden.
 
 % \subsection{Common Test Report Format (CTRF)}
 % \subsubsection{Übersicht}
