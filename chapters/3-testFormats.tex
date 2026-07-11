@@ -86,34 +86,6 @@ Da JUnit XML ursprünglich spezifisch für das Testframework Junit entwickelt wu
 Abgesehen davon ist Junit XML das einzige Testausgabeformat, dass von jedem im Datensatz untersuchten Testframework ausgegeben werden kann. Zumeist sogar nativ, vereinzelt muss die Unterstützung erst über offiziell unterstützte Plugins hinzugefügt werden. % Für einige Testframeworks ist Junit XML sogar das primäre strukturierte Ausgabeformat für ihre Testläufe, zum Beispiel für Junit5. % Den letzten Satz beweisen, oder weglassen
 %Bei manchen Testframeworks ist Junit XML sogar die standart-Ausgabe, beispielsweise bei
 
-\subsubsection{Evaluation der Anforderungen nach \chapref{Anforderungen Testausgabeformat}}\label{Evaluation_Junit}
-\begin{table}[htbp]
-    \centering
-    \makebox[\textwidth][c]{
-    \begin{tabular}{|c|c|}
-        \hline
-        Anforderung & Bewertung\\
-        \hline
-        \hline
-        \makecell{ermöglicht Ermittlung aller\\ vorhandenen Testcases} & \tabNo \\
-        \hline
-        eindeutige Identifizierung von Testcases & \tabPartial \\
-        \hline
-        \makecell{sagt für jeden Testcase einzelnd aus,\\ ob er ausgeführt wurde oder nicht} & \tabPartial \\
-        \hline
-        strukturiertes Format & \tabPartial \\
-        \hline
-        weite Verbreitung & \tabYes \\
-        \hline
-    \end{tabular}
-    }
-    \begin{tabular}{ll}
-        \tabYes & Erfüllt \\
-        \tabPartial & In Teilen erfüllt\\
-        \tabNo & Nicht erfüllt\\
-    \end{tabular}
-\end{table}
-
 \subsubsection{Fazit zu JUnit XML}
 Aufgrund der weiten Verbreitung und der trotz der fehlenden Standartisierung ähnlichen Umsetzung in vielen Testframeworks, ist JUnit XML ein geeigneter Input für \texttt{testAuditor}, da es in der Praxis trotz einiger potentieller Fehlerquellen mit einer Vielzahl von Testframeworks kompatibel ist.
 
@@ -152,34 +124,6 @@ Eine eindeutige Zuordnung zwischen Testergebnis und Testcase ist nicht in allen 
 \end{lstlisting}
 Dies macht TAP in diesem Falle als Ausgabeformat ungeeignet. Andere Testframeworks wie bespielsweise pytest oder tasty sorgen allerdings für eine eindeutige Zuordnung in ihren jeweiligen Ausgaben. 
 
-\subsubsection{Evaluation der Anforderungen nach \chapref{Anforderungen Testausgabeformat}}\label{Evaluation_TAP}
-\begin{table}[htbp]
-    \centering
-    \makebox[\textwidth][c]{
-    \begin{tabular}{|c|c|}
-        \hline
-        Anforderung & Bewertung\\
-        \hline
-        \hline
-        \makecell{ermöglicht Ermittlung aller\\ vorhandenen Testcases} & \tabNo \\
-        \hline
-        eindeutige Identifizierung von Testcases & \tabPartial \\
-        \hline
-        \makecell{sagt für jeden Testcase einzelnd aus,\\ ob er ausgeführt wurde oder nicht} & \tabPartial \\
-        \hline
-        strukturiertes Format & \tabYes \\
-        \hline
-        weite Verbreitung & \tabPartial \\
-        \hline
-    \end{tabular}
-    }
-    \begin{tabular}{ll}
-        \tabYes & Erfüllt \\
-        \tabPartial & In Teilen erfüllt\\
-        \tabNo & Nicht erfüllt\\
-    \end{tabular}
-\end{table}
-
 \subsubsection{Fazit zu TAP}
 TAP ist aufgrund seiner sehr geringen Minimalstruktur und vor allem wegen seiner nur mäßigen Verbreitung eher nicht als Input für \texttt{testAuditor} geeignet. 
 
@@ -210,36 +154,55 @@ Da OTR zum Zeitpunkt der Niederschrift dieser Bachelorarbeit noch sehr jung ist 
 
 Außerdem ist die Vebreitung von OTR noch sehr limitiert: Von den in \tabref{Formatvergleich} betrachteten Testframeworks sind lediglich phpunit und junit5 (welches, wie eingangs erwähnt, vom selben Entwicklerteam wie OTR betreut wird) mit jupiter als runner in der Lage, OTR nativ zu erzeugen. Außerdem kann junit5 mit den runnern von maven/gradle zumindest über Plugins eine OTR-Ausgabe erzeugen.
 
-\subsubsection{Evaluation der Anforderungen nach \chapref{Anforderungen Testausgabeformat}}\label{Evaluation_OTR}
-\begin{table}[htbp]
-    \centering
-    \makebox[\textwidth][c]{
-    \begin{tabular}{|c|c|}
-        \hline
-        Anforderung & Bewertung\\
-        \hline
-        \hline
-        \makecell{ermöglicht Ermittlung aller\\ vorhandenen Testcases} & \tabNo \\
-        \hline
-        eindeutige Identifizierung von Testcases & \tabPartial \\
-        \hline
-        \makecell{sagt für jeden Testcase einzelnd aus,\\ ob er ausgeführt wurde oder nicht} & \tabPartial \\
-        \hline
-        strukturiertes Format & \tabYes \\
-        \hline
-        weite Verbreitung & \tabPartial \\
-        \hline
-    \end{tabular}
-    }
-    \begin{tabular}{ll}
-        \tabYes & Erfüllt \\
-        \tabPartial & In Teilen erfüllt\\
-        \tabNo & Nicht erfüllt\\
-    \end{tabular}
-\end{table}
-
 \subsubsection{Fazit zu OTR}
 Auch wenn OTR die am besten geeignetste Struktur der bisher untersuchten Testausgabeformate bietet, ist die Verbreitung von OTR zum aktuellen Zeitpunkt noch zu gering, um die framework-agnostik des Verfahrens gewährleisten zu können, sollte es als Input für \texttt{testAuditor} genutzt werden.
+
+
+\subsection{Evaluation der Anforderungen nach \chapref{Anforderungen Testausgabeformat}}\label{Evaluation_Testausgabeformate}
+\begin{table}[H]
+    \centering
+    \makebox[\textwidth][c]{%
+    \begin{tabular}{|c||c|c|c|}
+        \hline
+        Anforderung & JUnit XML & TAP & OTR \\
+        \hline
+        \hline
+        \makecell{ermöglicht Ermittlung aller\\ vorhandenen Testcases}
+            & \tabNo
+            & \tabNo
+            & \tabNo \\
+        \hline
+        eindeutige Identifizierung von Testcases
+            & \tabPartial
+            & \tabPartial
+            & \tabPartial \\
+        \hline
+        \makecell{sagt für jeden Testcase einzeln aus,\\ ob er ausgeführt wurde oder nicht}
+            & \tabPartial
+            & \tabPartial
+            & \tabPartial \\
+        \hline
+        strukturiertes Format
+            & \tabPartial
+            & \tabYes
+            & \tabYes \\
+        \hline
+        weite Verbreitung
+            & \tabYes
+            & \tabPartial
+            & \tabPartial \\
+        \hline
+    \end{tabular}%
+    }
+    \vspace{0.5em}
+    \begin{tabular}{ll}
+        \tabYes & Erfüllt \\
+        \tabPartial & In Teilen erfüllt \\
+        \tabNo & Nicht erfüllt \\
+    \end{tabular}
+    \caption{Evaluation der Testausgabeformate nach den in \chapref{Anforderungen Testausgabeformat} definierten Anforderungen}
+    \label{tab:evaluation_testausgabeformate}
+\end{table}
 
 % \subsection{Common Test Report Format (CTRF)}
 % \subsubsection{Übersicht}
@@ -279,6 +242,7 @@ Das Problem bei diesen Testausgaben ist, dass ihre Struktur voll und ganz von de
     "collected": 5
 },
 "collectors": [
+...
 (*@\underline{\texttt{JSON, von behat in php erzeugt:}}@*)
 {"tests": 5,
 "skipped": 0,
@@ -287,7 +251,9 @@ Das Problem bei diesen Testausgaben ist, dass ihre Struktur voll und ganz von de
 "undefined": 0,
 "time": 0.011,
 "suites": [
+...
 \end{lstlisting}
+
 Für diese von Grund auf verschiedenen Ausgaben kann offensichtlich kein einheitlicher Parser geschrieben werden.\\
 Somit können für die Wahl des Inputs für \texttt{testAuditor} nur die vorangegangen untersuchten Testausgabeformate in Betracht gezogen werden. 
 
