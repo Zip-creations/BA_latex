@@ -15,17 +15,21 @@ In diesem Kapitel folgt die Beurteilung, ob die in \chapref{Anforderungen Tool} 
 \end{itemize}
 
 \section{Endfazit}
-Zusammenfassend lässt sich sagen, dass durch das in dieser Bachelorarbeit entwickelte Verfahren durchaus eine Verkürzung der Laufzeit von Testläufen erzielen lässt.
+Zusammenfassend lässt sich sagen, dass durch das in dieser Bachelorarbeit entwickelte Verfahren durchaus eine Verkürzung der Laufzeit von Testläufen erzielen lässt. Es wurde erklärt, von welchen Faktoren der genau Wert der Verkürzung in einem Projekt abghängig ist. 
 
 Außerdem wurden die Schwierigkeiten beim Versuch, eine möglichst umfassende Unabhängigkeit vom benutzten Testframework zu erzielen, dargestellt. Es wurde die breite Verwendbarkeit des Verfahrens in verschiedenen Testframeworks, aber auch die Limitationen dieser Unabhängigkeit genau durchleutet. 
 
 
 \section{Möglichkeiten zur Verbesserung}
 TODO: Überarbeiten.\\
-In seiner aktuellen Form kann das Tool nicht entscheiden, ob die XML-Ausgabe der Tests auch tatsächlich aus dem aktuellen Stand des Codes entstammt, oder ob im Nachhinein Änderungen an dem zu testenden Code oder den Tests selber vorgenommen wurden, was die Aussagekraft des Tools stark beeinträchtigt.\\
-Ein anderes Problem ist, dass das Tool alle Tests, die nicht an den letzen Schwung gitnotes anhängt sind, als nicht abgelaufen betrachtet, auch wenn einige Testfälle in einer vorherigen Iteration ausgeführt sein könnten, und die Änderungen, die seither im Code gemacht wurden diese Tests überhaupt nicht betreffen.\\
-Eine Möglichkeit, dieses Problem zu beheben, wäre die Integration eines neuen Tools, welches eine Seletive Regression Testing / Regression Test Selection implementiert, und so dem Tool rückmelden kann, welche Tests tatschlich neu ausgeführt werden müssen, und bei welchen der vorherige Stand noch gültig ist.\\
+In seiner aktuellen Form kann das Tool nicht entscheiden, ob die XML-Ausgabe der Tests auch tatsächlich aus dem aktuellen Stand des Codes entstammt, oder ob im Nachhinein Änderungen an dem zu testenden Code oder den Tests selber vorgenommen wurden, was die Aussagekraft des Verfahrens stark beeinträchtigt.
+
+Ein anderes Problem ist, dass das Tool alle Tests, die nicht im archive, als nicht abgelaufen betrachtet, auch wenn einige Testfälle in einer vorherigen Iteration ausgeführt sein könnten, und die Änderungen, die seither im Code gemacht wurden diese Tests überhaupt nicht betreffen.\\
+Eine Möglichkeit, dieses Problem zu beheben, wäre die Integration eines neuen Tools, welches eine Seletive Regression Testing / Regression Test Selection implementiert, und so dem Tool rückmelden kann, welche Tests tatschlich neu ausgeführt werden müssen, und bei welchen der vorherige Stand noch gültig ist.
+
 Zusätzliche Unterstützung von TAP wäre realistisch, JSON formate eher unrealistisch.
 Robuster machen für name+classname kombis
 -> Ekstazi
 https://github.com/gliga/ekstazi
+
+Zusätzlich könnte untersucht werden, ob eine effizientere Methode der Kommunikation mit dem Testframework als mit dem aktuellen Aufbau möglich ist, um das Verfahren bei bereits geringere Abdeckung des \texttt{archive} effizienter als einen konventionellen Durchlauf zu machen. 
