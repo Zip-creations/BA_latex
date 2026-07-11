@@ -1,0 +1,169 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{PezzeYoung}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=1923cbc72610fd18c2ba0b2eaed4b2ea}{%
+           family={Pezzè},
+           familyi={P\bibinitperiod},
+           given={Mauro},
+           giveni={M\bibinitperiod}}}%
+        {{hash=d60fcd7c87bff07b6907e9af382d45e1}{%
+           family={Young},
+           familyi={Y\bibinitperiod},
+           given={Michal},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {John Wiley \& Sons}%
+      }
+      \strng{namehash}{c626d185454a6417358cf88b02d21809}
+      \strng{fullhash}{c626d185454a6417358cf88b02d21809}
+      \strng{fullhashraw}{c626d185454a6417358cf88b02d21809}
+      \strng{bibnamehash}{c626d185454a6417358cf88b02d21809}
+      \strng{authorbibnamehash}{c626d185454a6417358cf88b02d21809}
+      \strng{authornamehash}{c626d185454a6417358cf88b02d21809}
+      \strng{authorfullhash}{c626d185454a6417358cf88b02d21809}
+      \strng{authorfullhashraw}{c626d185454a6417358cf88b02d21809}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-0-471-45593-6}
+      \field{title}{Software Testing and Analysis: Process, Principles, and Techniques}
+      \field{year}{2008}
+      \field{dateera}{ce}
+    \endentry
+    \entry{winkler}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{hash=c227cfed74aa34151609bc0b3c3d9bfc}{%
+           family={Winkler},
+           familyi={W\bibinitperiod},
+           given={Dietmar},
+           giveni={D\bibinitperiod}}}%
+        {{hash=f5178fe068cca3dffc1f33cb02c2832f}{%
+           family={Hametner},
+           familyi={H\bibinitperiod},
+           given={Reinhard},
+           giveni={R\bibinitperiod}}}%
+        {{hash=11059ace3ea68636e85a2da4bde7d780}{%
+           family={Biffl},
+           familyi={B\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{056bde227b9c542f77f1e71aa610c729}
+      \strng{fullhash}{056bde227b9c542f77f1e71aa610c729}
+      \strng{fullhashraw}{056bde227b9c542f77f1e71aa610c729}
+      \strng{bibnamehash}{056bde227b9c542f77f1e71aa610c729}
+      \strng{authorbibnamehash}{056bde227b9c542f77f1e71aa610c729}
+      \strng{authornamehash}{056bde227b9c542f77f1e71aa610c729}
+      \strng{authorfullhash}{056bde227b9c542f77f1e71aa610c729}
+      \strng{authorfullhashraw}{056bde227b9c542f77f1e71aa610c729}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2009 IEEE Conference on Emerging Technologies \& Factory Automation}
+      \field{title}{Automation Component Aspects for Efficient Unit Testing}
+      \field{year}{2009}
+      \verb{doi}
+      \verb 10.1109/ETFA.2009.5347022
+      \endverb
+    \endentry
+    \entry{TAP_14}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=2d572fd7354ec8be22793a29617fcd57}{%
+           family={Schlueter},
+           familyi={S\bibinitperiod},
+           given={Isaac\bibnamedelima Z.},
+           giveni={I\bibinitperiod\bibinitdelim Z\bibinitperiod}}}%
+      }
+      \strng{namehash}{2d572fd7354ec8be22793a29617fcd57}
+      \strng{fullhash}{2d572fd7354ec8be22793a29617fcd57}
+      \strng{fullhashraw}{2d572fd7354ec8be22793a29617fcd57}
+      \strng{bibnamehash}{2d572fd7354ec8be22793a29617fcd57}
+      \strng{authorbibnamehash}{2d572fd7354ec8be22793a29617fcd57}
+      \strng{authornamehash}{2d572fd7354ec8be22793a29617fcd57}
+      \strng{authorfullhash}{2d572fd7354ec8be22793a29617fcd57}
+      \strng{authorfullhashraw}{2d572fd7354ec8be22793a29617fcd57}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Archivierte Version vom 10.07.2026, verfügbar über die Wayback Machine: \url{https://web.archive.org/web/20260710220327/https://testanything.org/tap-version-14-specification.html}}
+      \field{title}{TAP14 - The Test Anything Protocol v14}
+      \field{urlday}{10}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://testanything.org/tap-version-14-specification.html
+      \endverb
+      \verb{url}
+      \verb https://testanything.org/tap-version-14-specification.html
+      \endverb
+    \endentry
+    \entry{OTR_milestone}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=a872f29a92f9d56ba1f30e606aef5611}{%
+           family={Philipp},
+           familyi={P\bibinitperiod},
+           given={Marc},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{a872f29a92f9d56ba1f30e606aef5611}
+      \strng{fullhash}{a872f29a92f9d56ba1f30e606aef5611}
+      \strng{fullhashraw}{a872f29a92f9d56ba1f30e606aef5611}
+      \strng{bibnamehash}{a872f29a92f9d56ba1f30e606aef5611}
+      \strng{authorbibnamehash}{a872f29a92f9d56ba1f30e606aef5611}
+      \strng{authornamehash}{a872f29a92f9d56ba1f30e606aef5611}
+      \strng{authorfullhash}{a872f29a92f9d56ba1f30e606aef5611}
+      \strng{authorfullhashraw}{a872f29a92f9d56ba1f30e606aef5611}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{21}
+      \field{month}{3}
+      \field{note}{Archivierte Version vom 11.07.2026: \url{https://web.archive.org/web/20260710233305/https://marcphilipp.de/blog/2025/03/21/stf-milestone-2-open-test-reporting/}}
+      \field{title}{STF Milestone 2: Open Test Reporting}
+      \field{urlday}{10}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://marcphilipp.de/blog/2025/03/21/stf-milestone-2-open-test-reporting/
+      \endverb
+      \verb{url}
+      \verb https://marcphilipp.de/blog/2025/03/21/stf-milestone-2-open-test-reporting/
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

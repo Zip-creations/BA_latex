@@ -1,0 +1,44 @@
+\begin{table}[H]
+    \centering
+    \makebox[\textwidth][c]{%
+    \begin{tabular}{|c||c|c|c|}
+        \hline
+        Anforderung & JUnit XML & TAP & OTR \\
+        \hline
+        \hline
+        \makecell{ermöglicht Ermittlung aller\\ vorhandenen Testcases}
+            & \tabNo
+            & \tabNo
+            & \tabNo \\
+        \hline
+        eindeutige Identifizierung von Testcases
+            & \tabPartial
+            & \tabPartial
+            & \tabPartial \\
+        \hline
+        \makecell{sagt für jeden Testcase einzeln aus,\\ ob er ausgeführt wurde oder nicht}
+            & \tabPartial
+            & \tabPartial
+            & \tabPartial \\
+        \hline
+        strukturiertes Format
+            & \tabPartial
+            & \tabYes
+            & \tabYes \\
+        \hline
+        weite Verbreitung
+            & \tabYes
+            & \tabPartial
+            & \tabPartial \\
+        \hline
+    \end{tabular}%
+    }
+    \vspace{0.5em}
+    \begin{tabular}{ll}
+        \tabYes & Erfüllt \\
+        \tabPartial & In Teilen erfüllt \\
+        \tabNo & Nicht erfüllt \\
+    \end{tabular}
+    \caption{Evaluation der Testausgabeformate nach den in \chapref{Anforderungen Testausgabeformat} definierten Anforderungen}
+    \label{tab:evaluation_testausgabeformate}
+\end{table}
