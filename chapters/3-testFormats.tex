@@ -25,8 +25,7 @@ In der zweiten Datei liegt ein Testcase im Namespace \texttt{BasicTest2}:
 \end{itemize}
 \texttt{test\_same\_name} untersucht, ob es allein aus der Testausgabe heraus möglich ist, einen Testcase eindeutig zu indentifizieren, auch wenn in unterschiedlichen Namespaces verschiedene Testcases den selben Namen aufweisen.
 
-\tabref{Formatvergleich} zeigt die Ergebnisse des Datensatzes zur Untersuchung der Verbreitung von Testausgabeformaten.
-
+\tabref{Formatvergleich} zeigt die Ergebnisse des Datensatzes zur Untersuchung der Verbreitung von Testausgabeformaten:
 \input{tables/testformat_evaluation.tex}
 \newpage
 
@@ -222,4 +221,4 @@ Der wichtigste Aspekt, um einen Testframwork-agnostischen Input für \texttt{tes
 Somit fällt die Wahl als Input für \texttt{testAuditor} auf JUnit XML.\\
 Trotz aller in \chapref{JUNIT} gezeigten Schwächen wird Junit XML von einer Vielzahl von Testframeworks als Ausgabeformat angeboten. Darüber Hinaus ist die tatsächliche Implementation des Formates von JUnit XML trotz einer fehlenden Standartisierung häufig genug an den kritischen Punkten übereinstimmend, sodass ein Parser geschrieben werden kann, der in einer Vielzahl von Fällen funktioniert.
 
-Natürlich wäre es angebrachter, ein strukturiertes Format zu verwenden, um eine sichere Aussage über die Anwendeung des Verfahrens treffen zu können. In diesem Falle überwiegt jedoch das Argument der überragenden Verbreitung von JUnit XML.
+Natürlich wäre es wünschenswert, ein strukturiertes Format zu verwenden, um eine sichere Aussage über den Anwendungsbereich des Verfahrens treffen zu können. Um die Anforderung der Framework-agnostik zu erfülen, überwiegt hier jedoch das Argument der überragenden Verbreitung von JUnit XML.
