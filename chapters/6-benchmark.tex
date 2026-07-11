@@ -13,7 +13,7 @@ In diesem Kapitel werden die Ergebnisse der begleitenden Benchmark (siehe \chapr
 \section{Aufbau der Benchmark}
 Die hier benutzte Benchmark ist in python für das Framework pytest geschrieben, und untersucht sechs verschiedene Basis-Konfigurationen. Diese Konfigurationen unterscheiden sich in der Gesamtzahl der Testcases, die ausgeführt werden, sowie der Anzahl an Iterationen, die je Testcase ausgeführt werden, was die Ausführungsdauer eines Testcase bestimmt. Jede Konfiguration wird mit sechs verschieden gefüllten \texttt{archives} getestet.\\
 Dabei werden die sogenannten parametrisierten Tests von pytest genutzt, dargestellt in \lstref{paratestPytest}:
-\begin{lstlisting}[caption={Inhalt von test\_simple.py aus der Konfiguration ''bench\_fast\_few\_00''}, label={paratestPytest}]
+\begin{lstlisting}[caption={Inhalt von \texttt{test\_simple.py} aus der Konfiguration ''bench\_fast\_few\_00''}, label={paratestPytest}]
 @pytest.mark.parametrize("case", range(10))
 def test_simple(case):
     index = 0
@@ -28,6 +28,8 @@ Die Konfigurationen werden in 3 Geschwindigkeiten unterteilt: \textit{fast}, \te
 Jede Konfiguration enthält außerdem die Datei out.xml im Ordner archive. Diese Datei enthält das Ergebnis von vorherigen Testläufen, die vom Verfahren genutzt werden können, und erfüllt damit die Rolle der \texttt{archive}-Komponente (siehe \chapref{chap:Komponente_archive}). Dabei existieren für jede der sechs bisher vorgestelle Kombination aus Testcaseanzahl und Iterationsanzahl sechs Konfigurationen: Eine Konfiguration enthält ein leeres \texttt{archive}, folgend gibt es Konfigurationen mit \texttt{archives}, die jeweils 20, 40, 60, 80 und abschießend 100 Prozent der Testcases in der Konfiguration abdecken.
 
 Durch die drei Geschwindigkeitsklassen, die beiden unterschiedlichen Mengen von Testcases, und den unterschiedliche gefüllten \texttt{archives} beträgt die Gesamtzahl der in der Benchmark überprüften Konfigurationen 36. 
+
+Die Komponenten \texttt{testDiscovery} und \texttt{testExecution} werden durch zwei gleichnamige scripte zur Verfügung gestellt. Das script benchmark.sh, welches den Ablauf der Benchmark steuert, übernimmt die Rolle des \texttt{controller}. 
 
 \subsection{Spezifikationen des ausführenden Systems}
 Der Computer, auf dem die Benchmark ausgeführt wurde, weist folgende Hardware-Spezifikationen auf:

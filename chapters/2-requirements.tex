@@ -88,7 +88,7 @@ In den meisten Testframeworks übernimmt das Testframework selbst die Aufgaben d
 Obwohl für jede Ausgabe Junit5 mit Jupiter als Testframework benutzt wird, jede Ausgabe Junit XML als Format aufweißt, und jede Ausgabe auf den selben beiden Testdateien basiert, gibt es durch die unterscheidlichen Test Runner und Test Reporter deutliche Unterschiede in der Testausgabe.\\
 So ignoriert gradle beispielsweise in diesem exemplarischen Fall das tag <properties>, während maven und Jupiter (ohne build-tool) eine exessive Liste von <property> in der Testausgabe mitgeben. \\
 Auch die Bennenung der Testcases unterscheidet sich:\\
-Jupiter und gradle behalten den Namen test\_neg() bei, so wie er auch in der Testdatei verwendet wird, während maven den Namen zu test\_neg kürzt.\\
+Jupiter und gradle behalten den Namen \texttt{test\_neg()} bei, so wie er auch in der Testdatei verwendet wird, während maven den Namen zu \texttt{test\_neg} kürzt.\\
 Ähnliches bei der Bennenug der Testsuite: Da gradle und maven für jede Datei eine eigene Ausgabedatei erzeugen, benutzen die beiden build-tool den Namen der jeweiligen Testsuite, hier ''BasicTest'', als Wert des Attributes ''name'' im tag <testsuite>. Jupiter gibt dagegen nur eine Ausgabedatei aus, die das Ergebnis aller Testdateien enthält, und benutzt in dieser den Standardwert ''Junit Jupiter'' als Namen für <testsuite>.
 
 Es ist also ersichtlich, dass
