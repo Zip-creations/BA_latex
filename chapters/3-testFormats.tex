@@ -157,10 +157,6 @@ Außerdem ist die Vebreitung von OTR noch sehr limitiert: Von den in \tabref{For
 \subsubsection{Fazit zu OTR}
 Auch wenn OTR die am besten geeignetste Struktur der bisher untersuchten Testausgabeformate bietet, ist die Verbreitung von OTR zum aktuellen Zeitpunkt noch zu gering, um die framework-agnostik des Verfahrens gewährleisten zu können, sollte es als Input für \texttt{testAuditor} genutzt werden.
 
-
-\subsection{Evaluation der Anforderungen nach \chapref{Anforderungen Testausgabeformat}}\label{Evaluation_Testausgabeformate}
-\input{tables/evaluate_testoutput.tex}
-
 % \subsection{Common Test Report Format (CTRF)}
 % \subsubsection{Übersicht}
 
@@ -216,8 +212,14 @@ Somit können für die Wahl des Inputs für \texttt{testAuditor} nur die vorange
 
 
 \section{Fazit zur Evaluation der Testausgabenformate}\label{chap:conclusion_testformat_eval}
-https://xkcd.com/927/\\
-TODO: Überarbeiten.\\
-Anhand der Evaluation der unterschiedlichen Testausgabeformate in \chapref{Vergleich Testausgabefomate} wird deutlich, dass es keinen eindeutigen Kandidaten für die Auswahl des Testausgabeformat, welches alle in \chapref{Anforderungen Testausgabeformat} gelisteten Anforderungen erfüllt.\\
-Ein gemeinsames Problem: zeigen keine nicht-ausgeführten tests an
-% - erfüllt nicht alle Anforderungen, aber erklären, warum gut genug
+\tabref{tab:evaluation_testausgabeformate} zeigt eine Übersicht, welches der drei relevanten Testaugabeformate (JUnit XML, TAP, OTR) welche Anforderung aus \chapref{Anforderungen Testausgabeformat} erfüllen kann:
+\input{tables/evaluate_testoutput.tex}
+% https://xkcd.com/927/\\
+Anhand der vorangegangenen Evaluation der unterschiedlichen Testausgabeformate und \tabref{tab:evaluation_testausgabeformate} wird deutlich, dass es keinen eindeutigen Kandidaten für die Wahl als Input für \texttt{testAuditor} gibt, welcher alle in \chapref{Anforderungen Testausgabeformat} gelisteten Anforderungen erfüllt.\\
+Ein gemeinsames Problem: Keines der untersuchten Testausgabeformate zeigt die Gesamtheit aller Testcases im Projekt an, sondern auschließlich Testcases, die ausgeführt wurden. Die eindeutige Zuordnung vom Testergebnis zu den Testcases ist in allen drei relevanten Ausgabeformaten nur möglich, wenn die richtigen optionalen Attribute vom jeweiligen Testframework verwednet werden. Da die Gesamtmenger der Testcases nicht bekannt ist, kann nur über die Teilmenge der ausgeführten Testcases eine Aussage getroffen werden, ob sie ausgeführt wurden, während die Menge der nicht ausgeführten Testcases unbekannt bleibt.\\
+Unterschiede gibt es bei der Strukturierung der Formate: In diesem Aspekt ist OTR das geeigneste Format, da OTR im Gegensatz zu TAP und JUnit XML das Vorhandensein des Names eines Testcase im Ausgabeformat garantiert. Eine eindeutige Zuordnung kann dadurch allerdings noch nicht garantiert werden, da Zusätzliche Informationen fehlen, konkret die Testsuite oder Klasse, zu der der Testcase gehört.\\
+Der wichtigste Aspekt, um einen Testframwork-agnostischen Input für \texttt{testAuditor} zu bestimmen, ist die Verbreitung des Testausgabeformates in verschiedenen Testframeworks. Selbst ein Format, welches alle anderen Anforderungen komplett erfüllt, wäre in diesem Falle nutzlos, wenn es nicht von einer Vielzahl von Testframeworks benutzt wird.\\
+Somit fällt die Wahl als Input für \texttt{testAuditor} auf JUnit XML.\\
+Trotz aller in \chapref{JUNIT} gezeigten Schwächen wird Junit XML von einer Vielzahl von Testframeworks als Ausgabeformat angeboten. Darüber Hinaus ist die tatsächliche Implementation des Formates von JUnit XML trotz einer fehlenden Standartisierung häufig genug an den kritischen Punkten übereinstimmend, sodass ein Parser geschrieben werden kann, der in einer Vielzahl von Fällen funktioniert.
+
+Natürlich wäre es angebrachter, ein strukturiertes Format zu verwenden, um eine sichere Aussage über die Anwendeung des Verfahrens treffen zu können. In diesem Falle überwiegt jedoch das Argument der überragenden Verbreitung von JUnit XML.
