@@ -255,12 +255,41 @@ Auch wenn OTR die am besten geeignetste Struktur der bisher untersuchten Testaus
 % \subsubsection{Fazit zu CTFR}
 
 \subsection{Andere Formate}
-TODO: Überarbeiten.\\
-teamcity, testdox?
+% teamcity, testdox?
+Neben den bisher untersuchten ganz oder teilweise strukturierten Formaten bieten viele Testframeworks auch unstrukturierte Ausgaben in unterschiedlichen Dateiformaten an. Konkret wurden bei der Untersuchung des Datensatzes Testausgaben in den folgenden Dateiformaten festgestellt:
+\begin{itemize}
+    \item XML (ohne JUnit XML oder OTR)
+    \item HTML (ohne OTR)
+    \item JSON
+\end{itemize}
+Das Problem bei diesen Testausgaben ist, dass ihre Struktur voll und ganz von dem Testframework abhängig ist, von dem sie erzeugt werden. 
 
-Neben den bisher untersuchten ganz oder teilweise strukturierten Formaten 
-
-Selbes Problem wie JSON. Beispielsweise HTML, CSV, Markdown etc. Nicht strukturierte Ausgaben (pretty etc.) werden nicht betrachtet.
+\begin{lstlisting}[caption={Vergleich von der JSON-Ausgabe von pytest und behat.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={JSON_example}]
+(*@\underline{\texttt{JSON, von pytest in python erzeugt:}}@*)
+{"created": 1782247688.1675658,
+"duration": 0.024770736694335938,
+"exitcode": 1,
+"root": "/home/.../python/src",
+"environment": {},
+"summary": {
+    "passed": 3,
+    "failed": 1,
+    "skipped": 1,
+    "total": 5,
+    "collected": 5
+},
+"collectors": [
+(*@\underline{\texttt{JSON, von behat in php erzeugt:}}@*)
+{"tests": 5,
+"skipped": 0,
+"failed": 2,
+"pending": 0,
+"undefined": 0,
+"time": 0.011,
+"suites": [
+\end{lstlisting}
+Für diese von Grund auf verschiedenen Ausgaben kann offensichtlich kein einheitlicher Parser geschrieben werden.\\
+Somit können für die Wahl des Inputs für \texttt{testAuditor} nur die vorangegangen untersuchten Testausgabeformate in Betracht gezogen werden. 
 
 
 \section{Fazit zur Evaluation der Testausgabenformate}\label{chap:conclusion_testformat_eval}
