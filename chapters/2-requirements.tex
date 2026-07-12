@@ -8,25 +8,25 @@ Folgende Anforderungen werden an einen Durchlauf des Verfahrens gestellt:
     \item \textbf{Die Wahl der verwendeten Testframework(s) ist unerheblich}\\
     Das Verfahren soll framework-agnostisch funktionieren, auch wenn innerhalb des Projektes verschiedene Testframeworks zum Einsatz kommen.
     \item \textbf{Nach Abschluss des Verfahrens wurde jeder Testcase für den aktuellen Stand des Codes mindestens einmal durchgeführt}\\
-    Testcases können vor Duchlauf des Verfehrens mehrfach ausgeführt worden sein, allerdings darf während des Verfahrens selbst keinen Testcase ausgeführt werden, der bereits ausgeführt wurde, um die Laufzeit der Testphase so gering wie möglich zu halten. Trotzdem muss die gesamte Testsuite komplett abgedeckt sein, um die Aussagekraft des Testlaufes im Vergleich zu einem komplett neuen Durchlauf nicht zu beinträchtigen.
+    Testcases können vor Duchlauf des Verfehrens mehrfach ausgeführt worden sein, allerdings darf während des Verfahrens selbst kein Testcase ausgeführt werden, der bereits ausgeführt wurde, um die Laufzeit der Testphase so gering wie möglich zu halten. Trotzdem muss die gesamte Testsuite komplett abgedeckt sein, um die Aussagekraft des Testlaufes im Vergleich zu einem komplett neuen Durchlauf nicht zu beeinträchtigen.
     \item \textbf{Die Ausgabe des durch das Verfahren ausgeführten Testlaufs ist auf die selbe Weise verfügbar, wie die anderen Ausgaben}\\
-    Die Ausgabe soll in dem selben Format, auf die selbe Art und Weise abgelegt werden, wie auch die anderen Ausgaben, die dem Verfahren zur Verfügung gestellt werden.
+    Die Ausgabe soll in dem selben Format, auf dieselbe Art und Weise abgelegt werden, wie auch die anderen Ausgaben, die dem Verfahren zur Verfügung gestellt werden.
     \item \textbf{Die Laufzeit eines Testdurchlaufs unter Verwendung des Verfahrens ist kleiner oder gleich der Laufzeit eines konventionellen Durchlaufs}\\
     Das Vefahren soll die Gesamtlaufzeit der Testausführung reduzieren.
 \end{itemize}
 
 \section{Anforderungen an ein Testausgabeformat}\label{Anforderungen Testausgabeformat}
 Um ein framework-agnostisches Verfahren zu ermöglichen, muss ein testframework-agnostisches Testausgabeformat gefunden werden, in welchem die Ergebnisse eines Testlaufs in einer standartisierten Form festgehalten werden.\\
-\texttt{testAuditor} ist der Kern des Verfahrens, und benötigt zur korrekten Funktion Zugriff auf die Gesamtheit aller Testcases sowie Informationen über den Status von bereits gelaufenen Testcases. Eine detailiertere Beschreibung von \texttt{testAuditor} findet sich in \chapref{Komponente_testAuditor}.\\
+\texttt{testAuditor} ist der Kern des Verfahrens, und benötigt zur korrekten Funktion Zugriff auf die Gesamtheit aller Testcases sowie Informationen über den Status von bereits gelaufenen Testcases. Eine detailliertere Beschreibung von \texttt{testAuditor} findet sich in \chapref{Komponente_testAuditor}.\\
 % Jedes Testframework verfügt über eines oder meherere mögliche Ausgabeformate, welches die Informationen über das Ergebnis eines Testlaufes enthält.\\
 % Damit ein Tool entwickelt werden kann, welches möglichst frameworkunabhägig funktioniert, muss ein Ausgabeformat gefunden werden, dass von möglichst vielen verschiedenen Testframeworks auf die selbe Art und Weise verwendet wird, damit die Dateien vom Tool über eine Schnittstelle eingelesen werden können.\\
-Mit Blick auf diese sowie die under \chapref{Anforderungen Tool} beschriebenen Anforderungen an das Verfahren, würde ein ideales Testausgabeformat sämtliche hier gestellten Anforderungen erfüllen:\\
+Mit Blick auf diese, sowie die unter \chapref{Anforderungen Tool} beschriebenen Anforderungen an das Verfahren, würde ein ideales Testausgabeformat sämtliche hier gestellten Anforderungen erfüllen:\\
 \textbf{Ein ideales Ausgabeformat für Tests:}
 \begin{itemize}
     \item \textbf{ermöglicht die vollständige Ermittlung aller im Projekt vorhandenen Testcases}\\
-    Dieser Punkt ist essenziell, zum einen damit \texttt{testAuditor} eine Aussage darüber treffen kann, ob eine vollständige Abddeckung aller Testcases erzielt wurde, zum anderen muss \texttt{testAuditor} zum Erzielen einer vollständigen Abdeckung potentiell auf jeden vorhandenen Testcase zugreifen können. Dazu muss \texttt{testAuditor} selbstverständlich auch jeder Testcase innerhalb des Projektes bekannt sein.
+    Dieser Punkt ist essenziell, zum einen damit \texttt{testAuditor} eine Aussage darüber treffen kann, ob eine vollständige Abdeckung aller Testcases erzielt wurde, zum anderen muss \texttt{testAuditor} zum Erzielen einer vollständigen Abdeckung potentiell auf jeden vorhandenen Testcase zugreifen können. Dazu muss \texttt{testAuditor} selbstverständlich auch jeder Testcase innerhalb des Projektes bekannt sein.
     \item \textbf{identifiziert jeden Testcase eindeutig}\\
-    Je nach Testframework und Implementierung können mehrere Testcases denselben Namen besitzen, sofern sie sich in unterschiedlichen Namespaces oder Kontexten befinden. Das Ausgabeformat muss daher eine eindeutige Zuordnung zwischen den einzelnen Testcases und ihren jeweiligen Ergebnissen ermöglichen. 
+    Je nach Testframework und Implementierung können mehrere Testcases den selben Namen besitzen, sofern sie sich in unterschiedlichen Namespaces oder Kontexten befinden. Das Ausgabeformat muss daher eine eindeutige Zuordnung zwischen den einzelnen Testcases und ihren jeweiligen Ergebnissen ermöglichen. 
     \item \textbf{sagt für jeden Testcase einzelnd aus, ob er ausgeführt wurde oder nicht}\\
     Dieser Punkt setzt die Erfüllung der ersten beiden Punkte voraus. Zusätzlich muss aus dem Eintrag eines Testcases im Ausgabeformat erkennbar sein, ob der Test ausgeführt worden ist.
     \item \textbf{ist ein strukturiertes Format}\\

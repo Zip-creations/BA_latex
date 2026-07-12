@@ -37,7 +37,7 @@ JUnit XML ist ein XML-basiertes Format, welches ursprünglich für das Java-Test
 Auf diese Weise hat sich JUnit XML zum häufigsten benutzen Testausgabeformat für Testframeworks entwickelt.
 
 \subsubsection{Struktur}
-Wie bereits erwähnt gibt es bei JUnit XML kein standartisiertes Schema. Allerdings hat sich eine Grundstruktur durchgesetzt, die von nahezu allen Testframeworks, welche JUnit XML als Testausgabeformat anbieten, verwendet wird. Ein typisches Beispiel für diese Grundstruktur ist \lstref{JUNITbehat}:
+Wie bereits erwähnt gibt es bei JUnit XML kein standardisiertes Schema. Allerdings hat sich eine Grundstruktur durchgesetzt, die von nahezu allen Testframeworks, welche JUnit XML als Testausgabeformat anbieten, verwendet wird. Ein typisches Beispiel für diese Grundstruktur ist \lstref{JUNITbehat}:
 \begin{lstlisting}[caption={JUnit XML, erzeugt durch das PHP-Testframework behat.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={JUNITbehat}]
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites name="default">
@@ -87,18 +87,21 @@ Abgesehen davon ist Junit XML das einzige Testausgabeformat, welches von jedem i
 \subsubsection{Fazit zu JUnit XML}
 Aufgrund der weiten Verbreitung und der trotz der fehlenden Standardisierung ähnlichen Umsetzung in vielen Testframeworks ist JUnit XML ein geeigneter Input für \texttt{testAuditor}, da es in der Praxis trotz einiger potentieller Fehlerquellen mit einer Vielzahl von Testframeworks kompatibel ist.
 
+% JUnit XML erfüllt nicht alle in \chapref{Anforderungen Testausgabeformat} beschriebenen Anforderungen vollständig. Insbesondere stellt es weder eine Liste aller vorhandenen Testcases, noch ermöglicht JUnit XML standartisierte Form der Zuordnung von Testcase zu Testergebnis. Die Untersuchung des Datensatzes zeigt jedoch, dass  %Im untersuchten Datensatz bietet es jedoch den besten Kompromiss aus Verbreitung, maschinenlesbarer Struktur und häufig möglicher Zuordnung von Testergebnissen zu Testfällen. 
+
 \subsection{Test Anything Protocol (TAP)}
 \subsubsection{Übersicht}
-Das Test Anything Protocol wurde ursprünglich für die Programmiersprache Perl entworfen, wurde über die Jahre hinweg jedoch auch für Testframeworks in anderen Sprachen weiterentwickelt und integriert. Anders als bei JUnit XML wird für TAP ein standartisiertes Schema bereitgestellt und gepflegt, siehe \cite{TAP_14}. Anders als die meisten anderen hier untersuchten Testausgabeformate ist TAP keine spezialisierte Struktur eines bereits bestehenden Dateiformates, sondern ein eigenständiges Dateiformat.
+Das Test Anything Protocol wurde ursprünglich für die Programmiersprache Perl entworfen, wurde über die Jahre hinweg jedoch auch für Testframeworks in anderen Sprachen weiterentwickelt und integriert. Anders als bei JUnit XML wird für TAP eine Spezifikation bereitgestellt und gepflegt, siehe \cite{TAP_14}. Anders als die meisten anderen hier untersuchten Testausgabeformate ist TAP keine spezialisierte Struktur eines bereits bestehenden Dateiformates, sondern ist ein eigenständiges textbasiertes Ausgabeformat.
 
 \subsubsection{Struktur}
-Zu Beginn einer Datei wird die Gesamtzahl aller Testcases der Datei angegeben. Danach folgt eine Auflistung der Testergebnisse mit optionalen Zusatzinformationen, zumeist der Name des Testcase. Übersprungene Tests können über zusätzliche Dekoratoren idikatiert werden, die in TAP als ''Derectives'' bezeichnet werden.\\
+Ein TAP-Dokument enthält eine Zeile, welche die Gesamtzahl aller Testcases angibt, entweder zu Beginn oder am Ende des Dokumentes. Dazu kommt eine Auflistung der Testergebnisse mit optionalen Zusatzinformationen, zumeist der Name des Testcase. Übersprungene Tests können über zusätzliche ''Directives'' gekennzeichnet werden.\\
 Da die meisten Zusatzinformationen optional sind, zeigt \lstref{TAPmin} bereits eine vollständig gültige, minimale TAP-Datei:
 \begin{lstlisting}[caption={Minimales TAP-Beispiel}, label={TAPmin}]
+    TAP version 14
     1..1
     ok
 \end{lstlisting}
-Solch eine Darstellung ist natürlich ungeeignet, da so keine Zuordnung zwischen Testergebnis und Testcase möglich ist. In der Praxis kann dieser Zusammenhang allerdings durch die optionalen Zusatzinformationen gesesetzt werden, wie beispielhaft mit pytest in \lstref{TAPpy} demonstriert:
+Eine solche Darstellung ist natürlich ungeeignet, da so keine Zuordnung zwischen Testergebnis und Testcase möglich ist. In der Praxis kann dieser Zusammenhang allerdings durch die optionalen Zusatzinformationen hergestellt werden, wie beispielhaft mit pytest in \lstref{TAPpy} demonstriert:
 
 \begin{lstlisting}[caption={TAP, erzeugt durch pytest.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={TAPpy}]
     # TAP results for test/pytest/test.py
@@ -111,7 +114,7 @@ Solch eine Darstellung ist natürlich ungeeignet, da so keine Zuordnung zwischen
 \end{lstlisting}
 
 \subsubsection{Eignung}
-Eine eindeutige Zuordnung zwischen Testergebnis und Testcase ist nicht in allen untersuchten Testframeworks, die TAP als Ausgabeformat bieten, möglich. Nehmen wir catch2: Zwei Testscases dürfen in diesem Framework den selben Namen aufweisen, solange sie mit unterschiedlichen Labels getaggt sind. Diese Zusatzinformationen sind allerdings nicht zwingend im TAP-Format erforderlich, und werden vom catch2-Reporter schlicht nicht übernommen. Dies kann eine Ausgabe wie in \lstref{TAPcatch2} zur Folge haben, bei der zwei Testergebnisse mit dem selben Namen bezeichnet werden:
+Eine eindeutige Zuordnung zwischen Testergebnis und Testcase ist nicht in allen untersuchten Testframeworks, die TAP als Ausgabeformat bieten, möglich. Als Beispiel dient Catch2: Zwei Testcases dürfen in diesem Framework den selben Namen aufweisen, solange sie mit unterschiedlichen Labels versehen sind. Diese Zusatzinformationen sind allerdings nicht zwingend im TAP-Format erforderlich und werden vom Catch2-Reporter schlicht nicht übernommen. Dies kann eine Ausgabe wie in \lstref{TAPcatch2} zur Folge haben, bei der zwei Testergebnisse mit dem selben Namen bezeichnet werden:
 \begin{lstlisting}[caption={TAP, erzeugt durch catch2.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={TAPcatch2}]
     ...
     # test_same_name
@@ -120,7 +123,7 @@ Eine eindeutige Zuordnung zwischen Testergebnis und Testcase ist nicht in allen 
     ok 4 - true
     ...
 \end{lstlisting}
-Dies macht TAP in diesem Falle als Ausgabeformat ungeeignet. Andere Testframeworks wie bespielsweise pytest oder tasty sorgen allerdings für eine eindeutige Zuordnung in ihren jeweiligen Ausgaben. 
+Dies macht TAP in diesem Fall als Ausgabeformat ungeeignet. Andere Testframeworks wie beispielsweise pytest oder tasty sorgen allerdings für eine eindeutige Zuordnung in ihren jeweiligen Ausgaben. 
 
 \subsubsection{Fazit zu TAP}
 TAP ist aufgrund seiner sehr geringen Minimalstruktur und vor allem wegen seiner nur mäßigen Verbreitung eher nicht als Input für \texttt{testAuditor} geeignet. 
@@ -128,16 +131,16 @@ TAP ist aufgrund seiner sehr geringen Minimalstruktur und vor allem wegen seiner
 \subsection{Open Test Reporting (OTR)}
 \subsubsection{Übersicht}
 % https://marcphilipp.de/de/startseite/
-Open Test Reporting (OTR) wird von dem selben Entwicklerteam, welches auch hinter dem Framework Junit und damit auch hinter JUnit XML steht, als Nachfolger von eben diesem entwickelt. Dabei haben sie laut eigenen Angaben das Ziel, mit OTR die historisch gewachsenen Probleme von JUnit XML (siehe \chapref{JUNIT}) zu umgehen. OTR soll nach Vorstellungen der Entwickler auf lange Sicht JUnit XMLs Platz als häufigstes Ausgabeformat für Testläufe einnehmen. \cite{OTR_milestone}
+Open Test Reporting (OTR) wird von demselben Entwicklerteam, das auch hinter dem Framework JUnit und damit auch hinter der ursprünglichen Version von JUnit XML steht, als Nachfolger von eben diesem entwickelt. Das Entwicklerteam verfolgt dabei laut eigenen Anbagen das Ziel, mit OTR die historisch gewachsenen Probleme von JUnit XML (siehe \chapref{JUNIT}) zu umgehen. OTR soll nach den Vorstellungen der Entwickler auf lange Sicht den Platz von JUnit XML als häufigstes Ausgabeformat für Testläufe einnehmen. \cite{OTR_milestone}
 
-Anders als die anderen vorstellten Formate gitb es bei OTR zwei mögliche Dateiformate: Es gibt Implementierungen für XML und HTML. Beide Implementierugnen sind im Gegensatz zu JUnit XML standartisiert und folgen einem definiertem Schema. Beim XML-Format wird zwischen zwei Strukture unterschieden: Hierachisch und eventbasiert. Beide Formate nutzen das selbe Set von Kernelementen, unterscheiden sich aber in ihrer Struktur. Für beide Strukturen gibt es Programmiersprachen-spezifische Erweiterungen.\\
-Das HTML-Format wird ausgehend von einer vorher erzeugten OTR-XML Datei erzeugt, und ist ebenso erweiterbar. 
+OTR ist ein standardisiertes XML-basiertes Format. OTR unterscheidet dabei zwischen zwei Strukturen: Hierachisch und eventbasiert. Beide Strukturen nutzen dasselbe Set von Kernelementen, unterscheiden sich aber in ihrer Struktur. Für beide Strukturen gibt es programmiersprachenspezifische Erweiterungen.\\
+Ausgehend von einer OTR-XML Ausgabe kann auch eine OTR-spezifische HTML-Ausgabe erzeugt werden.
 
 \subsubsection{Struktur}
-Für diese Untersuchung wird nur die eventbasierte XML-Struktur betrachtet, da diese Struktur das von den im Datenatz untersuchten Testframeworks benutzte Format ist.\\
-Im event-basiertem Format werden die Ergebnisse nicht wie in Junit XML oder TAP durch ein einzelnes Element mit optionalen Attributen repräsentiert, sondern über verschiedene Elemente, welche jeweils das Ergebnis eines Event der Testausführung enthalten. Demonstriert ist diese Struktur in \lstref{OTR_example}:
+Für diese Untersuchung wird nur die eventbasierte XML-Struktur betrachtet, da diese Struktur das von den im Datensatz untersuchten Testframeworks benutzte Format ist.\\
+Im eventbasierten Format werden die Ergebnisse nicht wie in JUnit XML oder TAP durch ein einzelnes Element mit optionalen Attributen repräsentiert, sondern über verschiedene Elemente, welche jeweils das Ergebnis eines Event der Testausführung enthalten. Demonstriert wird diese Struktur in \lstref{OTR_example}:
 
-\begin{lstlisting}[caption={OTR von \texttt{test\_neg}, erzeugt durch phpunit.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={OTR_example}]
+\begin{lstlisting}[caption={OTR von \texttt{test\_neg}, erzeugt durch PHPunit.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={OTR_example}]
 ...
 <e:started id="3" parentId="2" name="test_neg" time="2026-06-25T14:11:44.985961Z">
 ...
@@ -145,15 +148,16 @@ Im event-basiertem Format werden die Ergebnisse nicht wie in Junit XML oder TAP 
 ...
 \end{lstlisting}
 Hierbei enthält das Element \texttt{<e:started>} Informationen über den Testcase aus der ursprünglichen Testdatei, während \texttt{<e:finished>} Informationen über das Ergebnis des Testlaufs enthält.\\
-Wie auch in JUnit XML und TAP sind die meisten Informationen und Attribute optional, mit einem entscheidenden Unterschied: Aus dem Schema von OTR lässt sich entnehmen, dass die Elemente \texttt{<e:started>} und \texttt{<e:finished>} folgende Attribute aufweisen müssen: \texttt{id}, \texttt{time} und \texttt{name} \cite{OTR_README}. Während \texttt{id} intern in der Ausgabe benötigt wird, um die verschiedenen Events einander zuzuordnen, und \texttt{time} lediglich den Zeitpunkt des Beginns des Events festhält, ist für die Eignung von OTR als Input für \texttt{testAuditor} vor allem \texttt{name} interessant: Dieses Attribut enthält den Namen des Testcase. Jedoch genügt wie bereits bei TAP in \lstref{TAPcatch2} gezeigt das Vorhandensein des bloßen Namens nicht zur eindeutigen Identifizierung eines Testcase. Die dazugehörige Suite wird in OTR innerhalb des Elements \texttt{<metadata>} angegeben. Dieses Element ist jedoch optional. Somit ist die eindeutige Zuordnung von Testcases zu ihrem Ergbnis zwar teilweise in der Struktur festgehalten, aber noch nicht ausreichend garantiert. 
+Wie auch in JUnit XML und TAP sind die meisten Informationen und Attribute optional, mit einem entscheidenden Unterschied: Aus dem Schema von OTR lässt sich entnehmen, dass das Element \texttt{<e:started>} folgende Attribute aufweisen muss: \texttt{id}, \texttt{time} und \texttt{name} \cite{OTR_README}. Während \texttt{id} intern in der Ausgabe benötigt wird, um die verschiedenen Events einander zuzuordnen, und \texttt{time} lediglich den Zeitpunkt des Beginns des Events festhält, ist für die Eignung von OTR als Input für \texttt{testAuditor} vor allem \texttt{name} interessant: Dieses Attribut enthält den Namen des Testcase. Für \texttt{<e:finished>} sind lediglich \texttt{id} und \texttt{time} verpflichtend, jedoch bleibt die Zuordnung zu \texttt{name} über \texttt{id} erhalten.\\
+Jedoch genügt, wie bereits bei TAP in \lstref{TAPcatch2} gezeigt, das Vorhandensein des bloßen Namens nicht zur eindeutigen Identifizierung eines Testcase. Die dazugehörige Suite wird in OTR innerhalb des Elements \texttt{<metadata>} angegeben. Dieses Element ist jedoch optional. Somit ist die eindeutige Zuordnung von Testcases zu ihren Ergebnissen zwar teilweise in der Struktur festgehalten, aber noch nicht ausreichend garantiert. 
 
 \subsubsection{Eignung}
-Da OTR zum Zeitpunkt der Niederschrift dieser Bachelorarbeit noch sehr jung ist und aktiv entwickelt wird, bleibt abzusehen, ob die Entwickler ihr Ziel eines standartiserten, Programiersprachen-agnostischen Testausgebeformates erreichen können.
+Da OTR zum Zeitpunkt der Niederschrift dieser Bachelorarbeit noch sehr jung ist und aktiv entwickelt wird, bleibt abzuwarten, ob die Entwickler ihr Ziel eines standardisierten, programmiersprachenunabhängigen Testausgabeformates erreichen können.
 
-Außerdem ist die Vebreitung von OTR noch sehr limitiert: Von den in \tabref{Formatvergleich} betrachteten Testframeworks sind lediglich phpunit und junit5 (welches, wie eingangs erwähnt, vom selben Entwicklerteam wie OTR betreut wird) mit jupiter als runner in der Lage, OTR nativ zu erzeugen. Außerdem kann junit5 mit den runnern von maven/gradle zumindest über Plugins eine OTR-Ausgabe erzeugen.
+Außerdem ist die Verbreitung von OTR noch sehr begrenzt: Von den in \tabref{Formatvergleich} betrachteten Testframeworks sind lediglich PHPunit und JUnit5 (das, wie eingangs erwähnt, vom selben Entwicklerteam wie OTR betreut wird) mit jupiter als Runner in der Lage, OTR nativ zu erzeugen. Außerdem kann junit5 mit den Runnern von Maven/Gradle zumindest über Plugins eine OTR-Ausgabe erzeugen.
 
 \subsubsection{Fazit zu OTR}
-Auch wenn OTR die am besten geeignetste Struktur der bisher untersuchten Testausgabeformate bietet, ist die Verbreitung von OTR zum aktuellen Zeitpunkt noch zu gering, um die framework-agnostik des Verfahrens gewährleisten zu können, sollte es als Input für \texttt{testAuditor} genutzt werden.
+Auch wenn OTR unter den bisher untersuchten Testausgabeformate die geeignetste Struktur bietet, ist die Verbreitung von OTR zum aktuellen Zeitpunkt noch zu gering, um die framework-Agnostik des Verfahrens gewährleisten zu können, sollte es als Input für \texttt{testAuditor} genutzt werden.
 
 % \subsection{Common Test Report Format (CTRF)}
 % \subsubsection{Übersicht}
@@ -170,7 +174,7 @@ Auch wenn OTR die am besten geeignetste Struktur der bisher untersuchten Testaus
 
 \subsection{Andere Formate}
 % teamcity, testdox?
-Neben den bisher untersuchten ganz oder teilweise strukturierten Formaten bieten viele Testframeworks auch unstrukturierte Ausgaben in unterschiedlichen Dateiformaten an. Konkret wurden bei der Untersuchung des Datensatzes Testausgaben in den folgenden Dateiformaten festgestellt:
+Neben den bisher untersuchten ganz oder teilweise strukturierten Formaten bieten viele Testframeworks auch unstrukturierte Ausgaben in unterschiedlichen Dateiformaten an. Konkret wurden bei der Untersuchung des Datensatzes Testausgaben in den folgenden Dateiformaten identifiziert:
 \begin{itemize}
     \item XML (ohne JUnit XML oder OTR)
     \item HTML (ohne OTR)
@@ -178,8 +182,8 @@ Neben den bisher untersuchten ganz oder teilweise strukturierten Formaten bieten
 \end{itemize}
 Das Problem bei diesen Testausgaben ist, dass ihre Struktur voll und ganz von dem Testframework abhängig ist, von dem sie erzeugt werden. 
 
-\begin{lstlisting}[caption={Vergleich von der JSON-Ausgabe von pytest und behat.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={JSON_example}]
-(*@\underline{\texttt{JSON, von pytest in python erzeugt:}}@*)
+\begin{lstlisting}[caption={Vergleich von der JSON-Ausgabe von pytest und Behat.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={JSON_example}]
+(*@\underline{\texttt{JSON, von pytest in Python erzeugt:}}@*)
 {"created": 1782247688.1675658,
 "duration": 0.024770736694335938,
 "exitcode": 1,
@@ -194,7 +198,7 @@ Das Problem bei diesen Testausgaben ist, dass ihre Struktur voll und ganz von de
 },
 "collectors": [
 ...
-(*@\underline{\texttt{JSON, von behat in php erzeugt:}}@*)
+(*@\underline{\texttt{JSON, von Behat in PHP erzeugt:}}@*)
 {"tests": 5,
 "skipped": 0,
 "failed": 2,
@@ -205,19 +209,18 @@ Das Problem bei diesen Testausgaben ist, dass ihre Struktur voll und ganz von de
 ...
 \end{lstlisting}
 
-Für diese von Grund auf verschiedenen Ausgaben kann offensichtlich kein einheitlicher Parser geschrieben werden.\\
-Somit können für die Wahl des Inputs für \texttt{testAuditor} nur die vorangegangen untersuchten Testausgabeformate in Betracht gezogen werden. 
+Für diese von Grund auf verschiedenen Ausgaben kann kein gemeinsames semantisches Datenmodell abgeleitet werden, auf dem ein Parser basieren kann, zumal auch unbekannte Strukturen von anderen Testframeworks berücksichtigt werden müssten.\\
+Somit können für die Wahl des Inputs für \texttt{testAuditor} nur die zuvor untersuchten Testausgabeformate in Betracht gezogen werden. 
 
-
-\section{Fazit zur Evaluation der Testausgabenformate}\label{chap:conclusion_testformat_eval}
-\tabref{tab:evaluation_testausgabeformate} zeigt eine Übersicht, welches der drei relevanten Testaugabeformate (JUnit XML, TAP, OTR) welche Anforderung aus \chapref{Anforderungen Testausgabeformat} erfüllen kann:
+\section{Fazit zur Evaluation der Testausgabeformate}\label{chap:conclusion_testformat_eval}
+\tabref{tab:evaluation_testausgabeformate} zeigt eine Übersicht darüber, welches der drei relevanten Testausgabeformate (JUnit XML, TAP, OTR) welche Anforderung aus \chapref{Anforderungen Testausgabeformat} erfüllen kann:
 \input{tables/evaluate_testoutput.tex}
 % https://xkcd.com/927/\\
-Anhand der vorangegangenen Evaluation der unterschiedlichen Testausgabeformate und \tabref{tab:evaluation_testausgabeformate} wird deutlich, dass es keinen eindeutigen Kandidaten für die Wahl als Input für \texttt{testAuditor} gibt, welcher alle in \chapref{Anforderungen Testausgabeformat} gelisteten Anforderungen erfüllt.\\
-Ein gemeinsames Problem: Keines der untersuchten Testausgabeformate zeigt die Gesamtheit aller Testcases im Projekt an, sondern auschließlich Testcases, die ausgeführt wurden. Die eindeutige Zuordnung vom Testergebnis zu den Testcases ist in allen drei relevanten Ausgabeformaten nur möglich, wenn die richtigen optionalen Attribute vom jeweiligen Testframework verwednet werden. Da die Gesamtmenger der Testcases nicht bekannt ist, kann nur über die Teilmenge der ausgeführten Testcases eine Aussage getroffen werden, ob sie ausgeführt wurden, während die Menge der nicht ausgeführten Testcases unbekannt bleibt.\\
-Unterschiede gibt es bei der Strukturierung der Formate: In diesem Aspekt ist OTR das geeigneste Format, da OTR im Gegensatz zu TAP und JUnit XML das Vorhandensein des Names eines Testcase im Ausgabeformat garantiert. Eine eindeutige Zuordnung kann dadurch allerdings noch nicht garantiert werden, da Zusätzliche Informationen fehlen, konkret die Testsuite oder Klasse, zu der der Testcase gehört.\\
-Der wichtigste Aspekt, um einen Testframwork-agnostischen Input für \texttt{testAuditor} zu bestimmen, ist die Verbreitung des Testausgabeformates in verschiedenen Testframeworks. Selbst ein Format, welches alle anderen Anforderungen komplett erfüllt, wäre in diesem Falle nutzlos, wenn es nicht von einer Vielzahl von Testframeworks benutzt wird.\\
+Anhand der vorangegangenen Evaluation der unterschiedlichen Testausgabeformate und \tabref{tab:evaluation_testausgabeformate} wird deutlich, dass es keinen eindeutigen Kandidaten für die Wahl als Input für \texttt{testAuditor} gibt, der alle in \chapref{Anforderungen Testausgabeformat} gelisteten Anforderungen erfüllt.\\
+Allen der untersuchten Testausgabeformate ist gemeinsam, dass keines die Gesamtheit aller Testcases im Projekt angibt, sondern ausschließlich Testcases, die ausgeführt wurden. Die eindeutige Zuordnung von Testergebnissen zu den Testcases ist in allen drei relevanten Ausgabeformaten nur möglich, wenn die richtigen optionalen Attribute vom jeweiligen Testframework verwendet werden. Da die Gesamtmenge der Testcases nicht bekannt ist, lässt sich nur für die enthaltenen Testcases feststellen, dass sie berücksichtigt wurden, während die Menge der nicht ausgeführten Testcases unbekannt bleibt.\\
+Unterschiede gibt es bei der Strukturierung der Formate: In diesem Aspekt ist OTR das besten geeignete Format, da OTR im Gegensatz zu TAP und JUnit XML das Vorhandensein des Namens eines Testcase im Ausgabeformat garantiert. Eine eindeutige Zuordnung kann dadurch allerdings noch nicht garantiert werden, da zusätzliche Informationen fehlen, konkret die Testsuite oder Klasse, zu der der Testcase gehört.\\
+Der wichtigste Aspekt, um einen Testframework-agnostischen Input für \texttt{testAuditor} zu bestimmen, ist die Verbreitung des Testausgabeformats in verschiedenen Testframeworks. Selbst ein Format, das alle anderen Anforderungen komplett erfüllt, wäre in diesem Falle nutzlos, wenn es nicht von einer Vielzahl von Testframeworks unterstützt wird.\\
 Somit fällt die Wahl als Input für \texttt{testAuditor} auf JUnit XML.\\
-Trotz aller in \chapref{JUNIT} gezeigten Schwächen wird Junit XML von einer Vielzahl von Testframeworks als Ausgabeformat angeboten. Darüber Hinaus ist die tatsächliche Implementation des Formates von JUnit XML trotz einer fehlenden Standartisierung häufig genug an den kritischen Punkten übereinstimmend, sodass ein Parser geschrieben werden kann, der in einer Vielzahl von Fällen funktioniert.
+Trotz aller in \chapref{JUNIT} gezeigten Schwächen wird JUnit XML von einer Vielzahl von Testframeworks als Ausgabeformat angeboten. Darüber hinaus ist die tatsächliche Implementierung des Formats von JUnit XML trotz einer fehlenden Standardisierung häufig genug an den kritischen Punkten übereinstimmend, sodass ein Parser geschrieben werden kann, der in einer Vielzahl von Fällen funktioniert.
 
-Natürlich wäre es wünschenswert, ein strukturiertes Format zu verwenden, um eine sichere Aussage über den Anwendungsbereich des Verfahrens treffen zu können. Um die Anforderung der Framework-agnostik so weit wie möglich zu erfüllen, überwiegt hier jedoch das Argument der überragenden Verbreitung von JUnit XML.
+Natürlich wäre es wünschenswert, ein strukturiertes Format zu verwenden, um eine sichere Aussage über den Anwendungsbereich des Verfahrens treffen zu können. Um die Anforderung der Framework-Agnostik so weit wie möglich zu erfüllen, überwiegt hier jedoch das Argument der überragenden Verbreitung von JUnit XML.
