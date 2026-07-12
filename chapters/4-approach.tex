@@ -80,11 +80,9 @@ Durch diese Art der Implementierung können zwar auch Testausgaben in JUnit XML 
 Die konkrete Implementierung des Parser ist im unter \chapref{Links} verlinkten Repository für \texttt{testAuditor} dokumentiert.
 
 \subsection{\texttt{testExecution}}\label{Komponente_testExecution}
-Die Komponente \texttt{testExecution} ist eng mit der Komponente \texttt{testDiscovery} gekoppelt, denn die \texttt{testExecution} erwartet eine Menge von Namen, über welche sie gezielt die beschriebene Menge von Testcases zur gezielten Ausführung an das Testframework übergibt. Die genaue Struktur dieser Namen wird durch das jeweilige Testframework vorgegeben, und wird von der \texttt{testDiscovery}
-
-TODO
-
-Ebenso wie die \texttt{testDiscovery} ist die \texttt{testExecution} hochgradig vom verwendeten Testframework abhängig, da sie direkt mit dem jeweiligen Testframework kommuniziert.
+Die Komponente \texttt{testExecution} ist die Schnittstelle des Verfahrens zum Testframework. Sie ist eng mit der Komponente \texttt{testDiscovery} gekoppelt, denn die \texttt{testExecution} erwartet eine Menge von \texttt{qualifiedName}, die sie zur gezielten Ausführung an das Testframework übergibt. Die genaue Struktur der \texttt{qualifiedNames} wird in \chapref{chap:Komponente_testDiscovery_format} beschrieben, und wie in \chapref{chap:Komponente_testDiscovery} von der \texttt{testDiscovery} im Verfahren etabliert.\\
+Die Menge von \texttt{qualifiedName}, welche von der \texttt{testExecution} an das Testframework übermittelt werden soll, wird wie vorhergehen in \chapref{Komponente_testAuditor} beschrieben von \texttt{testAuditor} ermittelt.\\
+Ebenso wie die \texttt{testDiscovery} ist die genaue Implemetierung der \texttt{testExecution} hochgradig vom verwendeten Testframework abhängig, da sie direkt mit dem jeweiligen Testframework kommuniziert.
 
 \subsection{\texttt{controller}}
 Als \texttt{controller} wird jene zentrale Komponente beschrieben, die als einzige Komponente direkt mit dem \texttt{user} interagier, und die Ausführung der einzelnen Komponenten des Verfahrens koordiniert, sowie I/O-Prozesse der Komponenten und die Fehlerbehandlung verwaltet.\\
