@@ -84,10 +84,16 @@
     % Own stuff:
     \usepackage[
         top=35mm, % original value: 43
-        bottom=40mm,
+        bottom=30mm,
         left=40mm, % original value: 43
         right=40mm % original value: 43
     ]{geometry}
+    \usepackage[automark,headsepline]{scrlayer-scrpage}
+    \clearpairofpagestyles
+    \ihead{\rightmark}
+    \cfoot{\pagemark}
+    \renewcommand*{\chaptermarkformat}{}
+
     \usepackage[table]{xcolor}
     \usepackage{pifont}
     \usepackage{makecell}
