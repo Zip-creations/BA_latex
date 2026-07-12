@@ -18,11 +18,11 @@ Im Folgenden werden die einzelnen Komponenten des Verfahrens, so wie ihr Zusamme
 % Qualified names etl. hier vorher erklären?
 
 \subsection{\texttt{testDiscovery}}\label{chap:Komponente_testDiscovery}
-Durch die Wahl für JUnit XML als Ausgabeformat, das vom Verfahren verstanden werden soll, müssen die in \chapref{Evaluation_Junit} aufgelisteten Anforderungen, die von JUnit XML nicht erfüllt werden, anderweitig umgesetzt werden, damit alle in \chapref{Anforderungen Tool} gesetzten Ziele erreicht werden können.\\
+Durch die Wahl für JUnit XML als Ausgabeformat, das vom Verfahren verstanden werden soll, müssen die in \chapref{Anforderungen Testausgabeformat} aufgelisteten Anforderungen, die von JUnit XML nicht erfüllt werden, anderweitig umgesetzt werden, damit alle in \chapref{Anforderungen Tool} gesetzten Ziele erreicht werden können.\\
 Die größte Herausforderung ist, dass aus einer JUnit-XML Ausgabe nur jene Testcases ermittelt werden können, welche während des Testlaufes ausgeführt wurden. \texttt{testAuditor} benötigt jedoch zwingend Informationen über die Gesamtheit aller Testcases im Projekt.
 
 Diesem Zweck dient die \texttt{testDiscovery:}\\
-Bei dieser Komponente ist die Implementierung als shellscript am geeignetsten, da sie bei einem Aufruf die Gesamtheit aller Testcases des Projektes in einem definierten Format zurückgibt. Manche Testframeworks bieten Zugriff auf ihre interne Discovery für Testcases, was in diesem Fällen die Implementation recht einfach gestaltet. 
+Bei dieser Komponente ist die Implementierung als shellscript am geeignetsten, da sie bei einem Aufruf die Gesamtheit aller Testcases des Projektes in einem definierten Format zurückgeben soll. Manche Testframeworks bieten Zugriff auf ihre interne Discovery für Testcases, was in diesem Fällen die Implementation recht einfach gestaltet. 
 
 \subsubsection{Format der Ausgabe der \texttt{testDiscovery}}\label{chap:Komponente_testDiscovery_format}
 \texttt{testAuditor} erwartet die Ausgabe der \texttt{testDiscovery} in diesem Format:
@@ -50,6 +50,7 @@ Zum einen wird das eigentliche Projekt nicht durch zusätzliche Dateien vom Verf
 \subsection{\texttt{testAuditor}}\label{Komponente_testAuditor}
 Die Funktionalität von \texttt{testAuditor} als Kern des Verfahrens lässt sich am Besten mit einer einfachen Mengengleichung beschreiben:\\
 Sei $T_{ges}$ die Menge aller Testcases eines Projektes, $T_{run}$ die Menge aller Testcases, für die ein Ergebnis vorliegt. \texttt{testAuditor} berechnet $T_{ges}-T_{run}=T_{todo}$, wobei $T_{todo}$ die Menge aller Testcases ist, für die noch kein Ergebnis vorliegt. Da nach \chapref{chap:limit_scope} von der Korrektheit und Vollständigkeit von $T_{run}$ ausgegangen werden darf, ist trivial, dass $T_{run}\subset T_{ges}$, sowie $T_{todo}\subset T_{ges}$.\\
+Da $T_{run}+T_{todo}=T_{ges}$, ist die komplette Abdeckung aller Testcases garantiert, sofern eine fehlerlose Impementierung der Komponenten vorliegt.\\
 $T_{ges}$ wird von \texttt{testDiscovery} bereitgestellt, während das \texttt{test archive} $T_{run}$ enthält. Beide Datenmengen werden \texttt{testAuditor} vom \texttt{controller} über ein in \chapref{chap:format_testAuditor} definiertes Format übermittelt.\\
 Zu guter Letzt gibt \texttt{testAuditor} eine Menge von \texttt{qualifiedNames} an den \texttt{controller} zurück. Diese Menge beschreibt $T_{todo}$. 
 

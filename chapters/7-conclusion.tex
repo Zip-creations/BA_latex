@@ -7,7 +7,7 @@ In diesem Kapitel folgt die Beurteilung, ob die in \chapref{Anforderungen Tool} 
     \item \textbf{Die Wahl der verwendeten Testframework(s) ist unerheblich}\\
     Das Verfahren ist Frameworkunabhängig für jedes Testframework, welches die in \chapref{chap:Anforderungen_Framework} gestellten Anforderungen erfüllt, also für jedes Framework, welches JUnit XML als Ausgabeformat bereitstellt, und eine eindeutige Zuordnung zwischen Testausgabe und Testcase über die Attribute \texttt{name} und \texttt{classname} ermöglicht.
     \item \textbf{Nach Abschluss des Verfahrens wurde jeder Testcase für den aktuellen Stand des Codes mindestens einmal durchgeführt}\\
-    Die Implementation von \texttt{testAuditor} in \chapref{Komponente_testAuditor} garantiert eine korrekte Entscheidung, da nach \chapref{chap:limit_scope} die Korrektheit des Inputs angenommen wird. 
+    Die Implementation von \texttt{testAuditor} in \chapref{Komponente_testAuditor} garantiert eine korrekte Ermittlung der fehlenden Testergebnisse, da nach \chapref{chap:limit_scope} die Korrektheit des Inputs angenommen wird. 
     \item \textbf{Die Ausgabe des durch das Verfahren ausgeführten Testlaufs ist auf die selbe Weise verfügbar, wie die anderen Ausgaben}\\
     Diese Anforderung kann von einem korrekt Implementierten \texttt{controller} erfüllt werden, da die \texttt{testExecution} auf das selbe Testframework wie die vorherigen Testläufe zugreift, ihr Ergebnis an den \texttt{controller} zurückmeldet. Die genau Vorgehensweise ist jedoch von der jeweiligen Implementation des \texttt{archive} und \texttt{controllers} anhängig.
     \item \textbf{Die Laufzeit eines Testdurchlaufs unter Verwendung des Verfahrens ist kleiner oder gleich der Laufzeit eines konventionellen Durchlaufs}\\
@@ -17,12 +17,15 @@ In diesem Kapitel folgt die Beurteilung, ob die in \chapref{Anforderungen Tool} 
 \section{Endfazit}
 Zusammenfassend lässt sich sagen, dass durch das in dieser Bachelorarbeit entwickelte Verfahren durchaus eine Verkürzung der Laufzeit von Testläufen erzielen lässt. Es wurde erklärt, von welchen Faktoren der genau Wert der Verkürzung in einem Projekt abghängig ist. 
 
-Außerdem wurden die Schwierigkeiten beim Versuch, eine möglichst umfassende Unabhängigkeit vom benutzten Testframework zu erzielen, dargestellt. Es wurde die breite Verwendbarkeit des Verfahrens in verschiedenen Testframeworks, aber auch die Limitationen dieser Unabhängigkeit genau durchleutet. 
+Außerdem wurden die Schwierigkeiten beim Versuch, eine möglichst umfassende Unabhängigkeit vom benutzten Testframework zu erzielen, dargestellt. Es wurde die breite Verwendbarkeit des Verfahrens in verschiedenen Testframeworks, aber auch die Limitationen dieser Unabhängigkeit genau durchleuchtet. 
 
+Die zu Beginn gestellte Frage:\\
+\textit{\textbf{(Wie) Kann die Laufzeit von Testläufen unabhängig vom verwendeten Testframework durch die Wiederverwendung bereits vorhandener Testergebnisse reduziert werden, ohne die Aussagekraft der Testergebnisse zu beeinträchtigen?}}\\
+Kann also mit \textit{\textbf{Ja, unter gewissen Vorraussetzungen.}} beantwortet werden. Die Klärung des \textit{\textbf{''Wie''}} ist Inhalt von \chapref{Vergleich Testausgabefomate} und \chapref{chap:approach}. 
 
 \section{Möglichkeiten zur Verbesserung}
 TODO: Überarbeiten.\\
-In seiner aktuellen Form kann das Tool nicht entscheiden, ob die XML-Ausgabe der Tests auch tatsächlich aus dem aktuellen Stand des Codes entstammt, oder ob im Nachhinein Änderungen an dem zu testenden Code oder den Tests selber vorgenommen wurden, was die Aussagekraft des Verfahrens stark beeinträchtigt.
+In seiner aktuellen Form kann das Vefahren nicht entscheiden, ob die XML-Ausgabe der Tests auch tatsächlich aus dem aktuellen Stand des Codes entstammt, oder ob im Nachhinein Änderungen an dem zu testenden Code oder den Tests selber vorgenommen wurden, was die Aussagekraft des Verfahrens stark beeinträchtigt.
 
 Ein anderes Problem ist, dass das Tool alle Tests, die nicht im archive, als nicht abgelaufen betrachtet, auch wenn einige Testfälle in einer vorherigen Iteration ausgeführt sein könnten, und die Änderungen, die seither im Code gemacht wurden diese Tests überhaupt nicht betreffen.\\
 Eine Möglichkeit, dieses Problem zu beheben, wäre die Integration eines neuen Tools, welches eine Seletive Regression Testing / Regression Test Selection implementiert, und so dem Tool rückmelden kann, welche Tests tatschlich neu ausgeführt werden müssen, und bei welchen der vorherige Stand noch gültig ist.
