@@ -54,7 +54,21 @@ $T_{ges}$ wird von \texttt{testDiscovery} bereitgestellt, während das \texttt{t
 Zu guter Letzt gibt \texttt{testAuditor} eine Menge von \texttt{qualifiedNames} an den \texttt{controller} zurück. Diese Menge beschreibt $T_{todo}$. 
 
 \subsubsection{Format zur Kommunikation mit \texttt{testAuditor}}\label{chap:format_testAuditor}
--> TODO: Format beschreiben
+Das Verfahren nutzt einen einfachen Wrapper um die Ausgabe von \texttt{testDiscovery} und die Dateien aus \texttt{archive}, um den Input für \texttt{testAuditor} bereitzustellen. 
+\begin{lstlisting}[caption={Kommunikationsformat für \texttt{testAuditor}}, label={testAuditor_Format}]
+<?xml version="1.0" encoding="utf-8"?>
+<testAuditorInput version="1.0">
+    <testDiscovery>
+        <![CDATA[...]]>
+    </testDiscovery>
+    <reports>
+        <report format="junit-xml">
+            <![CDATA[...]]>
+        </report>
+    </reports>
+</testAuditorInput>
+\end{lstlisting}
+Dieses Format muss vom \texttt{controller} bereitgestellt werden. \texttt{testAuditor} erwartet den Input auf \texttt{stdout}. 
 
 \subsubsection{Parser für JUnit XML}
 Das Parsen des vorangehend beschriebenen Kommunikationsformat, sowie des in \chapref{chap:Komponente_testDiscovery_format} beschriebenen Format der \texttt{testDiscovery} ist trivial.\\
