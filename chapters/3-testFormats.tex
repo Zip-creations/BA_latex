@@ -8,7 +8,7 @@ Es gilt nun, ein geeignetes Testausgabeformat zu finden, dass von \texttt{testAu
 Aufgrund der Vielzahl von verschiedenen Testframeworks und der Vielfältigkeit ihrer Ausgabeformate können im Rahmen dieser Bachelorarbeit nur die verbreitesten Formate untersucht werden.\\
 % Die Verbreitung der Testausgabeformate bei anderen Komponenten einer CI-Pipeline, wie bespiel
 Zur Untersuchung der praktischen Umsetzung einzelner Formate und zur exemplarischer Erfassung ihrer Verbreitung wird ein limitierter Datensatz betrachtet. Dabei gilt zu beachten, dass bei diesem Datensatz nur eine kleine Menge ausgewählter Programmiersprachen beinhaltet. Außerdem beschränken sich die untersuchten Testframeworks auf die am weitesten verbreiteten in ihrer jeweiligen Sprache, um die Etablierung von Testausgabeformaten möglichst praxisnahe darstellen zu können. Außerdem bieten länger etablierte Testframeworks erfahrungsgemäß eine breitere Auswahl von Testausgabeformaten, als weniger verbreitete oder neue Testframeworks.\\
-Bei der Untersuchung von Plugins für zusätzliche Testausgabeformate wurden ausschließlich Plugins berücksichtigt, welche über den hier benutzten package manager nix bereitgestellt werden. Würden externe Plugins, welche zumeist aus unabhängig gepflegten Repositorien stammen, ebenfalls betrachtet werden, würde die Zahl der unterstützten Testausgabeformate bei den meisten untersuchten Testframeworks deutlich steigen. Da keine Aussage über die Vertrauenswürdigkeit und Qualität der externen Plugins getroffen werden kann, beschränkt sich diese Untersuchung auf von nix bereitgestelle Plugins.
+Bei der Untersuchung von Plugins für zusätzliche Testausgabeformate wurden ausschließlich Plugins berücksichtigt, welche über den hier benutzten package manager \texttt{Nix} bereitgestellt werden. Würden externe Plugins, welche zumeist aus unabhängig gepflegten Repositorien stammen, ebenfalls betrachtet werden, würde die Zahl der unterstützten Testausgabeformate bei den meisten untersuchten Testframeworks deutlich steigen. Da keine Aussage über die Vertrauenswürdigkeit und Qualität der externen Plugins getroffen werden kann, beschränkt sich diese Untersuchung auf von \texttt{Nix} bereitgestelle Plugins.
 \subsection{Struktur der Testdateien}
 Die Struktur der Testdateien wird für jede untersuchte Programmiersprache soweit möglich identisch gehalten.\\
 Es existieren zwei Testdateien. Sofern das Testframework die Möglichkeit bereitstellt, besitzt jede der Dateien ihren eigenen Namespace. Die Bezeichnung der Namespaces kann variieren, da manche Testframeworks eine bestimmte Namenskonvention voraussetzen.\\
@@ -39,7 +39,7 @@ Auf diese Weise hat sich JUnit XML zum häufigsten benutze Testausgabeformat fü
 
 \subsubsection{Struktur}
 Wie bereits erwähnt gibt es bei JUnit XML keine standartisiertes Schema. Allerdings hat sich eine Grundstruktur durchgesetzt, die von nahezu allen Testframeworks, welche JUnit XML als Testausgabeformat anbieten, verwendet wird. Ein typisches Beispiel für diese Grundstruktur ist \lstref{JUNITbehat}:
-\begin{lstlisting}[caption={JUnit XML, erzeugt durch das PHP-Testframework behat.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={JUNITbehat}]
+\begin{lstlisting}[caption={JUnit XML, erzeugt durch das PHP-Testframework behat.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={JUNITbehat}]
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites name="default">
     <testsuite name="Basic tests" file= "features/basic.feature" tests="4" skipped="0" failures="2" errors="0" time="0.006">
@@ -48,7 +48,7 @@ Wie bereits erwähnt gibt es bei JUnit XML keine standartisiertes Schema. Allerd
 \end{lstlisting}
 Das root-element \texttt{<testsuites>} enthält eine Menge von Elementen mit der Bezeichnung \texttt{<testsuite>}, welche jeweils eine Menge von Elementen mit der Bezeichnung \texttt{<testcase>} enthalten. Jedes \texttt{<testcase>} ist korrespondierend zu einem Testcase aus der ursprünglichen Testsuite des zu testenden Programms und enthält für gewöhnlich Informationen über das Testergebnis, den Ablauf, und den ursprünglichen Testcase. Hier ist allerdings wieder wichtig zu erwähnen, dass der Inhalt dieses Elements ebensowenig standartisiert ist, wie der Inhalt der übrigen Elemente. Deutlich wird dieser Sachverhalt in \lstref{JUNITcompare}. Unterschiede in der grundlegenden Struktur zeigen sich z.B. in \lstref{JUNITtasty}. Hier wird das Element \texttt{<testsuite>} verschachtelt verwendet, statt wie sonst üblich nur einmal.
 
-\begin{lstlisting}[caption={direkter Vergleich verschiedener Implementierungen des <testcase>-tags in ausgewählten JUnit-XML Ausgaben. Verglichen wird jeweils die Ausgabe des fehlerlos ausgeführten Testcases \texttt{test\_neg}.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={JUNITcompare}]
+\begin{lstlisting}[caption={direkter Vergleich verschiedener Implementierungen des <testcase>-tags in ausgewählten JUnit-XML Ausgaben. Verglichen wird jeweils die Ausgabe des fehlerlos ausgeführten Testcases \texttt{test\_neg}.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={JUNITcompare}]
 (*@\underline{\texttt{junit5 (maven), Java:}}@*)
 <testcase name="test_neg" classname="BasicTest" time="0.012"/>
 (*@\underline{\texttt{phpunit, PHP:}}@*)
@@ -57,7 +57,7 @@ Das root-element \texttt{<testsuites>} enthält eine Menge von Elementen mit der
 <testcase name="test_neg" file="./test/gtest/test.cpp" line="3" status="run" result="completed" time="0." timestamp="2026-06-29T22:44:17.561" classname="BasicTests" />
 \end{lstlisting}
 
-\begin{lstlisting}[caption={JUnit XML, erzeugt durch das Haskell-Testframework tasty mit dem ant-Plugin.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={JUNITtasty}]
+\begin{lstlisting}[caption={JUnit XML, erzeugt durch das Haskell-Testframework tasty mit dem ant-Plugin.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={JUNITtasty}]
 <?xml version='1.0'?>
 <testsuites errors="0" failures="1" tests="5" time="0.001">
     <testsuite name="AllTests" tests="5">
@@ -74,7 +74,7 @@ Aus \lstref{JUNITcompare} ist ersichtlich, dass sich die benutzten Attribute von
 \end{itemize}
 Dieser Trend aus \lstref{JUNITcompare} setzt sich auch in den übrigen im Datensatz untersuchten JUnit XML Ausgaben fort. Es gibt zwar einige wenige Ausnahmen wie exemplarisch in \lstref{JUNITcodeception} dargestellt, diese sind jedoch eher selten. Eine ausführliche Übersicht, wie häufig die eindeutige Zuordnung zwischen Testergebnis und Testcase durch die Attribute \texttt{name} und \texttt{classname} möglich ist, ist in \tabref{Vergleich_Zuordnung} zu finden.
 
-\begin{lstlisting}[caption={JUnit XML für den Testcase \texttt{test\_neg}, erzeugt durch das PHP-Testframework codeception. Codeception benutzt statt dem häufig verwendetem Attribut "classname" das Attribut "class".\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={JUNITcodeception}]
+\begin{lstlisting}[caption={JUnit XML für den Testcase \texttt{test\_neg}, erzeugt durch das PHP-Testframework codeception. Codeception benutzt statt dem häufig verwendetem Attribut "classname" das Attribut "class".\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={JUNITcodeception}]
 <testcase name="test_neg" class="BasicTest" file="/home/.../Test.php" time="0.000252" assertions="1"/>
 \end{lstlisting}
 
@@ -101,7 +101,7 @@ Da die meisten Zusatzinformationen optional sind, zeigt \lstref{TAPmin} bereits 
 \end{lstlisting}
 Solch eine Darstellung ist natürlich ungeeignet, da so keine Zuordnung zwischen Testergebnis und Testcase möglich ist. In der Praxis kann dieser Zusammenhang allerdings durch die optionalen Zusatzinformationen gesesetzt werden, wie beispielhaft mit pytest in \lstref{TAPpy} demonstriert:
 
-\begin{lstlisting}[caption={TAP, erzeugt durch pytest.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={TAPpy}]
+\begin{lstlisting}[caption={TAP, erzeugt durch pytest.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={TAPpy}]
     # TAP results for test/pytest/test.py
     ok 1 test/pytest/test.py::test_neg
     not ok 2 test/pytest/test.py::test_pos
@@ -113,7 +113,7 @@ Solch eine Darstellung ist natürlich ungeeignet, da so keine Zuordnung zwischen
 
 \subsubsection{Eignung}
 Eine eindeutige Zuordnung zwischen Testergebnis und Testcase ist nicht in allen untersuchten Testframeworks, die TAP als Ausgabeformat bieten, möglich. Nehmen wir catch2: Zwei Testscases dürfen in diesem Framework den selben Namen aufweisen, solange sie mit unterschiedlichen Labels getaggt sind. Diese Zusatzinformationen sind allerdings nicht zwingend im TAP-Format erforderlich, und werden vom catch2-Reporter schlicht nicht übernommen. Dies kann eine Ausgabe wie in \lstref{TAPcatch2} zur Folge haben, bei der zwei Testergebnisse mit dem selben Namen bezeichnet werden:
-\begin{lstlisting}[caption={TAP, erzeugt durch catch2.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={TAPcatch2}]
+\begin{lstlisting}[caption={TAP, erzeugt durch catch2.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={TAPcatch2}]
     ...
     # test_same_name
     not ok 3 - false
@@ -138,7 +138,7 @@ Das HTML-Format wird ausgehend von einer vorher erzeugten OTR-XML Datei erzeugt,
 Für diese Untersuchung wird nur die eventbasierte XML-Struktur betrachtet, da diese Struktur das von den im Datenatz untersuchten Testframeworks benutzte Format ist.\\
 Im event-basiertem Format werden die Ergebnisse nicht wie in Junit XML oder TAP durch ein einzelnes Element mit optionalen Attributen repräsentiert, sondern über verschiedene Elemente, welche jeweils das Ergebnis eines Event der Testausführung enthalten. Demonstriert ist diese Struktur in \lstref{OTR_example}:
 
-\begin{lstlisting}[caption={OTR von \texttt{test\_neg}, erzeugt durch phpunit.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={OTR_example}]
+\begin{lstlisting}[caption={OTR von \texttt{test\_neg}, erzeugt durch phpunit.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={OTR_example}]
 ...
 <e:started id="3" parentId="2" name="test_neg" time="2026-06-25T14:11:44.985961Z">
 ...
@@ -179,7 +179,7 @@ Neben den bisher untersuchten ganz oder teilweise strukturierten Formaten bieten
 \end{itemize}
 Das Problem bei diesen Testausgaben ist, dass ihre Struktur voll und ganz von dem Testframework abhängig ist, von dem sie erzeugt werden. 
 
-\begin{lstlisting}[caption={Vergleich von der JSON-Ausgabe von pytest und behat.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={JSON_example}]
+\begin{lstlisting}[caption={Vergleich von der JSON-Ausgabe von pytest und behat.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={JSON_example}]
 (*@\underline{\texttt{JSON, von pytest in python erzeugt:}}@*)
 {"created": 1782247688.1675658,
 "duration": 0.024770736694335938,

@@ -24,9 +24,9 @@ Mit Blick auf diese sowie die under \chapref{Anforderungen Tool} beschriebenen A
 \textbf{Ein ideales Ausgabeformat für Tests:}
 \begin{itemize}
     \item \textbf{ermöglicht die vollständige Ermittlung aller im Projekt vorhandenen Testcases}\\
-    Dieser Punkt ist essenziell, zum einen damit \texttt{testAuditor} eine Aussage darüber treffen kann, ob eine vollständige Abddeckung aller Testcases erzielt wurde, Zum anderen muss \texttt{testAuditor} zum Erzielen einer vollständigen Abdeckung auch auf potentiell jeden vorhandenen Testcase zugreifen können. Dazu muss \texttt{testAuditor} selbstverständlich auch jeder Testcase innerhalb des Projektes bekannt sein.
+    Dieser Punkt ist essenziell, zum einen damit \texttt{testAuditor} eine Aussage darüber treffen kann, ob eine vollständige Abddeckung aller Testcases erzielt wurde, zum anderen muss \texttt{testAuditor} zum Erzielen einer vollständigen Abdeckung potentiell auf jeden vorhandenen Testcase zugreifen können. Dazu muss \texttt{testAuditor} selbstverständlich auch jeder Testcase innerhalb des Projektes bekannt sein.
     \item \textbf{identifiziert jeden Testcase eindeutig}\\
-    Je nach Testframework und Implementierung ist es gestattet, mehreren Testcases, die in unterschiedlichen Namespaces leben, mit dem selben Namen zu bezeichnen. Aus dem Ausgabeformat muss in jedem Falle eine eindeutige Zuordnung der Testcases und den Ergebnissen möglich sein. 
+    Je nach Testframework und Implementierung können mehrere Testcases denselben Namen besitzen, sofern sie sich in unterschiedlichen Namespaces oder Kontexten befinden. Das Ausgabeformat muss daher eine eindeutige Zuordnung zwischen den einzelnen Testcases und ihren jeweiligen Ergebnissen ermöglichen. 
     \item \textbf{sagt für jeden Testcase einzelnd aus, ob er ausgeführt wurde oder nicht}\\
     Dieser Punkt setzt die Erfüllung der ersten beiden Punkte voraus. Zusätzlich muss aus dem Eintrag eines Testcases im Ausgabeformat erkennbar sein, ob der Test ausgeführt worden ist.
     \item \textbf{ist ein strukturiertes Format}\\
@@ -36,30 +36,31 @@ Mit Blick auf diese sowie die under \chapref{Anforderungen Tool} beschriebenen A
 \end{itemize}
 
 \section{Deterministische builds - 'it works on my machine'}
-Damit in dem hier vorgestellten Verfahren eine qualifizierte Aussage über die Testergebnisse treffen kann, muss gewährleistet sein, dass alle Testcases unabhängig vom ausführenden System immer das selbe Testergebnis liefern. Beispielsweise muss ein Testcase, der auf der Machine eines Entwicklers ein bestimmtes Ergebnis liefert, muss auch zwingend auf einem Build-Server das selbe Ergebnis liefern. Andernfalls könnte eine Diskrepanz zwischen den Testergebnissen zu einer verfälschten Aussage des Verfahrens über den aktuellen Stand der Tests führen. 
+Damit in dem hier vorgestellten Verfahren eine qualifizierte Aussage über die Testergebnisse treffen kann, muss gewährleistet sein, dass alle Testcases unabhängig vom ausführenden System immer das selbe Testergebnis liefern. Beispielsweise muss ein Testcase, der auf der Maschine eines Entwicklers ein bestimmtes Ergebnis liefert, auch zwingend auf einem Build-Server das selbe Ergebnis liefern. Andernfalls könnte eine Diskrepanz zwischen den Testergebnissen zu einer verfälschten Aussage des Verfahrens über den aktuellen Stand der Tests führen. 
 
-Im Rahmen dieser Bachelorarbeit wird hierfür der Linux-package manager nix benutzt. Nix bietet die Funktionalität, die Entwicklungsumgebung deklarativ zu beschreiben, indem benötigte Abhängigkeiten in einer sogennaten flake festgelegt werden. Eine dazugehörige Datei flake.lock enthält dann detailierte Informationen über den build. Dadurch können auf verschiedenen Systemen identischen Entwicklungsumgebungen aufgebaut werden. 
+Im Rahmen dieser Bachelorarbeit wird hierfür der Linux-package manager \texttt{Nix} benutzt. \texttt{Nix} bietet die Funktionalität, die Entwicklungsumgebung deklarativ zu beschreiben, indem benötigte Abhängigkeiten in einer sogennaten \texttt{flake} festgelegt werden. Eine dazugehörige Datei \texttt{flake.lock} enthält dann detailierte Informationen über den build. Dadurch können auf verschiedenen Systemen identische Entwicklungsumgebungen aufgebaut werden. 
 
 Es gilt zu beachten, dass durch diesen Aufbau nur explizit deklarierte interne Abhängigkeiten deterministisch erfasst werden können. Externe Faktoren wie etwa Netwerkschnittstellen, zufallbasierte Ereignisse oder Ähnliches können auf diese Weise nicht reproduzierbar festgehalten werden.\\
-Ein vollständige Garantie des Determinismus zwischen Systemen ist nur schwer zu erreichen, jedoch bietet Nix hier eine ausreichende Grundlage. 
+Ein vollständige Garantie des Determinismus zwischen Systemen ist nur schwer zu erreichen, jedoch bietet \texttt{Nix} hier eine ausreichende Grundlage. 
 
 \section{Entstehung eines Testausgabeformats}
-Um zu Verdeutlichen, wie die finale Form Testausgabeformates entsteht, wird im diesem Kapitel auf die näher auf die Faktoren eingegangen, welche die genaue Struktur und das finale Aussehen des Testausgabeformates beeinflussen.
-Die Form eines Testausgabeformates hängt im Wesentlichen von den folgenden Faktoren ab, deren Aufteilung der in \cite{winkler} vorgestellten Struktur eines Testframeworks folgt: % TODO test discovery hinzufügen?
+Um zu Verdeutlichen, wie die finale Form Testausgabeformates entsteht, wird in diesem Kapitel näher auf die Faktoren eingegangen, welche die genaue Struktur und das finale Aussehen des Testausgabeformates beeinflussen.
+Die Form eines Testausgabeformates hängt im Wesentlichen von den folgenden Faktoren ab, deren Aufteilung der von Winkler et al.\cite{winkler} vorgestellten Struktur eines Testframeworks folgt: % TODO test discovery hinzufügen?
 \begin{itemize}
-    \item \textbf{Struktur der zurgrunde liegenden Testdateien:}\\
-    Die (Nicht-)Verwendung von Klassen, Testsuites oder anderen vom Testframework oder der Programmiersprache bereitgestellten Optionen zur Organisation der Testcases, sowie die Dateistruktur der Testdateien können einen Einfluss auf das Endresultat haben
-    \item \textbf{verwendetes Testframework}
-    \item \textbf{Test Runner:}\\
-    Auch als \textit{Scheduler, Harness} oder \textit{Orchestrator} bezeichnet, beschreibt der Begriff ''Test Runner'' hier die Komponente eines Testframewoks, welche die Testcases ausführt, und die Ergebnisse an den Test Reporter weiterreicht. Der Test Runner beeinflusst beispielsweise die Darstellung von Ereignissen, die während der Ausführung der Testsuite auftreten und in die Ausgabe übernommen werden.
-    \item \textbf{Test Reporter:}\\
-    Auch als \textit{test generator} bezeichnet, beschreibt ''Test Reporter'' hier jene Komponente eines Testframeworks, welche aus dem vom Test Runner bestimmten Ergebnis der Testsuite die menschen- bzw. maschinenlesbare Ausgabe generiert.
-    \item \textbf{verwendetes Testausgabeformat:}\\
-    Damit ist sowohl das Dateiformat, als auch die Wahl eines strukturierten Ausgabeformats gemeint. Näheres dazu in \chapref{Vergleich Testausgabefomate}.
+  \item \textbf{verwendetes Testframework:}\\
+  Das verwendete Testframework ist für gewöhnlich an jedem Schritt der Testgenerierung beteiligt und erfült die Rolle eines managers der einzelnen Komponenten. Daher bestimmt es je nach konkretem Framework stärker oder schwächer die Verwednung der folgenden Punkte:
+  \item \textbf{Struktur der zurgrunde liegenden Testdateien:}\\
+  Die (Nicht-)Verwendung von Klassen, Testsuites oder anderen vom Testframework oder der Programmiersprache bereitgestellten Optionen zur Organisation der Testcases, sowie die Dateistruktur der Testdateien können einen Einfluss auf das Endresultat haben
+  \item \textbf{Test Runner:}\\
+  Auch als \textit{Scheduler, Harness} oder \textit{Orchestrator} bezeichnet, beschreibt der Begriff ''Test Runner'' hier die Komponente eines Testframewoks, welche die Testcases ausführt, und die Ergebnisse an den Test Reporter weiterreicht. Der Test Runner beeinflusst beispielsweise die Darstellung von Ereignissen, die während der Ausführung der Testsuite auftreten und in die Ausgabe übernommen werden.
+  \item \textbf{Test Reporter:}\\
+  Auch als \textit{test generator} bezeichnet, beschreibt ''Test Reporter'' hier jene Komponente eines Testframeworks, welche aus dem vom Test Runner bestimmten Ergebnis der Testsuite die menschen- bzw. maschinenlesbare Ausgabe generiert.
+  \item \textbf{verwendetes Testausgabeformat:}\\
+  Damit ist sowohl das Dateiformat, als auch die Wahl eines strukturierten Ausgabeformats gemeint. Näheres dazu in \chapref{Vergleich Testausgabefomate}.
 \end{itemize}
-In den meisten Testframeworks übernimmt das Testframework selbst die Aufgaben des Test Runners und des Test Reporters, in manchen Fällen werden diese Komponenten aber auch durch andere Prozessen bereitgestellt. Dies ist zum Beispiel in der Programmiersprache Java der Fall: Hier stellen die beiden build-tools maven und gradle jeweils ihre eigenen Test Runner bzw. Test Reporter zur Verfügung, was unterschiedliche Kombinationen aus Testframework, Test Runner und Test Reporter erlaubt. Dass dies auch zu Unterschieden in der Testausgabe führen kann, ist in \lstref{JAVACompare} dargestellt.
+In den meisten Testframeworks übernimmt das Testframework selbst die Aufgaben des Test Runners und des Test Reporters, doch in manchen Fällen werden diese Komponenten aber auch durch andere Prozessen bereitgestellt. Dies ist zum Beispiel in der Programmiersprache Java der Fall: Hier stellen die beiden build-tools maven und gradle jeweils ihre eigenen Test Runner bzw. Test Reporter zur Verfügung, was unterschiedliche Kombinationen aus Testframework, Test Runner und Test Reporter erlaubt. Dass dies auch zu Unterschieden in der Testausgabe führen kann, ist in \lstref{JAVACompare} dargestellt.
 
-\begin{lstlisting}[caption={direkter Vergleich von Junit XML, erzeugt durch Junit5 mit Jupiter in Java. Jeder Ausgabe liegen die selben beiden Testdateien zu Grunde.\\ \textellipsis{} bezeichnet gekürzte Stellen.}, label={JAVACompare}]
+\begin{lstlisting}[caption={direkter Vergleich von Junit XML, erzeugt durch Junit5 mit Jupiter in Java. Jeder Ausgabe liegen die selben beiden Testdateien zu Grunde.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={JAVACompare}]
 (*@\underline{\texttt{Junit5, Jupiter:}}@*)
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuite name="JUnit Jupiter" tests="5" skipped="1" failures="1" errors="0" time="0.036" hostname="DESKTOP-I9APAL0" timestamp="2026-07-04T00:45:01">
@@ -71,7 +72,7 @@ In den meisten Testframeworks übernimmt das Testframework selbst die Aufgaben d
 (*@\underline{\texttt{Junit5, Jupiter mit maven surefire:}}@*)
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation=
-"https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="BasicTest" time="0.013" tests="4" errors="0" skipped="1" failures="1">
+"https://maven.apache.org/surefire/.../surefire-test-report.xsd" version="3.0.2" name="BasicTest" time="0.013" tests="4" errors="0" skipped="1" failures="1">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>

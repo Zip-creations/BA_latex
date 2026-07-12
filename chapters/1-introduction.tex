@@ -5,7 +5,7 @@ build quality into a product without test and analysis.''\\
 \cite[S.~XVII]{PezzeYoung}
 
 Jedes größere Softwareprojekt benötigt eine Vielzahl von Testfällen (fortfolgend als Testcases bezeichnet), um die Qualität der Software zu sichern. Dabei werden die einzelnen Testcases für gewöhnlich in verschiedene Klassen unterteilt (fortfolgend als Testsuites bezeichnet), die verschiedene Abschnitte der Software abdecken. Die meisten gängigen Testframeworks bieten die Möglichkeit, einzelne Testsuites und/oder Testcases gezielt auszuführen, ohne die restlichen Testcases dabei mit auszuführen.\\
-Nehmen wir z.B. einen Entwickler, der bei einem großen Softwareprojekt die Funktionalität einer Datenbank-Schnittstelle anpasst. Testcases, welche die Funktion dieser Schnittstelle abtesten, sind hier sehr relevant - andere Testcases, die sich mit anderen Abschnitten des Projektes befassen, wie etwa UI-Tests oder Tests für Netzwerkverbindungen, sollten bei einem sauber modularisiertem Projekt mit hoher Wahrscheinlichkeit unabhängig von Änderungen der Datenbank-Schnittstelle das selbe Ergbnis wie vor den Änderungen des Entwicklers liefern. Da manche Testcases viel Zeit für ihre Durchführung in Anspruch nehmen, ist es daher sinnvoll, bei der Entwicklung nur einzelne relevante Abschnitte zu testen.\\ 
+Nehmen wir z.B. einen Entwickler, der bei einem großen Softwareprojekt die Funktionalität einer Datenbank-Schnittstelle anpasst. Testcases, welche die Funktion dieser Schnittstelle abtesten, sind hier sehr relevant. Andere Testcases, wie etwa UI-Tests oder Tests für Netzwerkverbindungen, sollten bei einem sauber modularisiertem Projekt mit hoher Wahrscheinlichkeit unabhängig von Änderungen der Datenbank-Schnittstelle das selbe Ergbnis wie vor den Änderungen des Entwicklers liefern. Da manche Testcases viel Zeit für ihre Durchführung in Anspruch nehmen, ist es daher sinnvoll, bei der Entwicklung nur einzelne relevante Abschnitte zu testen.\\ 
 Dennoch muss zur Validierung des Codes regelmäßig jede Testsuite des Softwareprojektes durchlaufen werden, damit durch das partielle Testen des Codes keine Fehler unbemerkt im Projekt verbleiben.\\
 Um dies zu gewährleisten, wird für gewöhnlich auf dem Build-Server nach einem Commit noch einmal die gesamte Testsuite des Projektes durchlaufen, auch wenn manche Testcases möglicherweise bereits ausgeführt wurden, ohne dass sich der Code in der Zwischenzeit geändert hat. Dadurch wird die Laufzeit der gesamten CI-Pipeline unnötig verlängert.
 
@@ -18,25 +18,24 @@ Zur Beantwortung dieser Frage soll ein Verfahren entwickelt werden, welches anha
 
 Zur praktischen Umsetzung des Verfahrens wird ein Prototyp mit einer beispielhafte Implementation des Verfahrens entwickelt. 
 
-Gemessen wird der Erfolg der Entwicklung des Verfahrens anhand einer Evaluation, welche für die gennante Implementation folgende Kennzahlen sammelt:
+Gemessen wird der Erfolg bei der Verringerung der Laufzeit des Verfahrens anhand der Evaluation einer Benchmark in \chapref{chap:conclusion}, welche für verschiedene Konfigurationen von Testcases folgende Kennzahlen sammelt:
 \begin{itemize}
       \item Gesamtzahl aller Testcases
       \item Zahl der vom Verfahren als bereits durchgeführt eingestuften Testcases
       \item Zahl der vom Verfahren als nicht bereits durchgeführt eingestufter Testcases / durch das Verfahren ausgeführte Testcases
       \item Laufzeit der Testpipeline unter Verwendung des Verfahrens
       \item Laufzeit der Testpipeline ohne Verwendung des Verfahrens
-      %\item Overhead des Verfahrens
+      \item Laufzeit einzelner Komponenten des Verfahrens
 \end{itemize}
-Zusätzlich werden die Testergebnisse der Durchläufe mit und ohne Verwendung des Verfahrens miteinander verglichen, um die Gleichwertigkeit der Testergebnisse zu überprüfen.
 % Implementation war erfolgreich, wenn...
 
 \section{Begrenzung des Scopes}\label{chap:limit_scope}
 Nicht Teil dieser Bachelorarbeit sind die folgenden Punkte:
 \begin{itemize}
       \item Überprüfung der Korrektheit von Daten:\\
-      Es wird davon ausgegangen, dass dem Verfahren bereitgestellte Daten und Dateien, wie sie beispielsweise in \chapref{chap:Komponente_testDiscovery} korrekt und vollständig sind.
+      Es wird davon ausgegangen, dass Informationen und Dateien, die dem Verfahren zur Verfügung gestellt werden, korrekt und vollständig sind.
       \item Aktualität von Testergebnissen:\\
-      Das Verfahren arbeitet mit Testergebnissen, die von einem Akteur innerhalb des Projektes erzeugt werden. Eine Überprüfung, ob die Testergebnisse aus dem aktuellen Stand des Codes entspringen, oder ob der Code oder die Testcases zwischenzeitlich geändert wurden, findet nicht statt.
+      Das Verfahren arbeitet mit Testergebnissen, die zu einem dem Verfahren unbekanntem Zeitpunkt erzeugt werden. Eine Überprüfung, ob die Testergebnisse aus dem aktuellen Stand des Codes entspringen, oder ob der Code oder die Testcases zwischenzeitlich geändert wurden, findet nicht statt.
       \item Authentizität:\\
       Sämtliche Dateien, welche dem Verfahren von einem Projekt zur Verfügung gestellt werden, werden als legitim betrachtet. Eine Überprüfung der Authentizität oder Autorenschaft einzelner Dateien findet nicht statt.
 \end{itemize}
