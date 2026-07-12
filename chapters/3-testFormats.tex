@@ -36,7 +36,7 @@ In diesem Kapitel werden die häufigsten frameworkübergreifend verwendeten Test
 JUnit XML ist ein XML-basiertes Format, welches ursprünglich für das Java-Testframework JUnit entwickelt wurde. Für JUnit XML existiert kein einheitlicher Standard, dass heißt es existiert auch kein beschreibendes XSD-Schema, wie sonst für XML-Formate üblich. Trotzdem wurde JUnit XML von vielen Testframeworks in gleicher oder ähnlicher Form adaptiert, wie es ursprünglich für JUnit entworfen wurde. Außerdem existieren viele weitere Schnittstellen zwischen JUnit XML und anderen für das Software-Testing relevanten Programme, beispielsweise viele CI/CD-Systeme. %TODO:change "systeme"
 Auf diese Weise hat sich JUnit XML zum häufigsten benutzen Testausgabeformat für Testframeworks entwickelt.
 
-\subsubsection{Struktur}
+\subsubsection{Struktur}\label{JUnit_struktur}
 Wie bereits erwähnt gibt es bei JUnit XML kein standardisiertes Schema. Allerdings hat sich eine Grundstruktur durchgesetzt, die von nahezu allen Testframeworks, welche JUnit XML als Testausgabeformat anbieten, verwendet wird. Ein typisches Beispiel für diese Grundstruktur ist \lstref{JUNITbehat}:
 \begin{lstlisting}[caption={JUnit XML, erzeugt durch das PHP-Testframework behat.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={JUNITbehat}]
 <?xml version="1.0" encoding="UTF-8"?>

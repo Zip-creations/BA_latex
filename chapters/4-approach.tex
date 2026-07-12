@@ -4,12 +4,12 @@ Das vorgestellte Verfahren besteht aus den folgenden Komponenten:
 \begin{itemize}
     \item \texttt{testDiscovery}: Liefert die Gesamtheit aller Testcases
     \item \texttt{test archive}: Enthält die Ausgabe aller Testdurchläufe, die für den aktuellen Stand beachtet werden sollen
-    \item \texttt{testAuditor}: Evaluiert, welche Testcases noch ausgeführt werden müssen
+    \item \texttt{testAuditor}: Ermittelt, welche Testcases noch ausgeführt werden müssen
     \item \texttt{testExecution}: Führt eine gegebene Menge von Testcases aus
-    \item \texttt{controller}: Steuert die Interaktion mit dem user, sowie die Kommunikation von Komponenten untereinander
+    \item \texttt{controller}: Steuert die Interaktion mit dem \texttt{user} sowie die Kommunikation zwischen den Komponenten
     \item \texttt{user}: Interagiert nach eigenem Ermessen mit dem controller
 \end{itemize}
-Eine Übersicht zur Interaktion der einzelnen Komponenten liefert \figref{fig:tool-overview}:
+Eine Übersicht über die Interaktion der einzelnen Komponenten liefert \figref{fig:tool-overview}:
 \input{figures/tool_script_interaction}
 \newpage
 
@@ -18,44 +18,44 @@ Im Folgenden werden die einzelnen Komponenten des Verfahrens, sowie ihr Zusammen
 % Qualified names etl. hier vorher erklären?
 
 \subsection{\texttt{testDiscovery}}\label{chap:Komponente_testDiscovery}
-Durch die Wahl für JUnit XML als Ausgabeformat, das vom Verfahren verstanden werden soll, müssen die in \chapref{Anforderungen Testausgabeformat} aufgelisteten Anforderungen, die von JUnit XML nicht erfüllt werden, anderweitig umgesetzt werden, damit alle in \chapref{Anforderungen Tool} gesetzten Ziele erreicht werden können.\\
-Die größte Herausforderung ist, dass aus einer JUnit-XML Ausgabe nur jene Testcases ermittelt werden können, welche während des Testlaufes ausgeführt wurden. \texttt{testAuditor} benötigt jedoch zwingend Informationen über die Gesamtheit aller Testcases im Projekt.
+Durch die Wahl von JUnit XML als Ausgabeformat, das von \texttt{testAuditor} als Input verwendet wird, müssen die in \chapref{Anforderungen Testausgabeformat} aufgelisteten Anforderungen, die von JUnit XML nicht erfüllt werden, anderweitig umgesetzt werden, damit alle in \chapref{Anforderungen Tool} formulierten Anforderungen erreicht werden können.\\
+Die größte Herausforderung ist, dass aus einer JUnit-XML Ausgabe nur jene Testcases ermittelt werden können, die während des Testlaufs ausgeführt wurden. \texttt{testAuditor} benötigt jedoch zwingend Informationen über die Gesamtheit aller Testcases im Projekt.
 
 Diesem Zweck dient die \texttt{testDiscovery:}\\
-Bei dieser Komponente ist die Implementierung als shellscript am geeignetsten, da sie bei einem Aufruf die Gesamtheit aller Testcases des Projektes in einem definierten Format zurückgeben soll. Manche Testframeworks bieten Zugriff auf ihre interne Discovery für Testcases, was in diesen Fällen die Implementation recht einfach gestaltet. 
+Bei dieser Komponente bietet sich die Implementierung als Shellskript an, da sie bei einem Aufruf die Gesamtheit aller Testcases des Projektes in einem definierten Format ausgeben soll. Manche Testframeworks bieten Zugriff auf ihre interne Testcases-Discovery, was in diesen Fällen die Implementation mit geringem zusätzlichen Aufwand ermöglicht. 
 
 \subsubsection{Format der Ausgabe der \texttt{testDiscovery}}\label{chap:Komponente_testDiscovery_format}
 \texttt{testAuditor} erwartet die Ausgabe der \texttt{testDiscovery} in diesem Format:
-\begin{lstlisting}[caption={Format der \texttt{testDiscovery}}, label={TAPmin}]
+\begin{lstlisting}[caption={Format der \texttt{testDiscovery}}, label={format_testDiscovery}]
 <?xml version="1.0" encoding="utf-8"?>
 <testsuite>
     <testcase classname="" name="" qualifiedName=""/>
     <testcase classname="" name="" qualifiedName=""/>
 </testsuite>
 \end{lstlisting}
-Der Inhalt der beiden tags ''classname'' und ''name'' für einen Testcase muss dabei zwingend identisch mit dem Inhalt der beiden tags sein, wie er in der JUnit-XML Ausgabe des Testcase steht, da in einem späterem Schritt über die Kombination dieser beiden tags die Testcases eindeutig im JUnit XML identifiziert werden.\\
-\texttt{qualifiedName} enthält eine Zeichenfolge, über die das Testframework einen Testcase identifizieren, und ausführen kann. Je nach Testframework werden dazu der Name des Testcase, Dateipfade, Namen von Klassen oder Testsuites und/oder weitere Informationen benötigt. \texttt{qualifiedName} dient in dem Schritt der \texttt{testExecution} (siehe \chapref{Komponente_testExecution}) bei der Ausführung einzelner Testcases.
+Die Werte der beiden Attribute \texttt{classname} und \texttt{name} für einen Testcase müssen dabei zwingend identisch mit den Werten der beiden Attribute sein, wie sie in der JUnit-XML Ausgabe des Testcase stehen, da die Kombination dieser beiden Attribute innerhalb des Verfahrens als Schlüssel zur Identifizierung von Testcases benutzt werden, wie in \chapref{JUnit_struktur} fortfolgend erläutert.\\
+\texttt{qualifiedName} enthält eine Zeichenfolge, über die das Testframework einen Testcase identifizieren und ausführen kann. Je nach Testframework werden dazu der Name des Testcase, Dateipfade, Namen von Klassen oder Testsuites und/oder weitere Informationen benötigt. \texttt{qualifiedName} dient der \texttt{testExecution} (siehe \chapref{Komponente_testExecution}) als Identifikator von Testcases bei der Ausführung.
 
-Die \texttt{testDiscovery} ist hochgradig vom verwendeten Testframework abhängig, da die spezielle Implementierung der Testausführung des jeweiligen Testframeworks beachtet werden muss. Daher muss diese Komponente für jedes Softwareprojekt eigens angepasst werden.
+Die \texttt{testDiscovery} ist hochgradig vom verwendeten Testframework abhängig, da die frameworkspezifische Implementierung der Testausführung des jeweiligen Testframeworks beachtet werden muss. Daher muss diese Komponente für jedes Softwareprojekt eigens angepasst werden.
 
 \subsection{\texttt{test archive}}\label{chap:Komponente_archive}
-Das \texttt{test archive}, kurz \texttt{archive}, beschreibt die Komponente des Verfahrens, welche die in JUnit XML festgehaltenen Testausgaben von vorherigen Testläufen beeinhaltet, die \texttt{testAuditor} als Input zur Verfügung stehen.\\
-Ein Projekt muss so konfiguriert werden, dass sichergestellt ist, dass keine Dateien aus dem \texttt{archive}, die sich auf einen alten Stand des Projekts beziehen, vom Verfahren genutzt werden. Hierfür bietet sich die Implementierung des \texttt{archive} über git notes an, wie im folgenden Abschnitt untersucht wird.
+Das \texttt{test archive}, kurz \texttt{archive}, beschreibt die Komponente des Verfahrens, welche die in JUnit XML festgehaltenen Testausgaben von vorherigen Testläufen beeinhaltet, die \texttt{testAuditor} als Input zur Verfügung gestellt werden sollen.\\
+Ein Projekt muss so konfiguriert werden, sodass sichergestellt ist, dass keine Dateien aus dem \texttt{archive}, die sich auf einen alten Stand des Projekts beziehen, vom Verfahren genutzt werden. Hierfür bietet sich die Implementierung des \texttt{archive} über \texttt{Git Notes} an, wie im folgenden Abschnitt erläutert wird.
 
-\subsubsection{git notes}
-Eine wenig bekannte und selten genutzte Funktionalität von Git ist, dass an einen Commit sogenannte git notes angehängt werden können. Der Inhalt dieser notes wird separat vom eigentlichen Inhalt des Commits verwaltet, der Hash eines Commits wird nicht durch Veränderungen der notes beeinflusst. Dadurch können einem Commit zusätzliche Informationen hinzugefügt werden, ohne die Historie des Repositories zu verändern.\\
-Dadurch bieten sich git notes in zweierlei Hinsicht für die Rolle des \texttt{test archive} an:\\
-Zum einen wird das eigentliche Projekt nicht durch zusätzliche Dateien vom Verfahren verändert. Zum anderen gehört jede note zu genau einem Commit, wodurch vermieden werden kann, dass das Verfahren Dateien aus dem \texttt{archive} für einen vorherigen Commit erhält, da die notes für jeden Commit neu erstellt werden müssen.
+\subsubsection{\texttt{Git Notes}}
+Eine wenig bekannte Funktionalität von \texttt{Git} ist, dass an einen Commit sogenannte \texttt{Git Notes} angehängt werden können. Der Inhalt dieser \texttt{notes} wird separat vom eigentlichen Inhalt des Commits verwaltet; der Hash eines Commits wird nicht durch Änderungen an den \texttt{notes} beeinflusst. Dadurch können einem Commit zusätzliche Informationen hinzugefügt werden, ohne die Historie des Repositories zu verändern.\\
+Aus diesen Gründen bieten sich git \texttt{notes} in zweierlei Hinsicht für die Rolle des \texttt{test archive} an:\\
+Zum einen wird das eigentliche Projekt nicht durch zusätzliche Dateien vom Verfahren verändert. Zum anderen gehört jede \texttt{note} zu genau einem Commit, wodurch vermieden werden kann, dass das Verfahren Dateien aus dem \texttt{archive} für einen vorherigen Commit erhält, da die \texttt{notes} für jeden Commit neu erstellt werden müssen.
 
 \subsection{\texttt{testAuditor}}\label{Komponente_testAuditor}
-Die Funktionalität von \texttt{testAuditor} als Kern des Verfahrens lässt sich am Besten mit einer einfachen Mengengleichung beschreiben:\\
-Sei $T_{ges}$ die Menge aller Testcases eines Projektes, $T_{run}$ die Menge aller Testcases, für die ein Ergebnis vorliegt. \texttt{testAuditor} berechnet $T_{ges}-T_{run}=T_{todo}$, wobei $T_{todo}$ die Menge aller Testcases ist, für die noch kein Ergebnis vorliegt. Da nach \chapref{chap:limit_scope} von der Korrektheit und Vollständigkeit von $T_{run}$ ausgegangen werden darf, ist trivial, dass $T_{run}\subset T_{ges}$, sowie $T_{todo}\subset T_{ges}$.\\
-Da $T_{run}+T_{todo}=T_{ges}$, ist die komplette Abdeckung aller Testcases garantiert, sofern eine fehlerlose Impementierung der Komponenten vorliegt.\\
-$T_{ges}$ wird von \texttt{testDiscovery} bereitgestellt, während das \texttt{test archive} $T_{run}$ enthält. Beide Datenmengen werden \texttt{testAuditor} vom \texttt{controller} über ein in \chapref{chap:format_testAuditor} definiertes Format übermittelt.\\
-Zu guter Letzt gibt \texttt{testAuditor} eine Menge von \texttt{qualifiedNames} an den \texttt{controller} zurück. Diese Menge beschreibt $T_{todo}$. 
+Die Funktionalität von \texttt{testAuditor} als Kern des Verfahrens lässt sich am besten mit einfachen Mengenoperationen beschreiben:\\
+Sei $T_{ges}$ die Menge aller Testcases eines Projektes und $T_{known}$ die Menge aller Testcases, für die ein Ergebnis vorliegt. \texttt{testAuditor} berechnet $T_{ges}-T_{known}=T_{todo}$, wobei $T_{todo}$ die Menge aller Testcases ist, für die noch kein Ergebnis vorliegt. Da nach \chapref{chap:limit_scope} von der Korrektheit von $T_{known}$ ausgegangen werden darf, gilt $T_{known}\subseteq T_{ges}$. Weiterhin gilt $T_{todo}\subseteq T_{ges}$.\\
+Da $T_{known}\cup T_{todo}=T_{ges}$, kann die vollständige Abdeckung aller Testcases garantiert werden, sofern eine fehlerlose Implementierung der Komponenten vorliegt.\\
+$T_{ges}$ wird von \texttt{testDiscovery} bereitgestellt, während das \texttt{test archive} $T_{known}$ enthält. Beide Datenmengen werden \texttt{testAuditor} vom \texttt{controller} in dem in \chapref{chap:format_testAuditor} definiertes Format übermittelt.\\
+Abschließend gibt \texttt{testAuditor} eine Menge von \texttt{qualifiedNames} an den \texttt{controller} zurück. Diese Menge beschreibt $T_{todo}$, und wird von \texttt{testAudito} auf \texttt{stdout} gelegt. 
 
 \subsubsection{Format zur Kommunikation mit \texttt{testAuditor}}\label{chap:format_testAuditor}
-Das Verfahren nutzt einen einfachen Wrapper um die Ausgabe von \texttt{testDiscovery} und die Dateien aus \texttt{archive}, um den Input für \texttt{testAuditor} bereitzustellen. 
+Das Verfahren nutzt einen Wrapper, der die Ausgabe von \texttt{testDiscovery} und die Dateien aus dem \texttt{archive} kapselt, um den Input für \texttt{testAuditor} bereitzustellen. 
 \begin{lstlisting}[caption={Kommunikationsformat für \texttt{testAuditor}}, label={testAuditor_Format}]
 <?xml version="1.0" encoding="utf-8"?>
 <testAuditorInput version="1.0">
@@ -69,50 +69,49 @@ Das Verfahren nutzt einen einfachen Wrapper um die Ausgabe von \texttt{testDisco
     </reports>
 </testAuditorInput>
 \end{lstlisting}
-Dieses Format muss vom \texttt{controller} bereitgestellt werden. \texttt{testAuditor} erwartet den Input auf \texttt{stdout}. 
+Dieses Format muss vom \texttt{controller} bereitgestellt werden. \texttt{testAuditor} erwartet den Input auf \texttt{stdin}. 
 
 \subsubsection{Parser für JUnit XML}
-Das Parsen des vorangehend beschriebenen Kommunikationsformat, sowie des in \chapref{chap:Komponente_testDiscovery_format} beschriebenen Format der \texttt{testDiscovery} ist trivial.\\
-Interessanter ist die Umsetzung eines Parsers für JUnit XML für die Daten aus dem \texttt{test archive}. Wie in \chapref{JUNIT} behandelt, besitzt JUnit XML kein standartisiertes Schema. Dementsprechend muss ein Parser für solche Dateien auf eine Art und Weise konfiguriert werden, die ohne eine feste erwartbare Struktur auskommt. Dafür wird bei der Implementation des Parsers ein streaming-basierter Ansatz verwendet:\\
-Die XML-Datei wird sequenziell Element für Element eingelesen. Sobald ein Element mit dem namen \texttt{<testcase>} gefunden wird, wird überprüft, ob dieses Element die Attribute \texttt{name} und \texttt{classname} enthält. Ist dies der Fall, so wird das Element zu der Menge an bereits durchgeführten Testcases hinzugefügt.\\
-Durch diese Art der Implementierung können zwar auch Testausgaben in JUnit XML geparst werden, welche die Attribute \texttt{name} und/oder \texttt{classname} nicht benutzen (siehe \lstref{JUNITcodeception}), jedoch wird durch das Fehlen von Attributen jeder Testcase als nicht ausgeführt betrachtet, was die Anwendung des Verfahrens hinfällig macht, da kein Testcase als durchgeführt betrachtet wird und in jedem Durchlauf des Verfahrens jeder Testcase ausgeführt wird. 
+Das Parsen des vorangehend beschriebenen Kommunikationsformats sowie des in \chapref{chap:Komponente_testDiscovery_format} beschriebenen Formats der \texttt{testDiscovery} ist trivial.\\
+Interessanter ist die Umsetzung eines Parsers für die im \texttt{archive} gespeicherten JUnit-XML Dateien. Wie in \chapref{JUNIT} behandelt, besitzt JUnit XML kein standardisiertes Schema. Dementsprechend muss ein Parser für solche Dateien auf eine Art und Weise konfiguriert werden, die ohne eine verbindlich festgelegte Struktur auskommt. Dafür wird bei der Implementation des Parsers ein streamingbasierter Ansatz verwendet:\\
+Die XML-Datei wird sequenziell Element für Element eingelesen. Sobald ein Element mit dem Namen \texttt{<testcase>} gefunden wird, wird überprüft, ob dieses Element die Attribute \texttt{name} und \texttt{classname} enthält. Ist dies der Fall, so wird das Element zur Menge an bereits durchgeführten Testcases hinzugefügt.\\
+Durch diese Art der Implementierung können zwar auch Testausgaben in JUnit XML syntaktisch verarbeitet werden, welche die Attribute \texttt{name} und/oder \texttt{classname} nicht benutzen (siehe \lstref{JUNITcodeception}), jedoch wird durch das Fehlen von Attributen jeder Testcase als nicht ausgeführt betrachtet, was die Anwendung des Verfahrens hinfällig macht, da kein Testcase als durchgeführt betrachtet wird und in jedem Durchlauf des Verfahrens jeder Testcase ausgeführt wird. 
 
-Für die genau Implementierung des Parsers im Code, siehe das in \chapref{Links} verlinkte Repository für \texttt{testAuditor}.
+Die konkrete Implementierung des Parser ist im unter \chapref{Links} verlinkten Repository für \texttt{testAuditor} dokumentiert.
 
 \subsection{\texttt{testExecution}}\label{Komponente_testExecution}
-Die Komponente \texttt{testExecution} ist eng mit der Komponente \texttt{testDiscovery} verwoben, denn die \texttt{testExecution} erwartet eine Menge von Namen, über welche sie gezielt die beschriebene Menge on Testcases an das Testframework übergibt, welches diese Menge dann ausführt. Die genaue Struktur dieser Namen wird durch das jeweilige Testframework vorgegeben, und wird von der \texttt{testDiscovery}
+Die Komponente \texttt{testExecution} ist eng mit der Komponente \texttt{testDiscovery} gekoppelt, denn die \texttt{testExecution} erwartet eine Menge von Namen, über welche sie gezielt die beschriebene Menge von Testcases zur gezielten Ausführung an das Testframework übergibt. Die genaue Struktur dieser Namen wird durch das jeweilige Testframework vorgegeben, und wird von der \texttt{testDiscovery}
 
 TODO
 
 Ebenso wie die \texttt{testDiscovery} ist die \texttt{testExecution} hochgradig vom verwendeten Testframework abhängig, da sie direkt mit dem jeweiligen Testframework kommuniziert.
 
 \subsection{\texttt{controller}}
-Als \texttt{controller} wird jene zentrale Komponente beschrieben, welche als einzige Komponente direkt mit dem \texttt{user} interagiert, und sich mit der Ausführung der einzelnen Komponenten des Verfahren beschäftigt, sowie I/O Prozesse der Komponenten und Fehlerereignisse verwaltet.\\
-Typischerweise erfüllt eine CI-Pipeline die Rolle des \texttt{controllers}, allerdings kann der \texttt{controller} auch auf andere Weisen implementiert werden.
+Als \texttt{controller} wird jene zentrale Komponente beschrieben, die als einzige Komponente direkt mit dem \texttt{user} interagier, und die Ausführung der einzelnen Komponenten des Verfahrens koordiniert, sowie I/O-Prozesse der Komponenten und die Fehlerbehandlung verwaltet.\\
+Typischerweise erfüllt eine CI-Pipeline die Rolle des \texttt{controllers} innerhalb eines Projekts, allerdings kann der \texttt{controller} auch auf andere Weise implementiert werden.
 
 \subsection{\texttt{user}}
-Die Bezechnung \texttt{user} ist bewusst breit interpretierbar gehalten. Sie beschreibt eine externe Instanz, die mit dem \texttt{controller} interagiert, so den Ablauf des Verfahrens anstößt und/oder die Ausgabe des Verfahrens konsumiert. Dabei kann es sich um einen menschlichen Benutzer, oder um automatisierte Prozesse handeln. 
+Die Bezeichnung \texttt{user} ist bewusst breit interpretierbar gehalten. Sie beschreibt eine externe Instanz, die mit dem \texttt{controller} interagiert, dadurch den Ablauf des Verfahrens anstößt und/oder die Ausgabe des Verfahrens konsumiert. Dabei kann es sich beim \texttt{user} um einen menschlichen Benutzer oder einen automatisierten Prozess handeln. 
 
 \section{Anforderungen an ein Testframework}\label{chap:req_testframework}
-Das beschriebene Verfahren kann mit jedem Testframework angewandt werden, welches diese Voraussetzungen erfüllt, die sich unter Anderem auf \chapref{chap:conclusion_testformat_eval} ergeben:
+Das beschriebene Verfahren kann mit jedem Testframework angewendet werden, welches diese Voraussetzungen erfüllt, die sich unter anderem aus \chapref{chap:conclusion_testformat_eval} ergeben:
 \begin{itemize}
     \item Eine beliebig kleine Untermenge aller Testcases kann gezielt ausgeführt werden
-    \item JUnit XML wird als Ausgabeformat für Testdurchläufe verwendet
+    \item JUnit XML wird als Ausgabeformat für Testläufe verwendet
     \item Ein Testcase kann eindeutig über die Kombination der Attribute \texttt{name} und \texttt{classname} identifiziert werden
 \end{itemize}
 
 \section{Anforderungen an ein Projekt}\label{chap:Anforderungen_Framework}
-Nachdem die Anforderungen und Funktionsweisen der beteiligten Komponenten und Dateien auführlich diskutiert wurden, können daraus nun die Anforderungen an ein Projekt abgeleitet werden, die vorausgesetzt werden, um das Verfahren implementieren zu können:
+Nachdem die Anforderungen und Funktionsweisen der beteiligten Komponenten und Dateien ausführlich diskutiert wurden, können daraus nun die Anforderungen an ein Projekt abgeleitet werden, die vorausgesetzt werden, um das Verfahren in ein Projekt integrieren zu können:
 \begin{itemize}
-    \item Determinismus ist gegeben - Jeder Testdurchlauf erzeugt bei gleichem Input und gleicher Konfiguration der Testcases dasselbe Ergebnis, unabhängig von der Entwicklungsumgebung
+    \item Determinismus ist wie nach \chapref{chap:determinism} gegeben: Jeder Testdurchlauf erzeugt bei gleichem Input und gleicher Konfiguration der Testcases dasselbe Ergebnis, unabhängig von der Entwicklungsumgebung
     \item Das verwendete Testframework erfüllt alle in \chapref{chap:req_testframework} dargestellten Anforderungen
     \item Es werden Komponenten zur Verfügung gestellt, welche die in \chapref{chap:Komponenten} beschriebenen Funktionalitäten bereitstellen
 \end{itemize}
-% \subsubsection{test discovery}\label{test discovery}
 % -> qualifiedname: Eine Zeichenfolge, die einen Test innerhalb eines Testframeworks eindeutig identifiziert. Bespiele in vers. TestFrameworks bringen!
 
 
-\section{Exemplarischer Ablauf}
+% \section{Exemplarischer Ablauf}
 % git add -A
 % git commit -m "foo bar"
 % git notes add -F "\$(realpath code/out/report.xml)" HEAD
