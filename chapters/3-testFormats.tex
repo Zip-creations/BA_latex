@@ -29,15 +29,15 @@ In der zweiten Datei liegt ein Testcase im Namespace \texttt{BasicTest2}:
 \newpage
 
 \section{Evaluation der häufigsten Formate}
-In diesem Kapitel werden die häufigsten frameworkübergreifend verwendeten Testausgabeformate kurz vorgestellt und nach den in \chapref{Anforderungen Testausgabeformat} festgesetzen Kriterien auf ihre Eignung zur Benutzung als Input für \texttt{testAuditor} evaluiert.
+In diesem Kapitel werden die häufigsten frameworkübergreifend verwendeten Testausgabeformate kurz vorgestellt und nach den in \chapref{Anforderungen Testausgabeformat} festgesetzten Kriterien auf ihre Eignung als Input für \texttt{testAuditor} evaluiert.
 
 \subsection{JUnit XML}\label{JUNIT}
 \subsubsection{Übersicht}
-JUnit XML ist ein XML-basiertes Format, welches ursprünglich für das Java-Testframework JUnit entwickelt wurde. Für JUnit XML existiert kein einheitlicher Standard, d.h. es existiert auch kein beschreibendes .xsd Schema, wie sonst für XML-Formate üblich. Trotzdem wurde JUnit XML von vielen Testframeworks in gleicher oder ähnlicher Form adaptiert, wie es ursprünglich für JUnit entworfen wurde. Außerdem existieren viele weitere Schnittstellen zwischen JUnit XML und anderen für das Software-Testing relevante Programme, beispielsweise viele CI/CD-Systeme. %TODO:change "systeme"
-Auf diese Weise hat sich JUnit XML zum häufigsten benutze Testausgabeformat für Testframeworks entwickelt.
+JUnit XML ist ein XML-basiertes Format, welches ursprünglich für das Java-Testframework JUnit entwickelt wurde. Für JUnit XML existiert kein einheitlicher Standard, das heißt es existiert auch kein beschreibendes XSD-Schema, wie sonst für XML-Formate üblich. Trotzdem wurde JUnit XML von vielen Testframeworks in gleicher oder ähnlicher Form adaptiert, wie es ursprünglich für JUnit entworfen wurde. Außerdem existieren viele weitere Schnittstellen zwischen JUnit XML und anderen für das Software-Testing relevanten Programme, beispielsweise viele CI/CD-Systeme. %TODO:change "systeme"
+Auf diese Weise hat sich JUnit XML zum häufigsten benutzen Testausgabeformat für Testframeworks entwickelt.
 
 \subsubsection{Struktur}
-Wie bereits erwähnt gibt es bei JUnit XML keine standartisiertes Schema. Allerdings hat sich eine Grundstruktur durchgesetzt, die von nahezu allen Testframeworks, welche JUnit XML als Testausgabeformat anbieten, verwendet wird. Ein typisches Beispiel für diese Grundstruktur ist \lstref{JUNITbehat}:
+Wie bereits erwähnt gibt es bei JUnit XML kein standartisiertes Schema. Allerdings hat sich eine Grundstruktur durchgesetzt, die von nahezu allen Testframeworks, welche JUnit XML als Testausgabeformat anbieten, verwendet wird. Ein typisches Beispiel für diese Grundstruktur ist \lstref{JUNITbehat}:
 \begin{lstlisting}[caption={JUnit XML, erzeugt durch das PHP-Testframework behat.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={JUNITbehat}]
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites name="default">
@@ -45,7 +45,7 @@ Wie bereits erwähnt gibt es bei JUnit XML keine standartisiertes Schema. Allerd
         <testcase name="test_neg" classname="Basic tests" status="passed" time="0.004" file="features/basic.feature" line="4"></testcase>
     ...
 \end{lstlisting}
-Das root-element \texttt{<testsuites>} enthält eine Menge von Elementen mit der Bezeichnung \texttt{<testsuite>}, welche jeweils eine Menge von Elementen mit der Bezeichnung \texttt{<testcase>} enthalten. Jedes \texttt{<testcase>} ist korrespondierend zu einem Testcase aus der ursprünglichen Testsuite des zu testenden Programms und enthält für gewöhnlich Informationen über das Testergebnis, den Ablauf, und den ursprünglichen Testcase. Hier ist allerdings wieder wichtig zu erwähnen, dass der Inhalt dieses Elements ebensowenig standartisiert ist, wie der Inhalt der übrigen Elemente. Deutlich wird dieser Sachverhalt in \lstref{JUNITcompare}. Unterschiede in der grundlegenden Struktur zeigen sich z.B. in \lstref{JUNITtasty}. Hier wird das Element \texttt{<testsuite>} verschachtelt verwendet, statt wie sonst üblich nur einmal.
+Das Wurzel-Element \texttt{<testsuites>} enthält eine Menge von Elementen mit der Bezeichnung \texttt{<testsuite>}, welche jeweils eine Menge von Elementen mit der Bezeichnung \texttt{<testcase>} enthalten. Jedes \texttt{<testcase>} repräsentiert einen Testcase aus der ursprünglichen Testsuite des zu testenden Programms und enthält für gewöhnlich Informationen über das Testergebnis, den Ablauf und den ursprünglichen Testcase. Hier ist allerdings wieder wichtig zu erwähnen, dass der Inhalt dieses Elements ebenso wenig standartisiert ist wie der Inhalt der übrigen Elemente. Deutlich wird dieser Sachverhalt in \lstref{JUNITcompare}. Unterschiede in der grundlegenden Struktur zeigen sich z.B. in \lstref{JUNITtasty}. Hier wird das Element \texttt{<testsuite>} verschachtelt verwendet, statt wie sonst üblich nur einmal.
 
 \begin{lstlisting}[caption={direkter Vergleich verschiedener Implementierungen des <testcase>-tags in ausgewählten JUnit-XML Ausgaben. Verglichen wird jeweils die Ausgabe des fehlerlos ausgeführten Testcases \texttt{test\_neg}.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={JUNITcompare}]
 (*@\underline{\texttt{junit5 (maven), Java:}}@*)
@@ -66,26 +66,26 @@ Das root-element \texttt{<testsuites>} enthält eine Menge von Elementen mit der
         ...
 \end{lstlisting}
 
-Aus \lstref{JUNITcompare} ist ersichtlich, dass sich die benutzten Attribute von \texttt{<testcase>} sowie deren Inhalt stark unterscheiden können. Jedoch werden zwei bestimmte Attribute von den meisten Testframeworks gesetzt, und auch in gleicher Weise verwendet:
+Aus \lstref{JUNITcompare} ist ersichtlich, dass sich die benutzten Attribute von \texttt{<testcase>} sowie deren Inhalt stark unterscheiden können. Jedoch werden zwei bestimmte Attribute von den meisten Testframeworks gesetzt und auch in gleicher Weise verwendet:
 \begin{itemize}
     \item \texttt{name='' ''} enthält den Namen des Testcase
     \item \texttt{classname='' ''} enthält die Bezeichnung des Namespaces bzw. der Klasse oder Gruppe des Testcase
 \end{itemize}
-Dieser Trend aus \lstref{JUNITcompare} setzt sich auch in den übrigen im Datensatz untersuchten JUnit XML Ausgaben fort. Es gibt zwar einige wenige Ausnahmen wie exemplarisch in \lstref{JUNITcodeception} dargestellt, diese sind jedoch eher selten. Eine ausführliche Übersicht, wie häufig die eindeutige Zuordnung zwischen Testergebnis und Testcase durch die Attribute \texttt{name} und \texttt{classname} möglich ist, ist in \tabref{Vergleich_Zuordnung} zu finden.
+Dieser Trend aus \lstref{JUNITcompare} setzt sich auch in den übrigen im Datensatz untersuchten JUnit XML Ausgaben fort. Es gibt zwar einige wenige Ausnahmen wie exemplarisch in \lstref{JUNITcodeception} dargestellt, diese sind jedoch eher selten. Eine ausführliche Übersicht darüber, wie häufig die eindeutige Zuordnung zwischen Testergebnis und Testcase durch die Attribute \texttt{name} und \texttt{classname} möglich ist, ist in \tabref{Vergleich_Zuordnung} zu finden.
 
-\begin{lstlisting}[caption={JUnit XML für den Testcase \texttt{test\_neg}, erzeugt durch das PHP-Testframework codeception. Codeception benutzt statt dem häufig verwendetem Attribut "classname" das Attribut "class".\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={JUNITcodeception}]
+\begin{lstlisting}[caption={JUnit XML für den Testcase \texttt{test\_neg}, erzeugt durch das PHP-Testframework codeception. Codeception benutzt statt des häufig verwendeten Attribut "classname" das Attribut "class".\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={JUNITcodeception}]
 <testcase name="test_neg" class="BasicTest" file="/home/.../Test.php" time="0.000252" assertions="1"/>
 \end{lstlisting}
 
 \input{tables/attribute_zuordnung.tex}
 
 \subsubsection{Verbreitung}
-Da JUnit XML ursprünglich spezifisch für das Testframework Junit entwickelt wurde, folgt die grundelegende Struktur den Gegebenheiten und Anforderungen dieses Frameworks. Zwar folgen viele weitere Testframeworks auch in anderen Sprachen einer ähnlichen Strukur oder können die Junit XML Struktur trotz einiger Unterschiede benutzen, in einzelnen Fällen kommt es jedoch zu Schwierigkeiten und ungewöhnlichen Anpassungen der XML-Struktur.\\
-Abgesehen davon ist Junit XML das einzige Testausgabeformat, dass von jedem im Datensatz untersuchten Testframework ausgegeben werden kann. Zumeist sogar nativ, vereinzelt muss die Unterstützung erst über offiziell unterstützte Plugins hinzugefügt werden. % Für einige Testframeworks ist Junit XML sogar das primäre strukturierte Ausgabeformat für ihre Testläufe, zum Beispiel für Junit5. % Den letzten Satz beweisen, oder weglassen
+Da JUnit XML ursprünglich spezifisch für das Testframework JUnit entwickelt wurde, folgt die grundlegende Struktur den Gegebenheiten und Anforderungen dieses Frameworks. Zwar folgen viele weitere Testframeworks auch in anderen Sprachen einer ähnlichen Struktur oder können die JUnit XML Struktur trotz einiger Unterschiede benutzen, in einzelnen Fällen kommt es jedoch zu Schwierigkeiten und ungewöhnlichen Anpassungen der XML-Struktur.\\
+Abgesehen davon ist Junit XML das einzige Testausgabeformat, welches von jedem im Datensatz untersuchten Testframework ausgegeben werden kann. Dies erfolgt zumeist sogar nativ, vereinzelt muss die Unterstützung erst über offiziell unterstützte Plugins hinzugefügt werden. % Für einige Testframeworks ist Junit XML sogar das primäre strukturierte Ausgabeformat für ihre Testläufe, zum Beispiel für Junit5. % Den letzten Satz beweisen, oder weglassen
 %Bei manchen Testframeworks ist Junit XML sogar die standart-Ausgabe, beispielsweise bei
 
 \subsubsection{Fazit zu JUnit XML}
-Aufgrund der weiten Verbreitung und der trotz der fehlenden Standartisierung ähnlichen Umsetzung in vielen Testframeworks, ist JUnit XML ein geeigneter Input für \texttt{testAuditor}, da es in der Praxis trotz einiger potentieller Fehlerquellen mit einer Vielzahl von Testframeworks kompatibel ist.
+Aufgrund der weiten Verbreitung und der trotz der fehlenden Standardisierung ähnlichen Umsetzung in vielen Testframeworks ist JUnit XML ein geeigneter Input für \texttt{testAuditor}, da es in der Praxis trotz einiger potentieller Fehlerquellen mit einer Vielzahl von Testframeworks kompatibel ist.
 
 \subsection{Test Anything Protocol (TAP)}
 \subsubsection{Übersicht}
