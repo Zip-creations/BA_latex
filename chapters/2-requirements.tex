@@ -42,7 +42,7 @@ Damit in dem hier vorgestellten Verfahren eine qualifizierte Aussage über die T
 Im Rahmen dieser Bachelorarbeit wird hierfür der Linux-package manager \texttt{Nix} benutzt. \texttt{Nix} bietet die Funktionalität, die Entwicklungsumgebung deklarativ zu beschreiben, indem benötigte Abhängigkeiten in einer sogenannten \texttt{flake} festgelegt werden. Eine dazugehörige Datei \texttt{flake.lock} enthält dann detaillierte Informationen über den build. Dadurch können auf verschiedenen Systemen identische Entwicklungsumgebungen aufgebaut werden. 
 
 Es gilt zu beachten, dass durch diesen Aufbau nur explizit deklarierte interne Abhängigkeiten deterministisch erfasst werden können. Externe Faktoren wie etwa Netzwerkschnittstellen, zufallbasierte Ereignisse oder Ähnliches können auf diese Weise nicht reproduzierbar festgehalten werden.\\
-Ein vollständige Garantie des Determinismus zwischen Systemen ist nur schwer zu erreichen, jedoch bietet \texttt{Nix} hier eine ausreichende Grundlage. 
+Ein vollständige Garantie des Determinismus zwischen Systemen ist nur schwer zu erreichen, jedoch bietet \texttt{Nix} in diesem Fall eine ausreichende Grundlage. 
 
 \section{Entstehung eines Testausgabeformats}
 Um zu verdeutlichen, wie die finale Form eines Testausgabeformates entsteht, wird in diesem Kapitel näher auf die Faktoren eingegangen, welche die genaue Struktur und das finale Aussehen des Testausgabeformates beeinflussen.
@@ -53,7 +53,7 @@ Die Form eines Testausgabeformates hängt im Wesentlichen von den folgenden Fakt
   \item \textbf{Struktur der zu grunde liegenden Testdateien:}\\
   Die (Nicht-)Verwendung von Klassen, Testsuites oder anderen vom Testframework oder der Programmiersprache bereitgestellten Optionen zur Organisation der Testcases, sowie die Dateistruktur der Testdateien können einen Einfluss auf das Endresultat haben. 
   \item \textbf{Test Runner:}\\
-  Auch als \textit{Scheduler, Harness} oder \textit{Orchestrator} bezeichnet, beschreibt der Begriff ''Test Runner'' hier die Komponente eines Testframeworks, welche die Testcases ausführt und die Ergebnisse an den Test Reporter weiterreicht. Der Test Runner beeinflusst beispielsweise die Darstellung von Ereignissen, die während der Ausführung der Testsuite auftreten und in die Ausgabe übernommen werden.
+  Auch als \textit{Scheduler, Harness} oder \textit{Orchestrator} bezeichnet, beschreibt der Begriff ''Test Runner'' hier die Komponente eines Testframeworks, welche die Testcases ausführt und die Ergebnisse an den Test Reporter weiterreicht. Der Test Runner beeinflusst u.A die Darstellung von Ereignissen, die während des Testlaufs auftreten und in die Ausgabe übernommen werden.
   \item \textbf{Test Reporter:}\\
   Auch als \textit{test generator} bezeichnet, beschreibt ''Test Reporter'' hier jene Komponente eines Testframeworks, welche aus dem vom Test Runner bestimmten Ergebnis der Testsuite die menschen- bzw. maschinenlesbare Ausgabe generiert.
   \item \textbf{verwendetes Testausgabeformat:}\\
@@ -88,9 +88,11 @@ In den meisten Testframeworks übernimmt das Testframework selbst die Aufgaben d
   ...
 \end{lstlisting}
 Obwohl für jede Ausgabe JUnit5 mit Jupiter als Testframework benutzt wird, jede Ausgabe JUnit XML als Format aufweist, und jede Ausgabe auf denselben beiden Testdateien basiert, gibt es durch die unterscheidlichen Test Runner und Test Reporter deutliche Unterschiede in der Testausgabe.\\
-So ignoriert Gradle beispielsweise in diesem exemplarischen Fall das tag <properties>, während Maven und Jupiter (ohne build-tool) eine exessive Liste von <property> in der Testausgabe mitgeben. \\
+So ignoriert Gradle beispielsweise in diesem exemplarischen Fall das Element \texttt{<properties>}, während Maven und Jupiter (ohne build-tool) eine exessive Liste von \texttt{<property>} in der Testausgabe mitgeben. \\
 Auch die Benennung der Testcases unterscheidet sich:\\
 Jupiter und Gradle behalten den Namen \texttt{test\_neg()} bei, so wie er auch in der Testdatei verwendet wird, während Maven den Namen zu \texttt{test\_neg} kürzt.\\
-Ähnliches bei der Benennung der Testsuite: Da Gradle und Maven für jede Datei eine eigene Ausgabedatei erzeugen, benutzen die beiden build-tool den Namen der jeweiligen Testsuite, hier ''BasicTest'', als Wert des Attributes ''name'' im tag \texttt{<testsuite>}. Jupiter gibt dagegen nur eine Ausgabedatei aus, die das Ergebnis aller Testdateien enthält, und benutzt in dieser den Standardwert ''Junit Jupiter'' als Namen für \texttt{<testsuite>}.
+Ähnliches bei der Benennung der Testsuite: Da Gradle und Maven für jede Datei eine eigene Ausgabedatei erzeugen, benutzen die beiden build-tool den Namen der jeweiligen Testsuite, hier ''BasicTest'', als Wert des Attributes ''name'' im Element \texttt{<testsuite>}. Jupiter gibt dagegen nur eine Ausgabedatei aus, die das Ergebnis aller Testdateien enthält, und benutzt in dieser den Standardwert ''Junit Jupiter'' als Namen für \texttt{<testsuite>}.
 
-Es ist also ersichtlich, dass
+Es ist somit ersichtlich, dass die konkrete Struktur einer Testausgabe nicht allein durch das verwendete Testframework oder das gewählte Testausgabeformat bestimmt wird. Vielmehr entsteht diese durch das Zusammenwirken in diesem Kapitel beschriebenen Komponenten. Selbst bei identischem Testframework, Ausgabeformat und zugrunde liegenden Testdateien können sich die erzeugten Ausgaben hinsichtlich ihrer Struktur, ihrer Benennung und der enthaltenen Informationen unterscheiden.
+
+Dieser Sachverhalt muss in \chapref{Vergleich Testausgabefomate} bei der Bewertung der Struktur der einzelnen Testausgebeformate berücksichtigt werden. 
