@@ -11,6 +11,7 @@ Folgende Anforderungen werden an einen Durchlauf des Verfahrens gestellt:
     Testcases können vor Duchlauf des Verfahrens mehrfach ausgeführt worden sein, allerdings darf während des Verfahrens selbst kein Testcase ausgeführt werden, der bereits ausgeführt wurde, um die Laufzeit der Testphase so gering wie möglich zu halten. Trotzdem muss die gesamte Testsuite komplett abgedeckt sein, um die Aussagekraft des Testlaufes im Vergleich zu einem komplett neuen Durchlauf nicht zu beeinträchtigen.
     \item \textbf{Die Ausgabe des durch das Verfahren ausgeführten Testlaufs ist auf dieselbe Weise verfügbar, wie die anderen Ausgaben}\\
     Die Ausgabe soll in demselben Format, auf dieselbe Art und Weise abgelegt werden, wie auch die anderen Ausgaben, die dem Verfahren zur Verfügung gestellt werden.
+    \newpage
     \item \textbf{Die Laufzeit eines Testdurchlaufs unter Verwendung des Verfahrens ist kleiner oder gleich der Laufzeit eines konventionellen Durchlaufs}\\
     Das Vefahren soll die Gesamtlaufzeit der Testausführung reduzieren.
 \end{itemize}
@@ -27,7 +28,7 @@ Mit Blick auf diese, sowie die unter \chapref{Anforderungen Tool} beschriebenen 
     \item \textbf{ermöglicht die vollständige Ermittlung aller im Projekt vorhandenen Testcases}\\
     Dieser Punkt ist essenziell, zum einen damit \texttt{testAuditor} eine Aussage darüber treffen kann, ob eine vollständige Abdeckung aller Testcases erzielt wurde, zum anderen muss \texttt{testAuditor} zum Erzielen einer vollständigen Abdeckung potentiell auf jeden vorhandenen Testcase zugreifen können. Dazu muss \texttt{testAuditor} selbstverständlich auch jeder Testcase innerhalb des Projektes bekannt sein.
     \item \textbf{identifiziert jeden Testcase eindeutig}\\
-    Je nach Testframework und Implementierung können mehrere Testcases denselben Namen besitzen, sofern sie sich in unterschiedlichen Namespaces oder Kontexten befinden. Das Ausgabeformat muss daher eine eindeutige Zuordnung zwischen den einzelnen Testcases und ihren jeweiligen Ergebnissen ermöglichen. 
+    Je nach Testframework können mehrere Testcases denselben Namen besitzen, sofern sie sich in unterschiedlichen Namespaces oder Kontexten befinden. Das Ausgabeformat muss daher eine eindeutige Zuordnung zwischen den einzelnen Testcases und ihren Ergebnissen ermöglichen. 
     \item \textbf{sagt für jeden Testcase einzeln aus, ob er ausgeführt wurde oder nicht}\\
     Dieser Punkt setzt die Erfüllung der ersten beiden Punkte voraus. Zusätzlich muss aus dem Eintrag eines Testcases im Ausgabeformat erkennbar sein, ob der Test ausgeführt worden ist.
     \item \textbf{ist ein strukturiertes Format}\\
@@ -36,7 +37,7 @@ Mit Blick auf diese, sowie die unter \chapref{Anforderungen Tool} beschriebenen 
     Es ist kaum realistisch anzunehmen, dass ein strukturiertes Format existiert, welches von jedem existierenden Testframework gleichermaßen benutzt wird. Dennoch gibt es durchaus gängige Formate, die von unterschiedlichen Testframeworks aus unterschiedlichen Sprachen unterstützt werden, wie folgend in \chapref{Vergleich Testausgabefomate} untersucht wird. 
 \end{itemize}
 
-\section{Reproduzierbare Builds - 'it works on my machine'}\label{chap:determinism}
+\section{Reproduzierbare Builds}\label{chap:determinism}
 Damit in dem hier vorgestellten Verfahren eine qualifizierte Aussage über die Testergebnisse getroffen werden kann, muss gewährleistet sein, dass alle Testcases unabhängig vom ausführenden System immer dasselbe Testergebnis liefern. Beispielsweise muss ein Testcase, der auf der Maschine eines Entwicklers ein bestimmtes Ergebnis liefert, auch zwingend auf einem Build-Server dasselbe Ergebnis liefern. Andernfalls könnte eine Diskrepanz zwischen den Testergebnissen zu einer verfälschten Aussage des Verfahrens über den aktuellen Stand der Tests führen. 
 
 Im Rahmen dieser Bachelorarbeit wird hierfür der Linux-packagemanager \texttt{Nix} benutzt. \texttt{Nix} bietet die Funktionalität, die Entwicklungsumgebung deklarativ zu beschreiben, indem benötigte Abhängigkeiten in einer sogenannten \texttt{flake} festgelegt werden. Eine dazugehörige Datei \texttt{flake.lock} enthält dann detaillierte Informationen über den Build. Dadurch können auf verschiedenen Systemen identische Entwicklungsumgebungen aufgebaut werden. 

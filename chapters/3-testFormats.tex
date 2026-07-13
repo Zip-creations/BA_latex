@@ -19,6 +19,7 @@ In der ersten Datei liegen 4 Testcases im Namespace \texttt{BasicTest}:
     \item \texttt{test\_skip():} Ein Testcase, der übersprungen wird. Für gewönhlich werden übersprungene Testcases trotzdem in der Testausgabe aufgeführt, mit der zusätzlichen Information, dass dieser Testcase übersprungen wurde, anstelle eines Ergebnisses. %Manche Testframeworks unterscheiden zwischen übersprungenen und ignorierten Testcases: Übersprungene Testcases werden nicht ausgeführt, aber als übersprungen in der Testausgabe markiert. Ignorierte Testcases werden weder ausgeführt, noch in die Testausgabe übernommen. Dies macht ignorierte Testcases für die Evaluation der Testausgabeformate uninteressant. 
     \item \texttt{test\_same\_name():} Ein einfacher Testcase, der eine korrekte Assertion beinhaltet und nicht fehlschlägt. In der zweiten Datei existiert ein Testcase mit demselben Namen.
 \end{itemize}
+\newpage
 In der zweiten Datei liegt ein Testcase im Namespace \texttt{BasicTest2}:
 \begin{itemize}
     \item \texttt{test\_same\_name():} Ein einfacher Testcase, der eine korrekte Assertion beinhaltet und nicht fehlschlägt. In der ersten Datei existiert ein Testcase mit demselben Namen.
@@ -78,12 +79,11 @@ Dieser Trend aus \lstref{JUNITcompare} setzt sich auch in den übrigen im Datens
 <testcase name="test_neg" class="BasicTest" file="/home/.../Test.php" time="0.000252" assertions="1"/>
 \end{lstlisting}
 
-\input{tables/attribute_zuordnung.tex}
-
 \subsubsection{Verbreitung}
-Da JUnit XML ursprünglich spezifisch für das Testframework JUnit entwickelt wurde, folgt die grundlegende Struktur den Gegebenheiten und Anforderungen dieses Frameworks. Zwar folgen viele weitere Testframeworks auch in anderen Sprachen einer ähnlichen Struktur oder können die JUnit XML Struktur trotz einiger Unterschiede benutzen, in einzelnen Fällen kommt es jedoch zu Schwierigkeiten und ungewöhnlichen Anpassungen der XML-Struktur.\\
+Da JUnit XML ursprünglich für das Testframework JUnit entwickelt wurde, folgt die grundlegende Struktur den Anforderungen dieses Frameworks. Zwar folgen viele weitere Testframeworks auch in anderen Sprachen einer ähnlichen Struktur oder können die JUnit XML Struktur trotz einiger Unterschiede benutzen, in einzelnen Fällen kommt es jedoch zu Schwierigkeiten und ungewöhnlichen Anpassungen der XML-Struktur.
 Abgesehen davon ist JUnit XML das einzige Testausgabeformat, welches von jedem im Datensatz untersuchten Testframework ausgegeben werden kann. Dies erfolgt zumeist sogar nativ, vereinzelt muss die Unterstützung erst über offiziell unterstützte Plugins hinzugefügt werden. % Für einige Testframeworks ist Junit XML sogar das primäre strukturierte Ausgabeformat für ihre Testläufe, zum Beispiel für Junit5. % Den letzten Satz beweisen, oder weglassen
 %Bei manchen Testframeworks ist Junit XML sogar die standart-Ausgabe, beispielsweise bei
+\input{tables/attribute_zuordnung.tex}
 
 \subsubsection{Fazit zu JUnit XML}
 Aufgrund der weiten Verbreitung und trotz der fehlenden Standardisierung ähnlichen Umsetzung in vielen Testframeworks ist JUnit XML ein geeigneter Input für \texttt{testAuditor}, da es in der Praxis trotz einiger potentieller Fehlerquellen mit einer Vielzahl von Testframeworks kompatibel ist.
@@ -133,7 +133,7 @@ TAP ist aufgrund seiner sehr geringen Minimalstruktur und vor allem wegen seiner
 \subsubsection{Übersicht}
 % https://marcphilipp.de/de/startseite/
 Open Test Reporting (OTR) wird von demselben Entwicklerteam, das auch hinter dem Framework JUnit und damit auch hinter der ursprünglichen Version von JUnit XML steht, als Nachfolger von eben diesem entwickelt. Das Entwicklerteam verfolgt dabei laut eigenen Aussagen das Ziel, mit OTR die historisch gewachsenen Probleme von JUnit XML (siehe \chapref{JUNIT}) zu umgehen. OTR soll nach den Vorstellungen der Entwickler auf lange Sicht den Platz von JUnit XML als häufigstes Ausgabeformat für Testläufe einnehmen. \cite{OTR_milestone}
-
+\newpage
 OTR ist ein standardisiertes XML-basiertes Format. OTR unterscheidet dabei zwischen zwei Strukturen: Hierarchisch und eventbasiert. Beide Strukturen nutzen dasselbe Set von Kernelementen, unterscheiden sich aber in ihrer Struktur. Für beide Strukturen gibt es programmiersprachenspezifische Erweiterungen.\\
 Ausgehend von einer OTR-XML Ausgabe kann auch eine OTR-spezifische HTML-Ausgabe erzeugt werden.
 
@@ -172,7 +172,6 @@ Auch wenn OTR unter den bisher untersuchten Testausgabeformate die geeignetste S
 % \subsubsection{Eignung}
 
 % \subsubsection{Fazit zu CTFR}
-
 \subsection{Andere Formate}
 % teamcity, testdox?
 Neben den bisher untersuchten ganz oder teilweise strukturierten Formaten bieten viele Testframeworks auch unstrukturierte Ausgaben in unterschiedlichen Dateiformaten an. Konkret wurden bei der Untersuchung des Datensatzes Testausgaben in den folgenden Dateiformaten identifiziert:
