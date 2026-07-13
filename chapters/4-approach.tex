@@ -45,7 +45,7 @@ Ein Projekt muss so konfiguriert werden, dass sichergestellt ist, dass keine Dat
 \subsubsection{\texttt{Git Notes}}
 Eine wenig bekannte Funktionalität von \texttt{Git} ist, dass an einen Commit sogenannte \texttt{Git Notes} angehängt werden können. Der Inhalt dieser \texttt{notes} wird separat vom eigentlichen Inhalt des Commits verwaltet; der Hash eines Commits wird nicht durch Änderungen an den \texttt{notes} beeinflusst. Dadurch können einem Commit zusätzliche Informationen hinzugefügt werden, ohne die Historie des Repositories zu verändern.\\
 Aus diesen Gründen bieten sich git \texttt{notes} in zweierlei Hinsicht für die Rolle des \texttt{test archive} an:\\
-Zum einen wird das eigentliche Projekt nicht durch zusätzliche Dateien vom Verfahren verändert. Zum anderen gehört jede \texttt{note} zu genau einem Commit, wodurch vermieden werden kann, dass das Verfahren Dateien aus dem \texttt{archive} für einen vorherigen Commit erhält, da die \texttt{notes} für jeden Commit neu erstellt werden müssen.
+Zum einen wird das eigentliche Projekt nicht durch zusätzliche Dateien vom Verfahren verändert. Zum anderen gehört jede \texttt{note} zu genau einem Commit, wodurch vermieden werden kann, dass das Verfahren Dateien aus dem \texttt{archive} für einen vorherigen Commit erhält, da die \texttt{notes} für jeden Commit neu erstellt werden müssen. (vgl. \cite{gitNotes})
 
 \subsection{\texttt{testAuditor}}\label{Komponente_testAuditor}
 Die Funktionalität von \texttt{testAuditor} als Kern des Verfahrens lässt sich am besten mit einfachen Mengenoperationen beschreiben:\\
