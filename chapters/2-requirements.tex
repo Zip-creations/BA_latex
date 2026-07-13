@@ -27,6 +27,7 @@ Mit Blick auf diese, sowie die unter \chapref{Anforderungen Tool} beschriebenen 
 \begin{itemize}
     \item \textbf{ermöglicht die vollständige Ermittlung aller im Projekt vorhandenen Testcases}\\
     Dieser Punkt ist essenziell, zum einen damit \texttt{testAuditor} eine Aussage darüber treffen kann, ob eine vollständige Abdeckung aller Testcases erzielt wurde, zum anderen muss \texttt{testAuditor} zum Erzielen einer vollständigen Abdeckung potentiell auf jeden vorhandenen Testcase zugreifen können. Dazu muss \texttt{testAuditor} selbstverständlich auch jeder Testcase innerhalb des Projektes bekannt sein.
+    \newpage
     \item \textbf{identifiziert jeden Testcase eindeutig}\\
     Je nach Testframework können mehrere Testcases denselben Namen besitzen, sofern sie sich in unterschiedlichen Namespaces oder Kontexten befinden. Das Ausgabeformat muss daher eine eindeutige Zuordnung zwischen den einzelnen Testcases und ihren Ergebnissen ermöglichen. 
     \item \textbf{sagt für jeden Testcase einzeln aus, ob er ausgeführt wurde oder nicht}\\
@@ -38,7 +39,7 @@ Mit Blick auf diese, sowie die unter \chapref{Anforderungen Tool} beschriebenen 
 \end{itemize}
 
 \section{Reproduzierbare Builds}\label{chap:determinism}
-Damit in dem hier vorgestellten Verfahren eine qualifizierte Aussage über die Testergebnisse getroffen werden kann, muss gewährleistet sein, dass alle Testcases unabhängig vom ausführenden System immer dasselbe Testergebnis liefern. Beispielsweise muss ein Testcase, der auf der Maschine eines Entwicklers ein bestimmtes Ergebnis liefert, auch zwingend auf einem Build-Server dasselbe Ergebnis liefern. Andernfalls könnte eine Diskrepanz zwischen den Testergebnissen zu einer verfälschten Aussage des Verfahrens über den aktuellen Stand der Tests führen. 
+Damit das hier vorgestellten Verfahren eine qualifizierte Aussage über die Testergebnisse treffen kann, muss gewährleistet sein, dass alle Testcases unabhängig vom ausführenden System immer dasselbe Ergebnis liefern. Beispielsweise muss ein Testcase, der auf der Maschine eines Entwicklers ein bestimmtes Ergebnis liefert, auch zwingend auf einem Build-Server dasselbe Ergebnis liefern.Andernfalls könnte eine Diskrepanz zwischen den Testergebnissen zu einer verfälschten Aussage des Verfahrens über den Stand der Testcases führen. 
 
 Im Rahmen dieser Bachelorarbeit wird hierfür der Linux-packagemanager \texttt{Nix} benutzt. \texttt{Nix} bietet die Funktionalität, die Entwicklungsumgebung deklarativ zu beschreiben, indem benötigte Abhängigkeiten in einer sogenannten \texttt{flake} festgelegt werden. Eine dazugehörige Datei \texttt{flake.lock} enthält dann detaillierte Informationen über den Build. Dadurch können auf verschiedenen Systemen identische Entwicklungsumgebungen aufgebaut werden. (vgl. \textcite[2f.]{malkaNix})
 
@@ -51,6 +52,7 @@ Die Form eines Testausgabeformates hängt im Wesentlichen von den folgenden Fakt
 \begin{itemize}
   \item \textbf{verwendetes Testframework:}\\
   Das verwendete Testframework ist für gewöhnlich an jedem Schritt der Testgenerierung beteiligt und erfüllt die Rolle eines Managers der einzelnen Komponenten. Daher bestimmt es je nach konkretem Framework stärker oder schwächer die Verwendung der folgenden Punkte:
+  \newpage
   \item \textbf{Struktur der zugrunde liegenden Testdateien:}\\
   Die (Nicht-)Verwendung von Klassen, Testsuites oder anderen vom Testframework oder der Programmiersprache bereitgestellten Optionen zur Organisation der Testcases, sowie die Dateistruktur der Testdateien können einen Einfluss auf das Endresultat haben. 
   \item \textbf{Test Runner:}\\
@@ -88,6 +90,7 @@ In den meisten Testframeworks übernimmt das Testframework selbst die Aufgaben d
   <testcase name="test_neg()" classname="BasicTest" time="0.001"/>
   ...
 \end{lstlisting}
+\newpage
 Obwohl für jede Ausgabe JUnit5 mit Jupiter als Testframework benutzt wird, jede Ausgabe JUnit XML als Format aufweist, und jede Ausgabe auf denselben beiden Testdateien basiert, gibt es durch die unterschiedlichen Test Runner und Test Reporter deutliche Unterschiede in der Testausgabe.\\
 So ignoriert Gradle beispielsweise in diesem exemplarischen Fall das Element \texttt{<properties>}, während Maven und Jupiter (ohne Build-Tool) eine exzessive Liste von \texttt{<property>} in der Testausgabe mitgeben. \\
 Auch die Benennung der Testcases unterscheidet sich:\\
