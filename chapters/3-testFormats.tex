@@ -4,7 +4,8 @@ Standardmäßig geben die meisten Testframeworks das Ergebnis eines Testlaufs in
 Für diese Dateiformate wurden über die Jahre einige framework-übergreifende Ausgabeformate entwickelt, die sich in unterschiedlicher Ausprägung durchsetzen konnten.\\
 Es gilt nun, ein geeignetes Testausgabeformat zu finden, welches von \texttt{testAuditor} als Quelle für Testergebnisse genutzt werden kann. 
 
-\section{Methodik}
+\section{Evaluation des Datensatzes}
+\subsection{Methodik}
 Aufgrund der Vielzahl von verschiedenen Testframeworks und der Vielfältigkeit ihrer Ausgabeformate können im Rahmen dieser Bachelorarbeit nur die verbreitetsten Formate untersucht werden.\\
 Zur Untersuchung der praktischen Umsetzung einzelner Formate und zur exemplarischen Erfassung ihrer Verbreitung wird ein stichprobenartiger Datensatz betrachtet. Dabei gilt zu beachten, dass dieser Datensatz nur eine kleine Menge ausgewählter Programmiersprachen umfasst. Außerdem beschränken sich die untersuchten Testframeworks auf die am weitesten verbreiteten in ihrer jeweiligen Sprache, um die Etablierung von Testausgabeformaten möglichst praxisnahe darstellen zu können. Außerdem bieten länger etablierte Testframeworks erfahrungsgemäß eine breitere Auswahl von Testausgabeformaten, als weniger verbreitete oder neue Testframeworks.\\
 Bei der Untersuchung von Plugins für zusätzliche Testausgabeformate wurden ausschließlich Plugins berücksichtigt, welche über den hier benutzten package manager \texttt{Nix} bereitgestellt werden. Würden externe Plugins, welche zumeist aus unabhängig gepflegten Repositorien stammen, ebenfalls betrachtet werden, würde die Zahl der unterstützten Testausgabeformate bei den meisten untersuchten Testframeworks deutlich steigen. Da keine Aussage über die Vertrauenswürdigkeit und Qualität der externen Plugins getroffen werden kann, beschränkt sich diese Untersuchung auf von \texttt{Nix} bereitgestellte Plugins.
