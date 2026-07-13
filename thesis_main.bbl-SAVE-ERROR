@@ -81,8 +81,8 @@
       \strng{authornamehash}{056bde227b9c542f77f1e71aa610c729}
       \strng{authorfullhash}{056bde227b9c542f77f1e71aa610c729}
       \strng{authorfullhashraw}{056bde227b9c542f77f1e71aa610c729}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{2009 IEEE Conference on Emerging Technologies \& Factory Automation}
@@ -108,8 +108,8 @@
       \strng{authornamehash}{2d572fd7354ec8be22793a29617fcd57}
       \strng{authorfullhash}{2d572fd7354ec8be22793a29617fcd57}
       \strng{authorfullhashraw}{2d572fd7354ec8be22793a29617fcd57}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{note}{Archivierte Version vom 10.07.2026, verfügbar über die Wayback Machine: \url{https://web.archive.org/web/20260710220327/https://testanything.org/tap-version-14-specification.html}}
@@ -142,15 +142,15 @@
       \strng{authornamehash}{a872f29a92f9d56ba1f30e606aef5611}
       \strng{authorfullhash}{a872f29a92f9d56ba1f30e606aef5611}
       \strng{authorfullhashraw}{a872f29a92f9d56ba1f30e606aef5611}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{day}{21}
       \field{month}{3}
       \field{note}{Archivierte Version vom 11.07.2026: \url{https://web.archive.org/web/20260710233305/https://marcphilipp.de/blog/2025/03/21/stf-milestone-2-open-test-reporting/}}
       \field{title}{STF Milestone 2: Open Test Reporting}
-      \field{urlday}{10}
+      \field{urlday}{11}
       \field{urlmonth}{7}
       \field{urlyear}{2026}
       \field{year}{2025}
@@ -161,6 +161,37 @@
       \endverb
       \verb{url}
       \verb https://marcphilipp.de/blog/2025/03/21/stf-milestone-2-open-test-reporting/
+      \endverb
+    \endentry
+    \entry{OTR_README}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=34967c5dafa48b10f5ce5774b269365a}{%
+           family={{ota4j-team}},
+           familyi={o\bibinitperiod}}}%
+      }
+      \strng{namehash}{34967c5dafa48b10f5ce5774b269365a}
+      \strng{fullhash}{34967c5dafa48b10f5ce5774b269365a}
+      \strng{fullhashraw}{34967c5dafa48b10f5ce5774b269365a}
+      \strng{bibnamehash}{34967c5dafa48b10f5ce5774b269365a}
+      \strng{authorbibnamehash}{34967c5dafa48b10f5ce5774b269365a}
+      \strng{authornamehash}{34967c5dafa48b10f5ce5774b269365a}
+      \strng{authorfullhash}{34967c5dafa48b10f5ce5774b269365a}
+      \strng{authorfullhashraw}{34967c5dafa48b10f5ce5774b269365a}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Archivierte Version vom 11.07.2026: \url{https://web.archive.org/web/20260711211234/https://github.com/ota4j-team/open-test-reporting/blob/main/README.adoc\#xml-formats}}
+      \field{title}{Open Test Reporting}
+      \field{urlday}{11}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/ota4j-team/open-test-reporting/blob/main/README.adoc\#xml-formats
+      \endverb
+      \verb{url}
+      \verb https://github.com/ota4j-team/open-test-reporting/blob/main/README.adoc%5C#xml-formats
       \endverb
     \endentry
   \enddatalist

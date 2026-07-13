@@ -9,7 +9,7 @@ Nehmen wir z.B. einen Entwickler, der bei einem großen Softwareprojekt die Funk
 Zur Validierung des Codes muss dennoch regelmäßig jeder Testcase des Softwareprojektes durchlaufen werden, damit durch das partielle Testen des Codes keine Fehler unbemerkt im Projekt verbleiben.\\
 Um dies zu gewährleisten, wird für gewöhnlich auf dem Build-Server nach einem Commit noch einmal die gesamte Testsuite des Projektes durchlaufen, auch wenn manche Testcases möglicherweise bereits ausgeführt wurden, ohne dass sich der Code in der Zwischenzeit geändert hat.\\
 Diese redundanten Testausführungen verzögern den Build-Prozess des Projektes. Das führt dazu, dass die Zeit zwischen der Änderung des Codes und dem Erhalt des Ergebnis bei steigender Anzahl und Laufzeit von Testcases immer länger wird, da für den Testlauf immer mehr Ressourcen benötigt werden. Insbesondere bei häufigen Änderungen kann sich dieser Mehraufwand erheblich auf den Entwicklungsprozess auswirken.\\
-Es existieren zwar bereits verschiedene Ansätze zur Reduktion von Testlaufzeiten, beispielsweise durch Testselektion oder Build-Caching, diese Verfahren sind jedoch häufig an bestimmte Programmiersprachen, Build-Systeme oder Testframeworks gebunden oder optimieren einen Testlauf auf andere Art und Weise. Daraus entsteht der Bedarf nach einem möglichst frameworkunabhängigen Verfahren, das bereits vorhandene Testergebnisse wiederverwendet und gleichzeitig eine vollständige Testabdeckung sicherstellt.
+Es existieren zwar bereits verschiedene Ansätze zur Reduktion von Testlaufzeiten, beispielsweise durch Testselektion oder Build-Caching, diese Verfahren sind jedoch häufig an bestimmte Programmiersprachen, Build-Systeme oder Testframeworks gebunden oder optimieren einen Testlauf auf andere Art und Weise. Daraus entsteht der Bedarf nach einem möglichst frameworkunabhängigen Verfahren, das bereits vorhandene Testergebnisse wiederverwendet und ausschließlich Testcases ausführt, für die noch kein Ergebnis vorliegt, und gleichzeitig eine vollständige Testabdeckung sicherstellt.
 
 \section{Zielsetzung}\label{Zielsetzung}
 % Ziel dieser Bachelorarbeit ist die Entwicklung eines Verfahrens, welches erfolgreich die Laufzeit einer CI-Pipeline verringert, indem nur Testcases ausgeführt werden, für welche im aktuellen Commit noch kein Ergebnis vorhanden ist. Dabei muss zwingend eine komplette Abdeckung aller Testcases erhalten bleiben. Das Ergebnis jedes Testcases muss identisch mit dem Ergebnis bei einem kompletten Neudurchlauf aller Testcases sein, mit Ausname von Meta-Daten wie beispielsweise dem Zeitstempel des Testdurchlaufs. Dabei soll die Wahl des Testframeworks möglichst keine Rolle spielen.
@@ -31,7 +31,7 @@ Gemessen wird der Erfolg bei der Verringerung der Laufzeit des Verfahrens anhand
 \end{itemize}
 % Implementation war erfolgreich, wenn...
 
-\section{Begrenzung des Scopes}\label{chap:limit_scope}
+\section{Begrenzung des Scope}\label{chap:limit_scope}
 Nicht Teil dieser Bachelorarbeit sind die folgenden Punkte:
 \begin{itemize}
       \item Überprüfung der Korrektheit von Daten:\\
@@ -43,6 +43,8 @@ Nicht Teil dieser Bachelorarbeit sind die folgenden Punkte:
 \end{itemize}
 
 \section{Aufbau der Arbeit}
+
+\textbf{\chapref{related}: Verwandte Themengebiete} widmet sich der Einordnung dieser Bachelorarbeit in den Kontext anderer, verwandter Themengebiete, indem diese Themen kurz vorgestellt, und in Bezug zur vorliegenden Arbeit verglichen werden.
 
 \textbf{\chapref{chap:Hintergrund}: Grundlagen und Analyse der Anforderungen}
 beginnt mit der Analyse der Anforderungen, die ausgehend von \chapref{Zielsetzung} an das Verfahren gestellt werden. Daraus werden die Anforderungen an ein Testausgabeformat abgeleitet. Anschließend werden die Grundlagen von deterministischen Builds und der Entstehung von Testausgabeformaten beleuchtet, die für das Verständnis der folgenden Kapitel erforderlich sind.

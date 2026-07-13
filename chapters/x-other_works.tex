@@ -1,1 +1,33 @@
-\chapter{Verwandte Arbeiten}
+\chapter{Verwandte Themengebiete}\label{related}
+Zum Thema dieser Bachelorarbeit gibt es ein paar artverwande Themengebiete, die sich mit einer ähnlichen Zielstellung beschäftigen. 
+
+
+\section{Test Impact Analysis (TIA)}
+Test Impact Analysis bezeichnet Verfahren, die anhand des bestehendem Codes des Projekts analysieren, welche Testcases durch Änderungen am bestimmten Codezeilen betroffen sein können. Als Grundlage dieser Analyse können bespielsweise interne Abhängigkeiten von Dateien oder Programmabschnitten sein. 
+
+Auch wenn diese Verfahren ähnlich wie das in dieser Bachelorarbeit entwickelte Verfahren ermittelt, welche Teilmenge aller Testcases ausgeführt werden soll, und welche nicht, unterscheiden sich die Verfahren anhand ihrer Entscheidungsgrundlage: Während TIA sich auf die Analyse des vorhandenen Codes fokussiert, beschränkt sich das vorliegende Verfahren auf die Ergebnisse von Testausgaben. Außerdem liegen nach Ablauf des vorliegenden Verfahrens die Ergebnisse zu allen Testcases vor, da alle Testcases ausgeführt werden, für die noch kein Ergebnis vorhanden ist. Bei TIA ist das nicht unbedingt der Fall, da lediglich überprüft wird, ob ein Testcase von den letzten Änderungen am Code verändert werden könnte. Ist dies nach der TIA nicht der Fall, wird der Testcase nicht ausgeführt, und das Ergebnis ist unbekannt. 
+
+Das bloße Konzept der TIA ist nicht an eine spezielle Programmiersprache oder ein bestimmtes Framework gebunden. Jedoch sind es die konkreten Umsetzugen diese Konzepts, da die spezifische Struktur der Dateien und des Codes innerhalb eines Projekts stark framewrkabhängig ist. 
+
+\section{Regression Test Selection (RTS)}
+Regression Test Selection bezeichnet Verfahren, welche anhand von bestimmten vorher festgesetzen Kriterien abschätzt, welche Menge von Testcases ausgeführt werden soll, und welche nicht. Dabei kann unter anderem die vorhergend beschriebene Test Impact Analysis als ein mögliches Entscheidungskriterium in Frage kommen.\\
+Dabei zielt RTS ähnlich wie TIA nicht immer auf eine komplette Abdeckung aller Testcases ab, sondern versucht, eine sichere Menge an Testcases auszuführen. Eine Menge gilt dann als sicher, wenn alle Testcases enthalten sind, die von den letzten Änderungen beeinflusst werden. Dabei ist die Entscheidung, ob eine Menge sicher ist, ist durch die Natur der festgesetzen Entscheidungskriterien nicht zwangsläufig korrekt.\\
+Das in dieser Arbeit entwickelte Verfahren führt zwar auch eine Entscheidung darüber aus, welche Testcases ausgeführt werden sollen, bezieht sich dabei aber auf die empirisch erfassbare Daten aus den Ergebnissen der vorherigen Testläufe, statt auf eine Abschätzung der Auswirkungen der Änderungen am Code. 
+
+RTS ist wie auch TIA auf konzeptioneller Ebene nicht zwingend an ein bestimmtes
+Testframework gebunden. Allerdings ist die Ebene, welche die vorhandenen Daten untersucht, starkt vom verwendeten Testframework abhängig. Diese Ebene kann jedoch in der Theorie durch Adapter abstrahiert werden, und ein frameworkunabhängiger Kern für RTS kann gebaut werden.\\
+Diesem Prinzip folgt auch das in dieser Arbeit entwickelte Verfahren: Wie später in \chapref{chap:Komponenten} dargestellt, sind manache Komponenten des Verfahrens vom verwendeten Framework abhängig, jedoch ist die zentrale Funktionsweise des Verfahrens frameworkunabhängig. 
+
+\section{Build Caching}
+Build Caching bezeichnet die Speicherung von durch vorherige Builds erzeugte Dateien, damit diese bei späteren Builds wiederverwendet werden können. Dazu wird für einen Build üblicherweise ein Cache-Schlüssel aus den deklarierten Eingaben und seiner Implementierung gebildet. Ist für diesen Schlüssel bereits ein Ergebnis vorhanden, kann das Buildsystem die gespeicherten Dateien übernehmen,  anstatt sie wie sonst üblich bei jedem Build neu zu erzeugen. 
+
+Build Caching und das in dieser Arbeit entwickelte Verfahren beruhen auf
+einer ähnlichen Idee: Ein bereits vorligendes Ergebnis soll nicht erneut
+berechnet werden, um Laufzeit einzusparen.\\
+Ein wesentlicher Unterschied besteht allerings in der Natur der wiederverwendeten Dateien: Beim Build Caching sind es Artefakte des Builds, beim hier vorgestellten Vefahren sind es die Ausgaben von vorherigen Testläufen. 
+
+Eine weitere Gemeinsamkeit besteht in der Beachtung von reproduzierbaren Entwicklungsumgebungen: Beim Build Caching müssen die Entwicklungsumgebungen von zwei Build-Läufen identisch sein, um die Artefakte des vorherigen Laufs übernehmen zu können. Beim hier entwickelten Verfahren ist eine identische Entwicklungsumgebung sogar eine Vorraussetzung, um die Aussagekraft des Verfahrens durch die Verwendung von Ergbnissen aus einem vorherigen Lauf nicht einzuschränken. 
+
+Damit ist Build Caching zwar nicht vom verwendeten Testframework, allerdings vom jeweiligen Buildsystem abhängig. 
+
+Da sich keiner dieser Ansätze direkt mit der Erreichen von frameworkunabhängigkeit eines Verfahrens über Testausgabeformaten befasst, wird diesem Thema in dieser Arbeit eine besondere Aufmerksamkeit geschenkt. 
