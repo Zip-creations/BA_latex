@@ -7,16 +7,16 @@ Es gilt nun, ein geeignetes Testausgabeformat zu finden, welches von \texttt{tes
 \section{Evaluation des Datensatzes}
 \subsection{Methodik}
 Aufgrund der Vielzahl von verschiedenen Testframeworks und der Vielfältigkeit ihrer Ausgabeformate können im Rahmen dieser Bachelorarbeit nur die verbreitetsten Formate untersucht werden.\\
-Zur Untersuchung der praktischen Umsetzung einzelner Formate und zur exemplarischen Erfassung ihrer Verbreitung wird ein stichprobenartiger Datensatz betrachtet. Dabei gilt zu beachten, dass dieser Datensatz nur eine kleine Menge ausgewählter Programmiersprachen umfasst. Außerdem beschränken sich die untersuchten Testframeworks auf die am weitesten verbreiteten in ihrer jeweiligen Sprache, um die Etablierung von Testausgabeformaten möglichst praxisnahe darstellen zu können. Außerdem bieten länger etablierte Testframeworks erfahrungsgemäß eine breitere Auswahl von Testausgabeformaten, als weniger verbreitete oder neue Testframeworks.\\
+Zur Untersuchung der praktischen Umsetzung einzelner Formate und zur exemplarischen Erfassung ihrer Verbreitung wird ein stichprobenartiger Datensatz betrachtet. Dabei gilt zu beachten, dass dieser Datensatz nur eine kleine Menge ausgewählter Programmiersprachen umfasst. Außerdem beschränken sich die untersuchten Testframeworks auf die am weitesten verbreiteten in ihrer jeweiligen Sprache, um die Etablierung von Testausgabeformaten möglichst praxisnah darstellen zu können. Außerdem bieten länger etablierte Testframeworks erfahrungsgemäß eine breitere Auswahl von Testausgabeformaten, als weniger verbreitete oder neue Testframeworks.\\
 Bei der Untersuchung von Plugins für zusätzliche Testausgabeformate wurden ausschließlich Plugins berücksichtigt, welche über den hier benutzten Packagemanager \texttt{Nix} bereitgestellt werden. Würden externe Plugins, welche zumeist aus unabhängig gepflegten Repositorien stammen, ebenfalls betrachtet werden, würde die Zahl der unterstützten Testausgabeformate bei den meisten untersuchten Testframeworks deutlich steigen. Da keine Aussage über die Vertrauenswürdigkeit und Qualität der externen Plugins getroffen werden kann, beschränkt sich diese Untersuchung auf von \texttt{Nix} bereitgestellte Plugins.
 \subsection{Struktur der Testdateien}
 Die Struktur der Testdateien wird für jede untersuchte Programmiersprache soweit möglich einheitlich gehalten.\\
-Es existieren zwei Testdateien. Sofern das Testframework die Möglichkeit bieten, besitzt jede der Dateien ihren eigenen Namespace. Die Bezeichnung der Namespaces kann variieren, da manche Testframeworks eine bestimmte Namenskonvention voraussetzen.\\
+Es existieren zwei Testdateien. Sofern das Testframework die Möglichkeit bietet, besitzt jede der Dateien ihren eigenen Namespace. Die Bezeichnung der Namespaces kann variieren, da manche Testframeworks eine bestimmte Namenskonvention voraussetzen.\\
 In der ersten Datei liegen 4 Testcases im Namespace \texttt{BasicTest}:
 \begin{itemize}
     \item \texttt{test\_neg():} Ein einfacher negativer Testcase, der eine korrekte Assertion beinhaltet und nicht fehlschlägt.
     \item \texttt{test\_pos():} Ein einfacher positiver Testcase, der eine falsche Assertion beinhaltet und fehlschlägt.
-    \item \texttt{test\_skip():} Ein Testcase, der übersprungen wird. Für gewönhlich werden übersprungene Testcases trotzdem in der Testausgabe aufgeführt, mit der zusätzlichen Information, dass dieser Testcase übersprungen wurde, anstelle eines Ergebnisses. %Manche Testframeworks unterscheiden zwischen übersprungenen und ignorierten Testcases: Übersprungene Testcases werden nicht ausgeführt, aber als übersprungen in der Testausgabe markiert. Ignorierte Testcases werden weder ausgeführt, noch in die Testausgabe übernommen. Dies macht ignorierte Testcases für die Evaluation der Testausgabeformate uninteressant. 
+    \item \texttt{test\_skip():} Ein Testcase, der übersprungen wird. Für gewöhnlich werden übersprungene Testcases trotzdem in der Testausgabe aufgeführt, mit der zusätzlichen Information, dass dieser Testcase übersprungen wurde, anstelle eines Ergebnisses. %Manche Testframeworks unterscheiden zwischen übersprungenen und ignorierten Testcases: Übersprungene Testcases werden nicht ausgeführt, aber als übersprungen in der Testausgabe markiert. Ignorierte Testcases werden weder ausgeführt, noch in die Testausgabe übernommen. Dies macht ignorierte Testcases für die Evaluation der Testausgabeformate uninteressant. 
     \item \texttt{test\_same\_name():} Ein einfacher Testcase, der eine korrekte Assertion beinhaltet und nicht fehlschlägt. In der zweiten Datei existiert ein Testcase mit demselben Namen.
 \end{itemize}
 \newpage
@@ -24,7 +24,7 @@ In der zweiten Datei liegt ein Testcase im Namespace \texttt{BasicTest2}:
 \begin{itemize}
     \item \texttt{test\_same\_name():} Ein einfacher Testcase, der eine korrekte Assertion beinhaltet und nicht fehlschlägt. In der ersten Datei existiert ein Testcase mit demselben Namen.
 \end{itemize}
-\texttt{test\_same\_name} untersucht, ob es allein aus der Testausgabe heraus möglich ist, einen Testcase eindeutig zu identifizieren, auch wenn in unterschiedlichen Namespaces verschiedene Testcases demselben Namen aufweisen.
+\texttt{test\_same\_name} untersucht, ob es allein aus der Testausgabe heraus möglich ist, einen Testcase eindeutig zu identifizieren, auch wenn in unterschiedlichen Namespaces verschiedene Testcases denselben Namen aufweisen.
 
 \tabref{Formatvergleich} zeigt die Ergebnisse der Untersuchung des Datensatzes zur Verbreitung von Testausgabeformaten:
 \input{tables/testformat_evaluation.tex}
@@ -35,7 +35,7 @@ In diesem Kapitel werden die häufigsten frameworkübergreifend verwendeten Test
 
 \subsection{JUnit XML}\label{JUNIT}
 \subsubsection{Übersicht}
-JUnit XML ist ein XML-basiertes Format, welches ursprünglich für das Java-Testframework JUnit entwickelt wurde. Für JUnit XML existiert kein einheitlicher Standard, dass heißt, es existiert auch kein beschreibendes XSD-Schema, wie sonst für XML-Formate üblich. Trotzdem wurde JUnit XML von vielen Testframeworks in gleicher oder ähnlicher Form adaptiert, wie es ursprünglich für JUnit entworfen wurde. Außerdem existieren viele weitere Schnittstellen zwischen JUnit XML und anderen für das Software-Testing relevanten Programme, beispielsweise viele CI/CD-Systeme. %TODO:change "systeme"
+JUnit XML ist ein XML-basiertes Format, welches ursprünglich für das Java-Testframework JUnit entwickelt wurde. Für JUnit XML existiert kein einheitlicher Standard, das heißt, es existiert auch kein beschreibendes XSD-Schema, wie sonst für XML-Formate üblich. Trotzdem wurde JUnit XML von vielen Testframeworks in gleicher oder ähnlicher Form adaptiert, wie es ursprünglich für JUnit entworfen wurde. Außerdem existieren viele weitere Schnittstellen zwischen JUnit XML und anderen für das Software-Testing relevanten Programme, beispielsweise viele CI/CD-Systeme. %TODO:change "systeme"
 Auf diese Weise hat sich JUnit XML zum häufigsten benutzen Testausgabeformat für Testframeworks entwickelt.
 
 \subsubsection{Struktur}\label{JUnit_struktur}
@@ -139,7 +139,7 @@ Ausgehend von einer OTR-XML Ausgabe kann auch eine OTR-spezifische HTML-Ausgabe 
 
 \subsubsection{Struktur}
 Für diese Untersuchung wird nur die eventbasierte XML-Struktur betrachtet, da diese Struktur das von den im Datensatz untersuchten Testframeworks benutzte Format ist.\\
-Im eventbasierten Format werden die Ergebnisse nicht wie in JUnit XML oder TAP durch ein einzelnes Element mit optionalen Attributen repräsentiert, sondern über verschiedene Elemente, welche jeweils das Ergebnis eines Event der Testausführung enthalten. Demonstriert wird diese Struktur in \lstref{OTR_example}:
+Im eventbasierten Format werden die Ergebnisse nicht wie in JUnit XML oder TAP durch ein einzelnes Element mit optionalen Attributen repräsentiert, sondern über verschiedene Elemente, welche jeweils das Ergebnis eines Events der Testausführung enthalten. Demonstriert wird diese Struktur in \lstref{OTR_example}:
 
 \begin{lstlisting}[caption={OTR von \texttt{test\_neg}, erzeugt durch PHPUnit.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={OTR_example}]
 ...
@@ -158,7 +158,7 @@ Da OTR zum Zeitpunkt der Niederschrift dieser Bachelorarbeit noch sehr jung ist 
 Außerdem ist die Verbreitung von OTR noch sehr begrenzt: Von den in \tabref{Formatvergleich} betrachteten Testframeworks sind lediglich PHPUnit und JUnit5 (das, wie eingangs erwähnt, vom selben Entwicklerteam wie OTR betreut wird) mit jupiter als Runner in der Lage, OTR nativ zu erzeugen. Außerdem kann JUnit5 mit den Runnern von Maven/Gradle zumindest über Plugins eine OTR-Ausgabe erzeugen.
 
 \subsubsection{Fazit zu OTR}
-Auch wenn OTR unter den bisher untersuchten Testausgabeformate die geeignetste Struktur bietet, ist die Verbreitung von OTR zum aktuellen Zeitpunkt noch zu gering, um die Framework-Agnostik des Verfahrens gewährleisten zu können, sollte es als Input für \texttt{testAuditor} genutzt werden.
+Auch wenn OTR unter den bisher untersuchten Testausgabeformaten die geeignetste Struktur bietet, ist die Verbreitung von OTR zum aktuellen Zeitpunkt noch zu gering, um die Framework-Agnostik des Verfahrens gewährleisten zu können, sollte es als Input für \texttt{testAuditor} genutzt werden.
 
 % \subsection{Common Test Report Format (CTRF)}
 % \subsubsection{Übersicht}
@@ -182,7 +182,7 @@ Neben den bisher untersuchten ganz oder teilweise strukturierten Formaten bieten
 \end{itemize}
 Das Problem bei diesen Testausgaben ist, dass ihre Struktur voll und ganz von dem Testframework abhängig ist, von dem sie erzeugt werden. 
 
-\begin{lstlisting}[caption={Vergleich von der JSON-Ausgabe von pytest und Behat.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={JSON_example}]
+\begin{lstlisting}[caption={Vergleich der JSON-Ausgabe von pytest und Behat.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={JSON_example}]
 (*@\underline{\texttt{JSON, von pytest in Python erzeugt:}}@*)
 {"created": 1782247688.1675658,
 "duration": 0.024770736694335938,
@@ -210,7 +210,7 @@ Das Problem bei diesen Testausgaben ist, dass ihre Struktur voll und ganz von de
 \end{lstlisting}
 
 Für diese von Grund auf verschiedenen Ausgaben kann kein gemeinsames semantisches Datenmodell abgeleitet werden, auf dem ein Parser basieren kann, zumal auch unbekannte Strukturen von anderen Testframeworks berücksichtigt werden müssten.\\
-Somit können für die Wahl des Inputs für \texttt{testAuditor} nur die zuvor untersuchten Testausgabeformate in Betracht gezogen werden. 
+Somit können für die Wahl des Inputs für \texttt{testAuditor} nur die zuvor untersuchten Testausgabeformaten in Betracht gezogen werden. 
 
 \section{Fazit zur Evaluation der Testausgabeformate}\label{chap:conclusion_testformat_eval}
 \tabref{tab:evaluation_testausgabeformate} zeigt eine Übersicht darüber, welches der drei relevanten Testausgabeformate (JUnit XML, TAP, OTR) welche Anforderung aus \chapref{Anforderungen Testausgabeformat} erfüllen kann:
@@ -218,7 +218,7 @@ Somit können für die Wahl des Inputs für \texttt{testAuditor} nur die zuvor u
 % https://xkcd.com/927/\\
 Anhand der vorangegangenen Evaluation der unterschiedlichen Testausgabeformate und \tabref{tab:evaluation_testausgabeformate} wird deutlich, dass es keinen eindeutigen Kandidaten für die Wahl als Input für \texttt{testAuditor} gibt, der alle in \chapref{Anforderungen Testausgabeformat} gelisteten Anforderungen erfüllt.\\
 Allen der untersuchten Testausgabeformate ist gemeinsam, dass keines die Gesamtheit aller Testcases im Projekt angibt, sondern ausschließlich Testcases, die ausgeführt wurden. Die eindeutige Zuordnung von Testergebnissen zu den Testcases ist in allen drei relevanten Ausgabeformaten nur möglich, wenn die richtigen optionalen Attribute vom jeweiligen Testframework verwendet werden. Da die Gesamtmenge der Testcases nicht bekannt ist, lässt sich nur für die enthaltenen Testcases feststellen, dass sie berücksichtigt wurden, während die Menge der nicht ausgeführten Testcases unbekannt bleibt.\\
-Unterschiede gibt es bei der Strukturierung der Formate: In diesem Aspekt ist OTR das besten geeignete Format, da OTR im Gegensatz zu TAP und JUnit XML das Vorhandensein des Namens eines Testcase im Ausgabeformat garantiert. Eine eindeutige Zuordnung kann dadurch allerdings noch nicht garantiert werden, da zusätzliche Informationen fehlen, konkret die Testsuite oder Klasse, zu der der Testcase gehört.\\
+Unterschiede gibt es bei der Strukturierung der Formate: In diesem Aspekt ist OTR das am besten geeignete Format, da OTR im Gegensatz zu TAP und JUnit XML das Vorhandensein des Namens eines Testcase im Ausgabeformat garantiert. Eine eindeutige Zuordnung kann dadurch allerdings noch nicht garantiert werden, da zusätzliche Informationen fehlen, konkret die Testsuite oder Klasse, zu der der Testcase gehört.\\
 Der wichtigste Aspekt, um einen Testframework-agnostischen Input für \texttt{testAuditor} zu bestimmen, ist die Verbreitung des Testausgabeformats in verschiedenen Testframeworks. Selbst ein Format, das alle anderen Anforderungen komplett erfüllt, wäre in diesem Falle nutzlos, wenn es nicht von einer Vielzahl von Testframeworks unterstützt wird.\\
 Somit fällt die Wahl als Input für \texttt{testAuditor} auf JUnit XML.\\
 Trotz aller in \chapref{JUNIT} gezeigten Schwächen wird JUnit XML von einer Vielzahl von Testframeworks als Ausgabeformat angeboten. Darüber hinaus ist die tatsächliche Implementierung des Formats von JUnit XML trotz einer fehlenden Standardisierung häufig genug an den kritischen Punkten übereinstimmend, sodass ein Parser geschrieben werden kann, der in einer Vielzahl von Fällen funktioniert.

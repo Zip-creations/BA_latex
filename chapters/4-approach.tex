@@ -22,7 +22,7 @@ Durch die Wahl von JUnit XML als Ausgabeformat, das von \texttt{testAuditor} als
 Die größte Herausforderung ist, dass aus einer JUnit-XML Ausgabe nur jene Testcases ermittelt werden können, die während des Testlaufs ausgeführt wurden. \texttt{testAuditor} benötigt jedoch zwingend Informationen über die Gesamtheit aller Testcases im Projekt.
 
 Diesem Zweck dient die \texttt{testDiscovery:}\\
-Bei dieser Komponente bietet sich die Implementierung als Shellskript an, da sie bei einem Aufruf die Gesamtheit aller Testcases des Projektes in einem definierten Format ausgeben soll. Manche Testframeworks bieten Zugriff auf ihre interne Testcases-Discovery, was in diesen Fällen die Implementation mit geringem zusätzlichen Aufwand ermöglicht. 
+Bei dieser Komponente bietet sich die Implementierung als Shellskript an, da sie bei einem Aufruf die Gesamtheit aller Testcases des Projektes in einem definierten Format ausgeben soll. Manche Testframeworks bieten Zugriff auf ihre interne Test-Discovery, was in diesen Fällen die Implementation mit geringem zusätzlichen Aufwand ermöglicht. 
 
 \subsubsection{Format der Ausgabe der \texttt{testDiscovery}}\label{chap:Komponente_testDiscovery_format}
 \texttt{testAuditor} erwartet die Ausgabe der \texttt{testDiscovery} in diesem Format:
@@ -51,7 +51,7 @@ Zum einen wird das eigentliche Projekt nicht durch zusätzliche Dateien vom Verf
 Die Funktionalität von \texttt{testAuditor} als Kern des Verfahrens lässt sich am besten mit einfachen Mengenoperationen beschreiben:\\
 Sei $T_{ges}$ die Menge aller Testcases eines Projektes und $T_{known}$ die Menge aller Testcases, für die ein Ergebnis vorliegt. \texttt{testAuditor} berechnet $T_{ges}-T_{known}=T_{todo}$, wobei $T_{todo}$ die Menge aller Testcases ist, für die noch kein Ergebnis vorliegt. Da nach \chapref{chap:limit_scope} von der Korrektheit von $T_{known}$ ausgegangen werden darf, gilt $T_{known}\subseteq T_{ges}$. Weiterhin gilt $T_{todo}\subseteq T_{ges}$.\\
 Da $T_{known}\cup T_{todo}=T_{ges}$, kann die vollständige Abdeckung aller Testcases garantiert werden, sofern eine fehlerlose Implementierung der Komponenten vorliegt.\\
-$T_{ges}$ wird von \texttt{testDiscovery} bereitgestellt, während das \texttt{test archive} $T_{known}$ enthält. Beide Datenmengen werden \texttt{testAuditor} vom \texttt{controller} in dem in \chapref{chap:format_testAuditor} definiertes Format übermittelt.\\
+$T_{ges}$ wird von \texttt{testDiscovery} bereitgestellt, während das \texttt{test archive} $T_{known}$ enthält. Beide Datenmengen werden \texttt{testAuditor} vom \texttt{controller} in dem in \chapref{chap:format_testAuditor} definierten Format übermittelt.\\
 Abschließend gibt \texttt{testAuditor} eine Menge von \texttt{qualifiedNames} an den \texttt{controller} zurück. Diese Menge beschreibt $T_{todo}$, und wird von \texttt{testAuditor} auf \texttt{stdout} gelegt. 
 
 \subsubsection{Format zur Kommunikation mit \texttt{testAuditor}}\label{chap:format_testAuditor}
@@ -77,11 +77,11 @@ Interessanter ist die Umsetzung eines Parsers für die im \texttt{archive} gespe
 Die XML-Datei wird sequenziell Element für Element eingelesen. Sobald ein Element mit dem Namen \texttt{<testcase>} gefunden wird, wird überprüft, ob dieses Element die Attribute \texttt{name} und \texttt{classname} enthält. Ist dies der Fall, so wird das Element zur Menge an bereits durchgeführten Testcases hinzugefügt.\\
 Durch diese Art der Implementierung können zwar auch Testausgaben in JUnit XML syntaktisch verarbeitet werden, welche die Attribute \texttt{name} und/oder \texttt{classname} nicht benutzen (siehe \lstref{JUNITcodeception}), jedoch wird durch das Fehlen von Attributen jeder Testcase als nicht ausgeführt betrachtet, was die Anwendung des Verfahrens hinfällig macht, da kein Testcase als durchgeführt betrachtet wird und in jedem Durchlauf des Verfahrens jeder Testcase ausgeführt wird. 
 
-Die konkrete Implementierung des Parser ist im unter \chapref{Links} verlinkten Repository für \texttt{testAuditor} dokumentiert.
+Die konkrete Implementierung des Parsers ist in dem in \chapref{Links} verlinkten Repository für \texttt{testAuditor} dokumentiert.
 
 \subsection{\texttt{testExecution}}\label{Komponente_testExecution}
 Die Komponente \texttt{testExecution} ist die Schnittstelle des Verfahrens zum Testframework. Sie ist eng mit der Komponente \texttt{testDiscovery} gekoppelt, denn die \texttt{testExecution} erwartet eine Menge von \texttt{qualifiedName}, die sie zur gezielten Ausführung an das Testframework übergibt. Die genaue Struktur der \texttt{qualifiedNames} wird in \chapref{chap:Komponente_testDiscovery_format} beschrieben, und wie in \chapref{chap:Komponente_testDiscovery} von der \texttt{testDiscovery} im Verfahren etabliert.\\
-Die Menge von \texttt{qualifiedName}, welche von der \texttt{testExecution} an das Testframework übermittelt werden soll, wird wie vorhergehen in \chapref{Komponente_testAuditor} beschrieben von \texttt{testAuditor} ermittelt.\\
+Die Menge von \texttt{qualifiedName}, welche von der \texttt{testExecution} an das Testframework übermittelt werden soll, wird wie zuvor in \chapref{Komponente_testAuditor} beschrieben von \texttt{testAuditor} ermittelt.\\
 Ebenso wie die \texttt{testDiscovery} ist die genaue Implementierung der \texttt{testExecution} hochgradig vom verwendeten Testframework abhängig, da sie direkt mit dem jeweiligen Testframework kommuniziert.
 
 \subsection{\texttt{controller}}
@@ -92,7 +92,7 @@ Typischerweise erfüllt eine CI-Pipeline die Rolle des \texttt{controllers} inne
 Die Bezeichnung \texttt{user} ist bewusst breit interpretierbar gehalten. Sie beschreibt eine externe Instanz, die mit dem \texttt{controller} interagiert, dadurch den Ablauf des Verfahrens anstößt und/oder die Ausgabe des Verfahrens konsumiert. Dabei kann es sich beim \texttt{user} um einen menschlichen Benutzer oder einen automatisierten Prozess handeln. 
 \newpage
 \section{Anforderungen an ein Testframework}\label{chap:req_testframework}
-Das beschriebene Verfahren kann mit jedem Testframework angewendet werden, welches diese Voraussetzungen erfüllt, die sich unter anderem aus \chapref{chap:conclusion_testformat_eval} ergeben:
+Das beschriebene Verfahren kann mit jedem Testframework angewendet werden, das diese Voraussetzungen erfüllt, die sich unter anderem aus \chapref{chap:conclusion_testformat_eval} ergeben:
 \begin{itemize}
     \item Eine beliebig kleine Untermenge aller Testcases kann gezielt ausgeführt werden
     \item JUnit XML wird als Ausgabeformat für Testläufe verwendet

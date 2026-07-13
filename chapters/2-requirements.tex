@@ -13,7 +13,7 @@ Folgende Anforderungen werden an einen Durchlauf des Verfahrens gestellt:
     Die Ausgabe soll in demselben Format, auf dieselbe Art und Weise abgelegt werden, wie auch die anderen Ausgaben, die dem Verfahren zur Verfügung gestellt werden.
     \newpage
     \item \textbf{Die Laufzeit eines Testdurchlaufs unter Verwendung des Verfahrens ist kleiner oder gleich der Laufzeit eines konventionellen Durchlaufs}\\
-    Das Vefahren soll die Gesamtlaufzeit der Testausführung reduzieren.
+    Das Verfahren soll die Gesamtlaufzeit der Testausführung reduzieren, nicht gleich lassen oder sogar verlängern.
 \end{itemize}
 
 \section{Anforderungen an ein Testausgabeformat}\label{Anforderungen Testausgabeformat}
@@ -34,7 +34,7 @@ Mit Blick auf diese, sowie die unter \chapref{Anforderungen Tool} beschriebenen 
     \item \textbf{ist ein strukturiertes Format}\\
     Es muss eine erfassbare Struktur für das Testausgabeformat vorhanden sein, damit ein entsprechender Parser für \texttt{testAuditor} entwickelt werden kann.
     \item \textbf{ist in vielen Frameworks über viele Programmiersprachen hinweg vertreten}\\
-    Es ist kaum realistisch anzunehmen, dass ein strukturiertes Format existiert, welches von jedem existierenden Testframework gleichermaßen benutzt wird. Dennoch gibt es durchaus gängige Formate, die von unterschiedlichen Testframeworks aus unterschiedlichen Sprachen unterstützt werden, wie folgend in \chapref{Vergleich Testausgabefomate} untersucht wird. 
+    Es ist kaum realistisch anzunehmen, dass ein strukturiertes Format existiert, welches von jedem existierenden Testframework gleichermaßen benutzt wird. Dennoch gibt es durchaus gängige Formate, die von unterschiedlichen Testframeworks aus unterschiedlichen Sprachen unterstützt werden, wie im Folgenden in \chapref{Vergleich Testausgabefomate} untersucht wird. 
 \end{itemize}
 
 \section{Reproduzierbare Builds}\label{chap:determinism}
@@ -60,7 +60,7 @@ Die Form eines Testausgabeformates hängt im Wesentlichen von den folgenden Fakt
   \item \textbf{verwendetes Testausgabeformat:}\\
   Damit ist sowohl das Dateiformat, als auch die Wahl eines strukturierten Ausgabeformats gemeint. Näheres dazu in \chapref{Vergleich Testausgabefomate}.
 \end{itemize}
-In den meisten Testframeworks übernimmt das Testframework selbst die Aufgaben des Test Runners und des Test Reporters, doch in manchen Fällen werden diese Komponenten aber auch durch andere Prozesse bereitgestellt. Dies ist zum Beispiel in der Programmiersprache Java der Fall: Hier stellen die beiden build-tools Maven und Gradle jeweils ihre eigenen Test Runner bzw. Test Reporter zur Verfügung, was unterschiedliche Kombinationen aus Testframework, Test Runner und Test Reporter erlaubt. Dass dies auch zu Unterschieden in der Testausgabe führen kann, ist in \lstref{JAVACompare} dargestellt.
+In den meisten Testframeworks übernimmt das Testframework selbst die Aufgaben des Test Runners und des Test Reporters, doch in manchen Fällen werden diese Komponenten aber auch durch andere Prozesse bereitgestellt. Dies ist zum Beispiel in der Programmiersprache Java der Fall: Hier stellen die beiden Build-Tools Maven und Gradle jeweils ihre eigenen Test Runner bzw. Test Reporter zur Verfügung, was unterschiedliche Kombinationen aus Testframework, Test Runner und Test Reporter erlaubt. Dass dies auch zu Unterschieden in der Testausgabe führen kann, ist in \lstref{JAVACompare} dargestellt.
 
 \begin{lstlisting}[caption={direkter Vergleich von JUnit XML, erzeugt durch JUnit5 mit Jupiter in Java. Jeder Ausgabe liegen dieselben beiden Testdateien zugrunde.\\ ''\textellipsis{}'' bezeichnet gekürzte Stellen.}, label={JAVACompare}]
 (*@\underline{\texttt{JUnit5, Jupiter:}}@*)
@@ -89,11 +89,11 @@ In den meisten Testframeworks übernimmt das Testframework selbst die Aufgaben d
   ...
 \end{lstlisting}
 Obwohl für jede Ausgabe JUnit5 mit Jupiter als Testframework benutzt wird, jede Ausgabe JUnit XML als Format aufweist, und jede Ausgabe auf denselben beiden Testdateien basiert, gibt es durch die unterschiedlichen Test Runner und Test Reporter deutliche Unterschiede in der Testausgabe.\\
-So ignoriert Gradle beispielsweise in diesem exemplarischen Fall das Element \texttt{<properties>}, während Maven und Jupiter (ohne build-tool) eine exzessive Liste von \texttt{<property>} in der Testausgabe mitgeben. \\
+So ignoriert Gradle beispielsweise in diesem exemplarischen Fall das Element \texttt{<properties>}, während Maven und Jupiter (ohne Build-Tool) eine exzessive Liste von \texttt{<property>} in der Testausgabe mitgeben. \\
 Auch die Benennung der Testcases unterscheidet sich:\\
 Jupiter und Gradle behalten den Namen \texttt{test\_neg()} bei, so wie er auch in der Testdatei verwendet wird, während Maven den Namen zu \texttt{test\_neg} kürzt.\\
-Ähnliches bei der Benennung der Testsuite: Da Gradle und Maven für jede Datei eine eigene Ausgabedatei erzeugen, benutzen die beiden build-tool den Namen der jeweiligen Testsuite, hier ''BasicTest'', als Wert des Attributes ''name'' im Element \texttt{<testsuite>}. Jupiter gibt dagegen nur eine Ausgabedatei aus, die das Ergebnis aller Testdateien enthält, und benutzt in dieser den Standardwert ''Junit Jupiter'' als Namen für \texttt{<testsuite>}.
+Ähnliches bei der Benennung der Testsuite: Da Gradle und Maven für jede Datei eine eigene Ausgabedatei erzeugen, benutzen die beiden Build-Tool den Namen der jeweiligen Testsuite, hier ''BasicTest'', als Wert des Attributs \texttt{name} im Element \texttt{<testsuite>}. Jupiter gibt dagegen nur eine Ausgabedatei aus, die das Ergebnis aller Testdateien enthält, und benutzt in dieser den Standardwert ''Junit Jupiter'' als Namen für \texttt{<testsuite>}.
 
 Es ist somit ersichtlich, dass die konkrete Struktur einer Testausgabe nicht allein durch das verwendete Testframework oder das gewählte Testausgabeformat bestimmt wird. Vielmehr entsteht diese durch das Zusammenwirken in diesem Kapitel beschriebenen Komponenten. Selbst bei identischem Testframework, Ausgabeformat und zugrunde liegenden Testdateien können sich die erzeugten Ausgaben hinsichtlich ihrer Struktur, ihrer Benennung und der enthaltenen Informationen unterscheiden.
 
-Dieser Sachverhalt muss in \chapref{Vergleich Testausgabefomate} bei der Bewertung der Struktur der einzelnen Testausgebeformate berücksichtigt werden. 
+Dieser Sachverhalt muss in \chapref{Vergleich Testausgabefomate} bei der Bewertung der Struktur der einzelnen Testausgabeformate berücksichtigt werden. 

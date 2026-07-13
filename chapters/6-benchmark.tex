@@ -17,7 +17,7 @@ def test_simple(case):
 \texttt{range(y)} in der for-Schleife in der vierten Zeile bestimmt die Anzahl der Iterationen, die im Testcase ausgeführt werden, bevor er abgeschlossen wird.\\
 Das in \lstref{paratestPytest} demonstrierte Beispiel erzeugt also 10 Testcases, die jeweils 100 Iterationen ausführen.
 Die Konfigurationen werden in 3 Geschwindigkeitsklassen unterteilt: \textit{fast}, \textit{medium} und \textit{slow}. Für jede dieser Geschwindigkeitsklassen existieren zwei Untergruppen: \textit{few} bezeichnet eine Konfiguration mit wenigen Testcases, \textit{many} eine mit vielen. Dabei wird die Gesamtzahl der Iterationen zur Wahrung einer gewissen Vergleichbarkeit innerhalb einer Geschwindigkeitsklasse gleich gehalten. Ein Beispiel: Während die Konfiguration \texttt{fast\_few} 10 Testcases mit je 100 Iterationen enthält, enthält die Konfiguration \texttt{fast\_many} 100 Testcases mit je 10 Iterationen. Somit werden in beiden Konfigurationen $10 \times 100=1000$ Iterationen ausgeführt, jedoch in unterschiedlichen Strukturen.\\
-Jede Konfiguration enthält außerdem die Datei \texttt{out.xml} im Ordner archive. Diese Datei enthält das Ergebnis von vorherigen Testläufen, die vom Verfahren genutzt werden können, und erfüllt damit die Rolle des \texttt{archive}, wie in \chapref{chap:Komponente_archive} definiert ist. Dabei existieren für jede der sechs bisher vorgestelle Kombination aus Testcaseanzahl und Iterationsanzahl sechs Konfigurationen: Eine Konfiguration enthält ein leeres \texttt{archive}; darauf folgen Konfigurationen, in denen das \texttt{archive} jeweils 20, 40, 60, 80 und abschließend 100 Prozent der Testcases in der Konfiguration abdeckt.
+Jede Konfiguration enthält außerdem die Datei \texttt{out.xml} im Ordner archive. Diese Datei enthält das Ergebnis von vorherigen Testläufen, die vom Verfahren genutzt werden können, und erfüllt damit die Rolle des \texttt{archive}, wie in \chapref{chap:Komponente_archive} definiert ist. Dabei existieren für jede der sechs bisher vorgestellen Kombination aus Testcaseanzahl und Iterationsanzahl sechs Konfigurationen: Eine Konfiguration enthält ein leeres \texttt{archive}; darauf folgen Konfigurationen, in denen das \texttt{archive} jeweils 20, 40, 60, 80 und abschließend 100 Prozent der Testcases in der Konfiguration abdeckt.
 
 Durch die drei Geschwindigkeitsklassen, die beiden unterschiedlichen Mengen von Testcases, und den unterschiedlich gefüllten \texttt{archives} beträgt die Gesamtzahl der in der Benchmark untersuchten Konfigurationen 36. 
 
@@ -28,7 +28,7 @@ Der Computer, auf dem die Benchmark ausgeführt wurde, weist folgende Hardware-S
 \begin{itemize}
     \item Prozessor: AMD Ryzen 5 7600, 3801 MHz, 6 Kerne, 12 logische Prozessoren
     \item RAM: 32,0 GB DDR5-6000
-    \item Massenspeicher: 1TB NVMe SSD
+    \item Massenspeicher: 1 TB NVMe SSD
 \end{itemize}
 Die Benchmark wurde unter \texttt{Windows Subsystem for Linux (WSL)} ausgeführt. Nähere Informationen zur Softwareumgebung können der Datei \texttt{flake.lock} im Repository der Benchmark (siehe \chapref{Links}) entnommen werden.
 

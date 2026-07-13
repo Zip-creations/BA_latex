@@ -2,7 +2,7 @@
 Das Thema dieser Bachelorarbeit weist Überschneidungen mit mehreren artverwandten Themengebieten auf, die eine ähnliche Zielsetzung verfolgen. Die hier vorgestellten Verfahren benutzen ebenfalls Techniken, um die Zahl der auszuführenden Testcases oder zu erzeugenden Ausgaben sinnvoll zu reduzieren, unterscheiden sich jedoch von dem hier entwickelten Verfahren durch die konkrete Umsetzung, der betrachteten Informationen, dem Grad der Framework-Agnostik oder dem Endresultat. 
 
 \section{Test Impact Analysis (TIA)}
-Die Test Impact Analysis bezeichnet Verfahren, die anhand des bestehenden Codes des Projekts analysieren, welche Testcases durch Änderungen am Code betroffen sein können. Als Grundlage dieser Analyse können beispielsweise interne Abhängigkeiten von Dateien oder Programmabschnitten dienen. \textcite[1-3]{pengTIA}
+Die Test Impact Analysis bezeichnet Verfahren, die anhand des bestehenden Codes des Projekts analysieren, welche Testcases durch Änderungen am Code betroffen sein können. Als Grundlage dieser Analyse können beispielsweise interne Abhängigkeiten von Dateien oder Programmabschnitten dienen. (vgl. \textcite[1-3]{pengTIA})
 
 Auch wenn die TIA ähnlich wie das in dieser Bachelorarbeit entwickelte Verfahren ermittelt, welche Teilmenge aller Testcases ausgeführt werden soll, unterscheiden sich die TIA und das hier entwickelte Verfahren in ihrer Entscheidungsgrundlage: Während die TIA sich auf die Analyse des vorhandenen Codes konzentriert, beschränkt sich das vorliegende Verfahren auf die Ergebnisse von Testausgaben. Außerdem liegen nach Ablauf des vorliegenden Verfahrens die Ergebnisse für allen Testcases vor, da alle Testcases ausgeführt werden, für die noch kein Ergebnis vorhanden ist. Bei der TIA werden dagegen nur die Testcases erneut ausgeführt, die als möglicherweise von den Codeänderungen betroffen eingestuft werden. Für die übrigen Testcases wird im betrachteten Testlauf kein neues Ergebnis erzeugt.
 
@@ -11,7 +11,7 @@ Das allgemeine Konzept der TIA ist nicht an eine spezielle Programmiersprache od
 \section{Regression Test Selection (RTS)}\label{RTS}
 Regression Test Selection bezeichnet Verfahren, die anhand bestimmter zuvor festgelegter Kriterien abschätzen, welche Untermenge aller Testcases ausgeführt werden soll. Dabei kann unter anderem die zuvor beschriebene Test Impact Analysis als ein mögliches Entscheidungskriterium dienen.\\
 Wie auch die TIA zielt RTS nicht zwingend auf die erneute Ausführung sämtlicher Testcases ab, sondern versucht, eine für die untersuchte Änderung geeignete Teilmenge auszuwählen. Ein RTS-Verfahren wird als sicher bezeichnet, wenn es keinen Testcase ausschließt, der durch die vorgenommenen Änderungen beeinflusst wurde. Ob diese Sicherheit erreicht wird oder ob gewisse Unsicherheiten in Kauf genommen werden, um eine zusätzliche Reduktion der Laufzeit zu erzielen, ist von der jeweiligen Implementation der RTS abhängig. \\
-\textcite[177f.]{rothermelRTS}\\
+(vgl. \textcite[177f.]{rothermelRTS})\\
 Das in dieser Arbeit entwickelte Verfahren entscheidet zwar ebenfalls, welche Testcases ausgeführt werden sollen, bezieht sich dabei aber auf die empirisch erfassbaren Daten aus den Ergebnissen der vorherigen Testläufe, statt auf eine Abschätzung der Auswirkungen der Änderungen am Code. Außerdem wird im Gegensatz zu RTS die Auswertung aller Testcases als Ziel gesetzt. 
 
 RTS ist wie auch die TIA auf konzeptioneller Ebene nicht zwingend an ein bestimmtes
@@ -24,7 +24,7 @@ Build Caching bezeichnet die Speicherung der durch vorherige Builds erzeugten Ar
 Build Caching und das in dieser Arbeit entwickelte Verfahren beruhen auf einer ähnlichen Idee: Ein bereits vorliegendes Ergebnis soll nicht erneut berechnet werden, um Laufzeit einzusparen.\\
 Ein wesentlicher Unterschied besteht allerdings in der Natur der wiederverwendeten Dateien: Beim Build Caching sind es Artefakte des Builds, beim hier vorgestellten Verfahren sind es die Ausgaben von vorherigen Testläufen. 
 
-Eine weitere Gemeinsamkeit besteht in der Wichtigkeit von reproduzierbaren Entwicklungsumgebungen: Beim Build Caching müssen die Entwicklungsumgebungen von zwei Build-Läufen identisch sein, um die Artefakte des vorherigen Laufs übernehmen zu können. Beim hier entwickelten Verfahren ist eine identische Entwicklungsumgebung sogar eine Voraussetzung, um die Aussagekraft des Verfahrens durch die Verwendung von Ergebnissen aus einem vorherigen Lauf nicht einzuschränken. \textcite[6-8]{zhengBC}
+Eine weitere Gemeinsamkeit besteht in der Wichtigkeit von reproduzierbaren Entwicklungsumgebungen: Beim Build Caching müssen die Entwicklungsumgebungen von zwei Build-Läufen identisch sein, um die Artefakte des vorherigen Laufs übernehmen zu können. Beim hier entwickelten Verfahren ist eine identische Entwicklungsumgebung sogar eine Voraussetzung, um die Aussagekraft des Verfahrens durch die Verwendung von Ergebnissen aus einem vorherigen Lauf nicht einzuschränken. (vgl. \textcite[6-8]{zhengBC})
 
 Damit ist Build Caching zwar nicht vom verwendeten Testframework, allerdings vom jeweiligen Buildsystem abhängig. 
 
