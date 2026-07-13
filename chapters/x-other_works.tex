@@ -8,7 +8,7 @@ Auch wenn TIA ähnlich wie das in dieser Bachelorarbeit entwickelte Verfahren er
 
 Das allgemeine Konzept der TIA ist nicht an eine spezielle Programmiersprache oder ein bestimmtes Testframework gebunden. Konkrete Implementierungen hängen jedoch von der spezifischen Struktur der Dateien und des Codes innerhalb eines Projekts ab. 
 
-\section{Regression Test Selection (RTS)}
+\section{Regression Test Selection (RTS)}\label{RTS}
 Regression Test Selection bezeichnet Verfahren, die anhand bestimmter zuvor festgelegter Kriterien abschätzen, welche Untermenge aller Testcases ausgeführt werden soll. Dabei kann unter anderem die zuvor beschriebene Test Impact Analysis als ein mögliches Entscheidungskriterium dienen.\\
 Wie auch TIA zielt RTS nicht zwingend auf die erneute Ausführung sämtlicher Testcases ab, sondern versucht, eine für die untersuchte Änderung geeignete Teilmenge auszuwählen. Ein RTS-Verfahren wird als sicher bezeichnet, wenn es keinen Testcase ausschließt, der durch die vorgenommenen Änderungen beeinflusst wurde. Ob diese Sicherheit erreicht wird oder ob gewisse Unsicherheiten in Kauf genommen werden, um eine zusätzliche Reduktion der Laufzeit zu erzielen, ist von der jeweiligen Implementation der RTS abhängig.\\
 Das in dieser Arbeit entwickelte Verfahren entscheidet zwar ebenfalls, welche Testcases ausgeführt werden sollen, bezieht sich dabei aber auf die empirisch erfassbaren Daten aus den Ergebnissen der vorherigen Testläufe, statt auf eine Abschätzung der Auswirkungen der Änderungen am Code. Außerdem wird im Gegensatz zu RTS die Auswertung aller Testcases als Ziel gesetzt. 

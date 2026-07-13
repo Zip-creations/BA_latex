@@ -36,13 +36,13 @@ Mit Blick auf diese, sowie die unter \chapref{Anforderungen Tool} beschriebenen 
     Es ist kaum realistisch anzunehmen, dass ein strukturiertes Format existiert, welches von jedem existierenden Testframework gleichermaßen benutzt wird. Dennoch gibt es durchaus gängige Formate, die von unterschiedlichen Testframeworks aus unterschiedlichen Sprachen unterstützt werden, wie folgend in \chapref{Vergleich Testausgabefomate} untersucht wird. 
 \end{itemize}
 
-\section{Deterministische Builds - 'it works on my machine'}\label{chap:determinism}
+\section{Reproduzierbare Builds - 'it works on my machine'}\label{chap:determinism}
 Damit in dem hier vorgestellten Verfahren eine qualifizierte Aussage über die Testergebnisse getroffen werden kann, muss gewährleistet sein, dass alle Testcases unabhängig vom ausführenden System immer dasselbe Testergebnis liefern. Beispielsweise muss ein Testcase, der auf der Maschine eines Entwicklers ein bestimmtes Ergebnis liefert, auch zwingend auf einem Build-Server dasselbe Ergebnis liefern. Andernfalls könnte eine Diskrepanz zwischen den Testergebnissen zu einer verfälschten Aussage des Verfahrens über den aktuellen Stand der Tests führen. 
 
 Im Rahmen dieser Bachelorarbeit wird hierfür der Linux-packagemanager \texttt{Nix} benutzt. \texttt{Nix} bietet die Funktionalität, die Entwicklungsumgebung deklarativ zu beschreiben, indem benötigte Abhängigkeiten in einer sogenannten \texttt{flake} festgelegt werden. Eine dazugehörige Datei \texttt{flake.lock} enthält dann detaillierte Informationen über den Build. Dadurch können auf verschiedenen Systemen identische Entwicklungsumgebungen aufgebaut werden. 
 
 Es gilt zu beachten, dass durch diesen Aufbau nur explizit deklarierte interne Abhängigkeiten deterministisch erfasst werden können. Externe Faktoren wie etwa Netzwerkschnittstellen, zufallbasierte Ereignisse oder Ähnliches können auf diese Weise nicht reproduzierbar festgehalten werden.\\
-Ein vollständige Garantie des Determinismus zwischen Systemen ist nur schwer zu erreichen, jedoch bietet \texttt{Nix} in diesem Fall eine ausreichende Grundlage. 
+Ein vollständige Garantie des Reproduziebarkeit zwischen Systemen ist nur schwer zu erreichen, jedoch bietet \texttt{Nix} in diesem Fall eine ausreichende Grundlage. 
 
 \section{Entstehung eines Testausgabeformats}
 Um zu verdeutlichen, wie die finale Form eines Testausgabeformates entsteht, wird in diesem Kapitel näher auf die Faktoren eingegangen, welche die genaue Struktur und das finale Aussehen des Testausgabeformates beeinflussen.
