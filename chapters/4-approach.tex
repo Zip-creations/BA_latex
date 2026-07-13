@@ -33,13 +33,13 @@ Bei dieser Komponente bietet sich die Implementierung als Shellskript an, da sie
     <testcase classname="" name="" qualifiedName=""/>
 </testsuite>
 \end{lstlisting}
-Die Werte der beiden Attribute \texttt{classname} und \texttt{name} für einen Testcase müssen dabei zwingend identisch mit den Werten der beiden Attribute sein, wie sie in der JUnit-XML Ausgabe des Testcase stehen, da die Kombination dieser beiden Attribute innerhalb des Verfahrens als Schlüssel zur Identifizierung von Testcases benutzt werden, wie in \chapref{JUnit_struktur} ff erläutert.\\
+Die Werte der beiden Attribute \texttt{classname} und \texttt{name} für einen Testcase müssen dabei zwingend identisch mit den Werten der beiden Attribute sein, wie sie in der JUnit-XML Ausgabe des Testcase stehen, da die Kombination dieser beiden Attribute innerhalb des Verfahrens als Schlüssel zur Identifizierung von Testcases benutzt werden, wie in \chapref{JUnit_struktur} ff. erläutert.\\
 \texttt{qualifiedName} enthält eine Zeichenfolge, über die das Testframework einen Testcase identifizieren und ausführen kann. Je nach Testframework werden dazu der Name des Testcase, Dateipfade, Namen von Klassen oder Testsuites und/oder weitere Informationen benötigt. \texttt{qualifiedName} dient der \texttt{testExecution} (siehe \chapref{Komponente_testExecution}) als Identifikator von Testcases bei der Ausführung.
 
 Die \texttt{testDiscovery} ist hochgradig vom verwendeten Testframework abhängig, da die frameworkspezifische Implementierung der Testausführung des jeweiligen Testframeworks beachtet werden muss. Daher muss diese Komponente für jedes Softwareprojekt eigens angepasst werden.
 
 \subsection{\texttt{test archive}}\label{chap:Komponente_archive}
-Das \texttt{test archive}, kurz \texttt{archive}, beschreibt die Komponente des Verfahrens, welche die in JUnit XML festgehaltenen Testausgaben von vorherigen Testläufen beeinhaltet, die \texttt{testAuditor} als Input zur Verfügung gestellt werden sollen.\\
+Das \texttt{test archive}, kurz \texttt{archive}, beschreibt die Komponente des Verfahrens, welche die in JUnit XML festgehaltenen Testausgaben von vorherigen Testläufen beinhaltet, die \texttt{testAuditor} als Input zur Verfügung gestellt werden sollen.\\
 Ein Projekt muss so konfiguriert werden, dass sichergestellt ist, dass keine Dateien aus dem \texttt{archive}, die sich auf einen alten Stand des Projekts beziehen, vom Verfahren genutzt werden. Hierfür bietet sich die Implementierung des \texttt{archive} über \texttt{Git Notes} an, wie im folgenden Abschnitt erläutert wird.
 
 \subsubsection{\texttt{Git Notes}}
@@ -52,7 +52,7 @@ Die Funktionalität von \texttt{testAuditor} als Kern des Verfahrens lässt sich
 Sei $T_{ges}$ die Menge aller Testcases eines Projektes und $T_{known}$ die Menge aller Testcases, für die ein Ergebnis vorliegt. \texttt{testAuditor} berechnet $T_{ges}-T_{known}=T_{todo}$, wobei $T_{todo}$ die Menge aller Testcases ist, für die noch kein Ergebnis vorliegt. Da nach \chapref{chap:limit_scope} von der Korrektheit von $T_{known}$ ausgegangen werden darf, gilt $T_{known}\subseteq T_{ges}$. Weiterhin gilt $T_{todo}\subseteq T_{ges}$.\\
 Da $T_{known}\cup T_{todo}=T_{ges}$, kann die vollständige Abdeckung aller Testcases garantiert werden, sofern eine fehlerlose Implementierung der Komponenten vorliegt.\\
 $T_{ges}$ wird von \texttt{testDiscovery} bereitgestellt, während das \texttt{test archive} $T_{known}$ enthält. Beide Datenmengen werden \texttt{testAuditor} vom \texttt{controller} in dem in \chapref{chap:format_testAuditor} definiertes Format übermittelt.\\
-Abschließend gibt \texttt{testAuditor} eine Menge von \texttt{qualifiedNames} an den \texttt{controller} zurück. Diese Menge beschreibt $T_{todo}$, und wird von \texttt{testAudito} auf \texttt{stdout} gelegt. 
+Abschließend gibt \texttt{testAuditor} eine Menge von \texttt{qualifiedNames} an den \texttt{controller} zurück. Diese Menge beschreibt $T_{todo}$, und wird von \texttt{testAuditor} auf \texttt{stdout} gelegt. 
 
 \subsubsection{Format zur Kommunikation mit \texttt{testAuditor}}\label{chap:format_testAuditor}
 Das Verfahren nutzt einen Wrapper, der die Ausgabe von \texttt{testDiscovery} und die Dateien aus dem \texttt{archive} kapselt, um den Input für \texttt{testAuditor} bereitzustellen. 
@@ -82,10 +82,10 @@ Die konkrete Implementierung des Parser ist im unter \chapref{Links} verlinkten 
 \subsection{\texttt{testExecution}}\label{Komponente_testExecution}
 Die Komponente \texttt{testExecution} ist die Schnittstelle des Verfahrens zum Testframework. Sie ist eng mit der Komponente \texttt{testDiscovery} gekoppelt, denn die \texttt{testExecution} erwartet eine Menge von \texttt{qualifiedName}, die sie zur gezielten Ausführung an das Testframework übergibt. Die genaue Struktur der \texttt{qualifiedNames} wird in \chapref{chap:Komponente_testDiscovery_format} beschrieben, und wie in \chapref{chap:Komponente_testDiscovery} von der \texttt{testDiscovery} im Verfahren etabliert.\\
 Die Menge von \texttt{qualifiedName}, welche von der \texttt{testExecution} an das Testframework übermittelt werden soll, wird wie vorhergehen in \chapref{Komponente_testAuditor} beschrieben von \texttt{testAuditor} ermittelt.\\
-Ebenso wie die \texttt{testDiscovery} ist die genaue Implemetierung der \texttt{testExecution} hochgradig vom verwendeten Testframework abhängig, da sie direkt mit dem jeweiligen Testframework kommuniziert.
+Ebenso wie die \texttt{testDiscovery} ist die genaue Implementierung der \texttt{testExecution} hochgradig vom verwendeten Testframework abhängig, da sie direkt mit dem jeweiligen Testframework kommuniziert.
 
 \subsection{\texttt{controller}}
-Als \texttt{controller} wird jene zentrale Komponente beschrieben, die als einzige Komponente direkt mit dem \texttt{user} interagier, und die Ausführung der einzelnen Komponenten des Verfahrens koordiniert, sowie I/O-Prozesse der Komponenten und die Fehlerbehandlung verwaltet.\\
+Als \texttt{controller} wird jene zentrale Komponente beschrieben, die als einzige Komponente direkt mit dem \texttt{user} interagiert, und die Ausführung der einzelnen Komponenten des Verfahrens koordiniert, sowie I/O-Prozesse der Komponenten und die Fehlerbehandlung verwaltet.\\
 Typischerweise erfüllt eine CI-Pipeline die Rolle des \texttt{controllers} innerhalb eines Projekts, allerdings kann der \texttt{controller} auch auf andere Weise implementiert werden.
 
 \subsection{\texttt{user}}
