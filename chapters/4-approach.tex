@@ -33,14 +33,14 @@ Bei dieser Komponente bietet sich die Implementierung als Shellskript an, da sie
     <testcase classname="" name="" qualifiedName=""/>
 </testsuite>
 \end{lstlisting}
-Die Werte der beiden Attribute \texttt{classname} und \texttt{name} für einen Testcase müssen dabei zwingend identisch mit den Werten der beiden Attribute sein, wie sie in der JUnit-XML Ausgabe des Testcase stehen, da die Kombination dieser beiden Attribute innerhalb des Verfahrens als Schlüssel zur Identifizierung von Testcases benutzt werden, wie in \chapref{JUnit_struktur} fortfolgend erläutert.\\
+Die Werte der beiden Attribute \texttt{classname} und \texttt{name} für einen Testcase müssen dabei zwingend identisch mit den Werten der beiden Attribute sein, wie sie in der JUnit-XML Ausgabe des Testcase stehen, da die Kombination dieser beiden Attribute innerhalb des Verfahrens als Schlüssel zur Identifizierung von Testcases benutzt werden, wie in \chapref{JUnit_struktur} ff erläutert.\\
 \texttt{qualifiedName} enthält eine Zeichenfolge, über die das Testframework einen Testcase identifizieren und ausführen kann. Je nach Testframework werden dazu der Name des Testcase, Dateipfade, Namen von Klassen oder Testsuites und/oder weitere Informationen benötigt. \texttt{qualifiedName} dient der \texttt{testExecution} (siehe \chapref{Komponente_testExecution}) als Identifikator von Testcases bei der Ausführung.
 
 Die \texttt{testDiscovery} ist hochgradig vom verwendeten Testframework abhängig, da die frameworkspezifische Implementierung der Testausführung des jeweiligen Testframeworks beachtet werden muss. Daher muss diese Komponente für jedes Softwareprojekt eigens angepasst werden.
 
 \subsection{\texttt{test archive}}\label{chap:Komponente_archive}
 Das \texttt{test archive}, kurz \texttt{archive}, beschreibt die Komponente des Verfahrens, welche die in JUnit XML festgehaltenen Testausgaben von vorherigen Testläufen beeinhaltet, die \texttt{testAuditor} als Input zur Verfügung gestellt werden sollen.\\
-Ein Projekt muss so konfiguriert werden, sodass sichergestellt ist, dass keine Dateien aus dem \texttt{archive}, die sich auf einen alten Stand des Projekts beziehen, vom Verfahren genutzt werden. Hierfür bietet sich die Implementierung des \texttt{archive} über \texttt{Git Notes} an, wie im folgenden Abschnitt erläutert wird.
+Ein Projekt muss so konfiguriert werden, dass sichergestellt ist, dass keine Dateien aus dem \texttt{archive}, die sich auf einen alten Stand des Projekts beziehen, vom Verfahren genutzt werden. Hierfür bietet sich die Implementierung des \texttt{archive} über \texttt{Git Notes} an, wie im folgenden Abschnitt erläutert wird.
 
 \subsubsection{\texttt{Git Notes}}
 Eine wenig bekannte Funktionalität von \texttt{Git} ist, dass an einen Commit sogenannte \texttt{Git Notes} angehängt werden können. Der Inhalt dieser \texttt{notes} wird separat vom eigentlichen Inhalt des Commits verwaltet; der Hash eines Commits wird nicht durch Änderungen an den \texttt{notes} beeinflusst. Dadurch können einem Commit zusätzliche Informationen hinzugefügt werden, ohne die Historie des Repositories zu verändern.\\

@@ -1,6 +1,6 @@
 \chapter{Grundlagen und Analyse der Anforderungen}\label{chap:Hintergrund}
 In diesem Kapitel werden die Anforderungen an das Verhalten des Verfahrens, die sich aus \chapref{Zielsetzung} ergeben, näher erörtert.\\
-Ebenso werden Grundlagen sowie Anforderungen bezüglich Testausgabeformate vorgestellt. 
+Ebenso werden Grundlagen sowie Anforderungen bezüglich der Testausgabeformate vorgestellt. 
 
 \section{Anforderungen an das Verfahren}\label{Anforderungen Tool}
 Folgende Anforderungen werden an einen Durchlauf des Verfahrens gestellt:
@@ -17,7 +17,7 @@ Folgende Anforderungen werden an einen Durchlauf des Verfahrens gestellt:
 
 \section{Anforderungen an ein Testausgabeformat}\label{Anforderungen Testausgabeformat}
 Um ein framework-agnostisches Verfahren zu ermöglichen, muss ein testframework-agnostisches Testausgabeformat gefunden werden, in welchem die Ergebnisse eines Testlaufs in einer standartisierten Form festgehalten werden.\\
-\texttt{testAuditor} ist der Kern des Verfahrens, und benötigt zur korrekten Funktion Zugriff auf die Gesamtheit aller Testcases sowie Informationen über den Status von bereits gelaufenen Testcases. Eine detailliertere Beschreibung von \texttt{testAuditor} findet sich in \chapref{Komponente_testAuditor}.\\
+\texttt{testAuditor} ist der Kern des Verfahrens, und benötigt zur korrekten Funktion Zugriff auf die Gesamtheit aller Testcases, sowie Informationen über den Status von bereits gelaufenen Testcases. Eine detailliertere Beschreibung von \texttt{testAuditor} findet sich in \chapref{Komponente_testAuditor}.\\
 % Jedes Testframework verfügt über eines oder meherere mögliche Ausgabeformate, welches die Informationen über das Ergebnis eines Testlaufes enthält.\\
 % Damit ein Tool entwickelt werden kann, welches möglichst frameworkunabhägig funktioniert, muss ein Ausgabeformat gefunden werden, dass von möglichst vielen verschiedenen Testframeworks auf dieselbe Art und Weise verwendet wird, damit die Dateien vom Tool über eine Schnittstelle eingelesen werden können.\\
 Mit Blick auf diese, sowie die unter \chapref{Anforderungen Tool} beschriebenen Anforderungen an das Verfahren, würde ein ideales Testausgabeformat sämtliche hier gestellten Anforderungen erfüllen:
@@ -33,7 +33,7 @@ Mit Blick auf diese, sowie die unter \chapref{Anforderungen Tool} beschriebenen 
     \item \textbf{ist ein strukturiertes Format}\\
     Es muss eine erfassbare Struktur für das Testausgabeformat vorhanden sein, damit ein entsprechender Parser für \texttt{testAuditor} entwickelt werden kann.
     \item \textbf{ist in vielen Frameworks über viele Programmiersprachen hinweg vertreten}\\
-    Es wäre utopisch anzunehmen, dass ein strukturiertes Format existiert, welches von jedem existierenden Testframework gleichermaßen benutzt wird. Dennoch gibt es durchaus gängige Formate, die von unterschiedlichen Testframeworks aus unterschiedlichen Sprachen unterstützt werden, wie folgend in \chapref{Vergleich Testausgabefomate} untersucht wird. 
+    Es ist kaum realistisch anzunehmen, dass ein strukturiertes Format existiert, welches von jedem existierenden Testframework gleichermaßen benutzt wird. Dennoch gibt es durchaus gängige Formate, die von unterschiedlichen Testframeworks aus unterschiedlichen Sprachen unterstützt werden, wie folgend in \chapref{Vergleich Testausgabefomate} untersucht wird. 
 \end{itemize}
 
 \section{Deterministische builds - 'it works on my machine'}\label{chap:determinism}
@@ -45,15 +45,15 @@ Es gilt zu beachten, dass durch diesen Aufbau nur explizit deklarierte interne A
 Ein vollständige Garantie des Determinismus zwischen Systemen ist nur schwer zu erreichen, jedoch bietet \texttt{Nix} hier eine ausreichende Grundlage. 
 
 \section{Entstehung eines Testausgabeformats}
-Um zu verdeutlichen, wie die finale Form Testausgabeformates entsteht, wird in diesem Kapitel näher auf die Faktoren eingegangen, welche die genaue Struktur und das finale Aussehen des Testausgabeformates beeinflussen.
+Um zu verdeutlichen, wie die finale Form eines Testausgabeformates entsteht, wird in diesem Kapitel näher auf die Faktoren eingegangen, welche die genaue Struktur und das finale Aussehen des Testausgabeformates beeinflussen.
 Die Form eines Testausgabeformates hängt im Wesentlichen von den folgenden Faktoren ab, deren Aufteilung der von Winkler et al.\cite{winkler} vorgestellten Struktur eines Testframeworks folgt: % TODO test discovery hinzufügen?
 \begin{itemize}
   \item \textbf{verwendetes Testframework:}\\
-  Das verwendete Testframework ist für gewöhnlich an jedem Schritt der Testgenerierung beteiligt und erfült die Rolle eines managers der einzelnen Komponenten. Daher bestimmt es je nach konkretem Framework stärker oder schwächer die Verwendung der folgenden Punkte:
+  Das verwendete Testframework ist für gewöhnlich an jedem Schritt der Testgenerierung beteiligt und erfült die Rolle eines Managers der einzelnen Komponenten. Daher bestimmt es je nach konkretem Framework stärker oder schwächer die Verwendung der folgenden Punkte:
   \item \textbf{Struktur der zu grunde liegenden Testdateien:}\\
   Die (Nicht-)Verwendung von Klassen, Testsuites oder anderen vom Testframework oder der Programmiersprache bereitgestellten Optionen zur Organisation der Testcases, sowie die Dateistruktur der Testdateien können einen Einfluss auf das Endresultat haben. 
   \item \textbf{Test Runner:}\\
-  Auch als \textit{Scheduler, Harness} oder \textit{Orchestrator} bezeichnet, beschreibt der Begriff ''Test Runner'' hier die Komponente eines Testframeworks, welche die Testcases ausführt, und die Ergebnisse an den Test Reporter weiterreicht. Der Test Runner beeinflusst beispielsweise die Darstellung von Ereignissen, die während der Ausführung der Testsuite auftreten und in die Ausgabe übernommen werden.
+  Auch als \textit{Scheduler, Harness} oder \textit{Orchestrator} bezeichnet, beschreibt der Begriff ''Test Runner'' hier die Komponente eines Testframeworks, welche die Testcases ausführt und die Ergebnisse an den Test Reporter weiterreicht. Der Test Runner beeinflusst beispielsweise die Darstellung von Ereignissen, die während der Ausführung der Testsuite auftreten und in die Ausgabe übernommen werden.
   \item \textbf{Test Reporter:}\\
   Auch als \textit{test generator} bezeichnet, beschreibt ''Test Reporter'' hier jene Komponente eines Testframeworks, welche aus dem vom Test Runner bestimmten Ergebnis der Testsuite die menschen- bzw. maschinenlesbare Ausgabe generiert.
   \item \textbf{verwendetes Testausgabeformat:}\\
@@ -89,8 +89,8 @@ In den meisten Testframeworks übernimmt das Testframework selbst die Aufgaben d
 \end{lstlisting}
 Obwohl für jede Ausgabe JUnit5 mit Jupiter als Testframework benutzt wird, jede Ausgabe JUnit XML als Format aufweist, und jede Ausgabe auf denselben beiden Testdateien basiert, gibt es durch die unterscheidlichen Test Runner und Test Reporter deutliche Unterschiede in der Testausgabe.\\
 So ignoriert Gradle beispielsweise in diesem exemplarischen Fall das tag <properties>, während Maven und Jupiter (ohne build-tool) eine exessive Liste von <property> in der Testausgabe mitgeben. \\
-Auch die Bennenung der Testcases unterscheidet sich:\\
+Auch die Benennung der Testcases unterscheidet sich:\\
 Jupiter und Gradle behalten den Namen \texttt{test\_neg()} bei, so wie er auch in der Testdatei verwendet wird, während Maven den Namen zu \texttt{test\_neg} kürzt.\\
-Ähnliches bei der Bennenung der Testsuite: Da Gradle und Maven für jede Datei eine eigene Ausgabedatei erzeugen, benutzen die beiden build-tool den Namen der jeweiligen Testsuite, hier ''BasicTest'', als Wert des Attributes ''name'' im tag \texttt{<testsuite>}. Jupiter gibt dagegen nur eine Ausgabedatei aus, die das Ergebnis aller Testdateien enthält, und benutzt in dieser den Standardwert ''Junit Jupiter'' als Namen für \texttt{<testsuite>}.
+Ähnliches bei der Benennung der Testsuite: Da Gradle und Maven für jede Datei eine eigene Ausgabedatei erzeugen, benutzen die beiden build-tool den Namen der jeweiligen Testsuite, hier ''BasicTest'', als Wert des Attributes ''name'' im tag \texttt{<testsuite>}. Jupiter gibt dagegen nur eine Ausgabedatei aus, die das Ergebnis aller Testdateien enthält, und benutzt in dieser den Standardwert ''Junit Jupiter'' als Namen für \texttt{<testsuite>}.
 
 Es ist also ersichtlich, dass
