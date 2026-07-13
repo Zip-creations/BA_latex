@@ -43,22 +43,23 @@ Nicht Teil dieser Bachelorarbeit sind die folgenden Punkte:
 \section{Aufbau der Arbeit}
 
 \textbf{\chapref{chap:Hintergrund}: Grundlagen und Analyse der Anforderungen}
-beginnt mit der Analyse der Anforderungen, die ausgehend von \chapref{Zielsetzung} an das Verfahren gestellt werden. Daraus werden die Anforderungen an ein Testausgabeformat abgeleitet. Anschließend werden die Konzepte von deterministischen Builds und der Entstehung von Testausgabeformaten beleuchtet, deren Mechaniken in zum Veständnis der späteren Kapitel benötigt werden.
+beginnt mit der Analyse der Anforderungen, die ausgehend von \chapref{Zielsetzung} an das Verfahren gestellt werden. Daraus werden die Anforderungen an ein Testausgabeformat abgeleitet. Anschließend werden die Grundlagen von deterministischen Builds und der Entstehung von Testausgabeformaten beleuchtet, die für das Verständnis der folgenden Kapitel erforderlich sind.
+
 
 \textbf{\chapref{Vergleich Testausgabefomate}: Vergleich von Testausgabeformaten}
-beschäftigt sich mit der Lösung der Frage, welches Testausgabeformat für das Verfahren als Input in Frage kommt, um den in \chapref{Anforderungen Tool} gestellten Anforderungen gerecht zu werden. Dazu wird in diesem Kapitel zunächst anhand des Datensatzes untersucht, welche Testausgabeformate wieweit verbreitet sind. Anschließend werden die verbreitesten Formate genauer analysiert, und auf ihre Eignung für das Verfahren untersucht. Das Kapitel endet mit einer stichhaltig begründeteten Entscheidung für ein Format.
+beschäftigt sich mit der Beantwortung der Frage, welches Testausgabeformat für das Verfahren als Input in Frage kommt, um den in \chapref{Anforderungen Tool} gestellten Anforderungen gerecht zu werden. Dazu wird in diesem Kapitel zunächst anhand des Datensatzes untersucht, welche Testausgabeformate in welchem Umfang verbreitet sind. Anschließend werden die verbreitetsten Formate genauer analysiert und auf ihre Eignung für das Verfahren untersucht. Das Kapitel endet mit einer begründeten Entscheidung für ein Format.
 
 
 In \textbf{\chapref{chap:approach}: Konzeptionierung und Umsetzung}
-wird das Verfahren unter Berücksichtigung der Konsequenzen aus \chapref{Vergleich Testausgabefomate} konzeptionell erläutert. Die einzelnen Komponenten des Verfahrens sowie ihr Zusammenspiel werden im Detail erklärt. Anschließend werden die daraus resultierenden Anforderungen erfasst, die an ein Testausgabeformat und ein Projekt, in welches das Verfahren integriert werden kann gestellt werden.  
+wird das Verfahren unter Berücksichtigung der Ergebnisse aus \chapref{Vergleich Testausgabefomate} konzeptionell erläutert. Die einzelnen Komponenten des Verfahrens sowie ihr Zusammenspiel werden im Detail erklärt. Anschließend werden die daraus resultierenden Anforderungen erfasst, die an ein Testframework und ein Projekt, in welches das Verfahren integriert werden kann, gestellt werden.  
 
 
 \textbf{\chapref{chap:conclusion}: Analyse der Laufzeit}
-präsentiert die Ergebnise der Benchmark, und anaylsiert anhand dieser das Laufzeitverhalten des Verfahrens in einem Projekt
+präsentiert die Ergebnisse der Benchmark, und analysiert anhand dieser Ergebnisse das Laufzeitverhalten des Verfahrens und einzelner Komponenten in verschiedenen Konfigurationen im Vergleich zu einem konventionellen Durchlauf. 
 
 
 \textbf{\chapref{Fazit}: Fazit}
-schließt diese Bachelorarbeit mit einer Zusammenfassung der Ergebnisse, der Analyse, in wieweit das Verfahren die eingangs gestellten Anforderungen erfüllen konnte, und einer Analyse über mögliche Verbesserungen des Verfahrens. 
+schließt diese Bachelorarbeit mit einer Zusammenfassung der Ergebnisse, einer Analyse, inwieweit das Verfahren die eingangs gestellten Anforderungen erfüllen konnte, und einer Diskussion möglicher Verbesserungen des Verfahrens. 
 
 % Diese Bachelorarbeit untersucht, ob es möglich ist, die Laufzeit einer Testsuite (und damit der gesamten CI-Pipeline) zu reduzieren, indem eine verlässliche Aussage darüber getroffen wird, welche Teilmenge der Testsuite für den aktuellen Stand des Codes bereits durchlaufen wurde, und welche Teilmenge noch laufen muss, um eine 100\%-ige Abdeckung der Testsuite zu erreichen. Dabei soll die Wahl des Testframeworks möglichst keine Rolle spielen.\\
 % Dazu werden im Verlauf dieser Arbeit die Anforderungen an ein Tool, sowie Voraussetzungen an ein Projekt beschrieben, in welches das Tool integriert werden kann.\\
